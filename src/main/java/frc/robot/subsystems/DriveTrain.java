@@ -41,9 +41,9 @@ public class DriveTrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void driveJoysticks(XboxController controller1, double speed){
+  public void driveJoysticks(XboxController dJoystick, double speed){
     
-    drive.arcadeDrive(controller1.getRawAxis((int) (Constants.controller_y_axis*speed)), controller1.getRawAxis((int) (Constants.controller_x_axis*speed)));
+    drive.arcadeDrive(dJoystick.getRawAxis((int) (Constants.controller_y_axis*speed)), dJoystick.getRawAxis((int) (Constants.controller_x_axis*speed)));
   }
 
   public void driveForward(double speed){
