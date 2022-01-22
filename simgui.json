@@ -3,5 +3,10 @@
     "types": {
       "/FMSInfo": "FMSInfo"
     }
+  },
+  "NetworkTables": {
+    "FMSInfo": {
+      "open": true
+    }
   }
 }
