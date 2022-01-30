@@ -7,16 +7,18 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.*;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
 public class DriveTrain extends SubsystemBase {
  
-  PWMSparkMax m_L1;
-  PWMSparkMax m_L2;
-  PWMSparkMax m_R1;
-  PWMSparkMax m_R2;
+  CANSparkMax m_L1;
+  CANSparkMax m_L2;
+  CANSparkMax m_R1;
+  CANSparkMax m_R2;
   
   MotorControllerGroup m_Lcontroller;
   MotorControllerGroup m_Rcontroller;
@@ -26,14 +28,20 @@ public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
   public DriveTrain() {
 
-     m_L1 = new PWMSparkMax(Constants.left_motor1);
-     m_L2 = new PWMSparkMax(Constants.left_motor2);
-     m_R1 = new PWMSparkMax(Constants.right_motor1);
-     m_R2 = new PWMSparkMax(Constants.right_motor2);
+     m_L1 = new CANSparkMax(Constants.left_motor1, MotorType.kBrushless);
+     m_L2 = new CANSparkMax(Constants.left_motor2, MotorType.kBrushless);
+     m_R1 = new CANSparkMax(Constants.right_motor1, MotorType.kBrushless);
+     m_R2 = new CANSparkMax(Constants.right_motor2, MotorType.kBrushless);
+  
      m_Lcontroller = new MotorControllerGroup(m_L1, m_L2);
      m_Rcontroller = new MotorControllerGroup(m_R1, m_R2);
     
      drive = new DifferentialDrive(m_Lcontroller, m_Rcontroller); 
+
+     m_L1.setInverted(false);
+     m_L2.setInverted(false);
+     m_R1.setInverted(true);
+     m_R2.setInverted(true);
   }
 
   @Override
@@ -41,7 +49,7 @@ public class DriveTrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void driveJoysticks(XboxController dJoystick, double speed){
+  public void driveJoysticks(Joystick dJoystick, double speed){
     
     drive.arcadeDrive(dJoystick.getRawAxis((int) (Constants.controller_y_axis*speed)), dJoystick.getRawAxis((int) (Constants.controller_x_axis*speed)));
   }
