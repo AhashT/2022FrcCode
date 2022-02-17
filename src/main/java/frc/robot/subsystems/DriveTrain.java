@@ -7,7 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.*;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -38,10 +38,10 @@ public class DriveTrain extends SubsystemBase {
     
      drive = new DifferentialDrive(m_Lcontroller, m_Rcontroller); 
 
-     m_L1.setInverted(false);
-     m_L2.setInverted(false);
-     m_R1.setInverted(true);
-     m_R2.setInverted(true);
+     m_L1.setInverted(true);
+     m_L2.setInverted(true);
+     m_R1.setInverted(false);
+     m_R2.setInverted(false);
   }
 
   @Override
@@ -49,13 +49,14 @@ public class DriveTrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void driveJoysticks(Joystick dJoystick, double speed){
+  public void driveJoysticks(XboxController dJoystick, double speed){
     
     drive.arcadeDrive(dJoystick.getRawAxis((int) (Constants.controller_y_axis*speed)), dJoystick.getRawAxis((int) (Constants.controller_x_axis*speed)));
   }
 
   public void driveForward(double speed){
     drive.tankDrive(speed, speed);
+
   }
 
   public void stop(){
