@@ -7,13 +7,13 @@ package frc.robot;
 /** Add your docs here. */
 public class Constants {
 
-    public static final int left_motor1 = 0;
-    public static final int left_motor2 = 1;
-    public static final int right_motor1 = 2;
-    public static final int right_motor2 = 3;
-    
-    public static int controller_y_axis = 1;
-    public static int controller_x_axis = 0; 
+    public static final int left_motor1 = 1;
+    public static final int left_motor2 = 2;
+    public static final int right_motor1 = 3;
+    public static final int right_motor2 = 4;
+
+    public static final int controller_y_axis = 2;
+    public static final int controller_x_axis = 3;
 
     public static final double driveTrainSpeed = 0.5;
     public static final int DriveForwardtime = 3;
