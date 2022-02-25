@@ -27,8 +27,6 @@ public class DriveTrain extends SubsystemBase {
 
   DifferentialDrive drive;
 
-  XboxController xbox;
-
   /** Creates a new DriveTrain. */
   public DriveTrain() {
 
@@ -40,9 +38,7 @@ public class DriveTrain extends SubsystemBase {
 
      m_L1.setInverted(true);
      m_R1.setInverted(false);
-
-
-     xbox = new XboxController(0); 
+   
   }
 
   @Override
@@ -53,7 +49,7 @@ public class DriveTrain extends SubsystemBase {
   public void driveJoysticks(XboxController dJoystick, double speed){
     
     //drive.arcadeDrive(dJoystick.getRawAxis((int) (Constants.controller_y_axis*speed)), dJoystick.getRawAxis((int) (Constants.controller_x_axis*speed)));
-    drive.arcadeDrive(xbox.getLeftY() * -1.0, xbox.getLeftX());
+    drive.arcadeDrive(dJoystick.getLeftY() * -1.0, dJoystick.getLeftX());
   }
 
   public void driveForward(double speed){

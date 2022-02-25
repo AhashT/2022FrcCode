@@ -5,6 +5,11 @@
 package frc.robot.subsystems;
 import frc.robot.Constants;
 
+/*
+import this library for Talon:
+https://maven.ctr-electronics.com/release/com/ctre/phoenix/Phoenix-frc2022-latest.json
+ */
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
