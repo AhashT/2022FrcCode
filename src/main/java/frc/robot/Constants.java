@@ -18,16 +18,8 @@ public class Constants {
     public static final int DriveForwardtime = 3;
     public static final double AutoSpeed = 0.2;
     public static final int port_number = 0;
-<<<<<<< .mine
 
     //Constants for shooter 
     public static final int shooter_front_motor = 5;
     public static final int shooter_rear_motor = 6;
 }
-=======
-
-    //Constants for shooter 
-    public static final int shooter_front_motor = 5;
-    public static final int shooter_rear_motor = 6;
-}
->>>>>>> .theirs
