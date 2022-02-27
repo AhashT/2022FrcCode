@@ -1,0 +1,20 @@
+{
+  "NetworkTables": {
+    "FMSInfo": {
+      "open": true
+    },
+    "LiveWindow": {
+      ".status": {
+        "open": true
+      },
+      "open": true
+    },
+    "types": {
+      "/FMSInfo": "FMSInfo"
+    }
+  },
+  "NetworkTables Settings": {
+    "mode": "Client",
+    "serverTeam": "localhost"
+  }
+}
