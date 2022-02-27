@@ -28,7 +28,7 @@ public class DriveWithJoysticks extends CommandBase {
   @Override
   public void execute() {
 
-    driveTrain.driveJoysticks(RobotContainer.dJoystick, Constants.driveTrainSpeed);
+    driveTrain.driveJoysticks(RobotContainer.xbox, Constants.driveTrainSpeed);
   }
 
   // Called once the command ends or is interrupted.

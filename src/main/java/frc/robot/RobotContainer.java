@@ -3,24 +3,27 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
-
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveForwardTimed;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Shooter;
 
 
 public class RobotContainer {
 
-  
-
     private final DriveWithJoysticks driveWithJoysticks;
     private final DriveTrain driveT;
     private final DriveForwardTimed driveForwardTimed;
-    public static XboxController dJoystick;
+    public static XboxController xbox;
+    public final Shooter shooter;
+
+    /**
+     * True if a cargo is loaded and ready to shoot
+     */
+    public static DigitalInput CargoSensor = new DigitalInput(0);
 
 
     public RobotContainer(){
@@ -32,7 +35,9 @@ public class RobotContainer {
         driveForwardTimed = new DriveForwardTimed(driveT);
         driveForwardTimed.addRequirements(driveT);
 
-        dJoystick = new XboxController(Constants.port_number);
+        xbox = new XboxController(Constants.port_number);
+
+        shooter = new Shooter();
     }
 
 
@@ -40,5 +45,3 @@ public class RobotContainer {
         return driveForwardTimed;
     }
 }
-
-

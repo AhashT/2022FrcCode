@@ -9,6 +9,8 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj.motorcontrol.*;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
+import com.fasterxml.jackson.databind.ser.impl.FailingSerializer;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -24,27 +26,19 @@ public class DriveTrain extends SubsystemBase {
   MotorControllerGroup m_Rcontroller;
 
   DifferentialDrive drive;
-  XboxController xbox;
 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
 
      m_L1 = new CANSparkMax(Constants.left_motor1, MotorType.kBrushless);
-     m_L2 = new CANSparkMax(Constants.left_motor2, MotorType.kBrushless);
      m_R1 = new CANSparkMax(Constants.right_motor1, MotorType.kBrushless);
-     m_R2 = new CANSparkMax(Constants.right_motor2, MotorType.kBrushless);
-  
-     m_Lcontroller = new MotorControllerGroup(m_L1, m_L2);
-     m_Rcontroller = new MotorControllerGroup(m_R1, m_R2);
+
     
-     drive = new DifferentialDrive(m_Lcontroller, m_Rcontroller); 
+     drive = new DifferentialDrive(m_L1, m_R1); 
 
-     m_L1.setInverted(false);
-     m_L2.setInverted(false);
-     m_R1.setInverted(true);
-     m_R2.setInverted(true);
-
-     xbox = new XboxController(0);
+     m_L1.setInverted(true);
+     m_R1.setInverted(false);
+   
   }
 
   @Override
@@ -54,13 +48,13 @@ public class DriveTrain extends SubsystemBase {
 
   public void driveJoysticks(XboxController dJoystick, double speed){
     
-    drive.arcadeDrive(dJoystick.getRawAxis((int) (Constants.controller_y_axis*speed)), dJoystick.getRawAxis((int) (Constants.controller_x_axis*speed)));
-    //drive.tankDrive(xbox.getLeftY(), xbox.getRightY() * -1.0);
-    drive.arcadeDrive(xbox.getLeftY(), -1.0 * xbox.getRightX());
+    //drive.arcadeDrive(dJoystick.getRawAxis((int) (Constants.controller_y_axis*speed)), dJoystick.getRawAxis((int) (Constants.controller_x_axis*speed)));
+    drive.arcadeDrive(dJoystick.getLeftY() * -1.0, dJoystick.getLeftX());
   }
 
   public void driveForward(double speed){
     drive.tankDrive(speed, speed);
+
   }
 
   public void stop(){
