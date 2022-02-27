@@ -34,7 +34,7 @@ public class Shoot extends CommandBase {
     return false;
   }
 
-  public void Shoot(float rpmTop, float rpmBottom, boolean useCargoSensor)
+  public void Shoot(float rpm, boolean useCargoSensor)
   {
     //return if cargo sensor is used and there is no cargo to save battery
     if(RobotContainer.CargoSensor.get() && useCargoSensor) return;
