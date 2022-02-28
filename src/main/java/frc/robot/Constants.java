@@ -4,12 +4,36 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+
 /** Add your docs here. */
 public class Constants {
 
+    // CAN IDs
     public static final int left_motor1  = 1;
+    public static final int left_motor2  = 2;
     public static final int right_motor1 = 3;
+    public static final int right_motor2 = 4;
+    public static final int shooter_top_motor = 5;
+    public static final int shooter_bottom_motor = 6;
+    public static final int ClimbLeaderCanID = 7;
+    public static final int ClimbFollwerCanID = 8;
+    public static final int PHubdID = 9;
 
+    //PWM Channels
+    public static final int IntakePWM = 0;
+    public static final int IndexerPWM = 1;
+    public static final int FeederTopPWM = 2;
+    public static final int FeederBottomPWM = 3;
+
+    //Digital IO Channels
+    public static final int CargoSensorDI = 0;
+    public static final int IntakeSensorDI = 0;
+    
+    //Pnuematic Hub 
+    public static final PneumaticsModuleType PHubType = PneumaticsModuleType.REVPH;
+    public static final int IntakeSolenoidForwardChannel = 0;
+    public static final int IntakeSolenoidReverseChannel = 1;
     
     public static int controller_y_axis = 1;
     public static int controller_x_axis = 0; 
@@ -17,9 +41,6 @@ public class Constants {
     public static final double driveTrainSpeed = 0.5;
     public static final int DriveForwardtime = 3;
     public static final double AutoSpeed = 0.2;
-    public static final int port_number = 0;
+    public static final int port_number = 0; 
 
-    //Constants for shooter 
-    public static final int shooter_front_motor = 5;
-    public static final int shooter_rear_motor = 6;
 }

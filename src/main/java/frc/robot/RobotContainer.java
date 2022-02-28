@@ -4,12 +4,15 @@
 
 package frc.robot;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveForwardTimed;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 
 public class RobotContainer {
@@ -19,12 +22,17 @@ public class RobotContainer {
     private final DriveForwardTimed driveForwardTimed;
     public static XboxController xbox;
     public final Shooter shooter;
+    public final PneumaticHub PHub;
 
     /**
      * True if a cargo is loaded and ready to shoot
      */
-    public static DigitalInput CargoSensor = new DigitalInput(0);
+    public static DigitalInput CargoSensor = new DigitalInput(Constants.CargoSensorDI);
 
+    /**
+     * True if a cargo has been presented to Indexer by Intake
+     */
+    public static DigitalInput IntakeSensor = new DigitalInput(Constants.IntakeSensorDI);
 
     public RobotContainer(){
         driveT = new DriveTrain();
@@ -38,6 +46,7 @@ public class RobotContainer {
         xbox = new XboxController(Constants.port_number);
 
         shooter = new Shooter();
+        PHub = new PneumaticHub(Constants.PHubdID);
     }
 
 

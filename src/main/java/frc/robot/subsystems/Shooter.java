@@ -21,8 +21,8 @@ public class Shooter extends SubsystemBase {
 
   /** Creates a new Shooter. */
   public Shooter() {
-    m_front = new TalonFX(Constants.shooter_front_motor);
-    m_rear= new TalonFX(Constants.shooter_rear_motor);
+    m_front = new TalonFX(Constants.shooter_top_motor);
+    m_rear= new TalonFX(Constants.shooter_bottom_motor);
   }
 
   @Override
