@@ -14,7 +14,7 @@ import frc.robot.commands.StopIntake;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
-
+import edu.wpi.first.wpilibj.XboxController.Button;
 
 public class RobotContainer {
 
@@ -23,7 +23,7 @@ public class RobotContainer {
     private final DriveForwardTimed driveForwardTimed;
     public static XboxController xbox;
     public final Shooter shooter;
-    public final Intake intake;
+    public final Intake intake;         
     public final PneumaticHub PHub;
 
     public RobotContainer(){
@@ -42,8 +42,8 @@ public class RobotContainer {
         startIntake.addRequirements(intake);
         StopIntake stopIntake = new StopIntake(intake);
         stopIntake.addRequirements(intake);
-        /**Left bumper */
-        JoystickButton intakeButton = new JoystickButton(xbox, 5);
+        /**Right bumper */
+        JoystickButton intakeButton = new JoystickButton(xbox, XboxController.Button.kRightBumper.ordinal());
         intakeButton.whenPressed(startIntake);
         intakeButton.whenReleased(stopIntake);
                 
