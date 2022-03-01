@@ -24,10 +24,13 @@ public class Intake extends SubsystemBase {
   /**deivers cargo to indexer */
   private PWMSparkMax intakeMotor;
 
+  private PWMSparkMax indexMotor;
+
   public Intake() {
     super();
     intakeSolenoid.set(Value.kReverse);
     intakeMotor = new PWMSparkMax(Constants.IntakePWM);
+    indexMotor = new PWMSparkMax(Constants.IndexerPWM);
   }
   
   @Override
@@ -48,16 +51,19 @@ public class Intake extends SubsystemBase {
         e.printStackTrace();
         return;
       }
+
+      //start motors
       intakeMotor.set(.4);
+      indexMotor.set(.4);
       }).start();
   }
 
   /**Called when button is released */
   public void IntakeCargoStoptAsync() {
     new Thread(() -> {
-      //stop motor
+      //stop motors
       intakeMotor.set(0);
-      
+      indexMotor.set(0);
       // extend pickup arm
       intakeSolenoid.set(Value.kReverse);
 

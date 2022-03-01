@@ -6,20 +6,15 @@
           "open": true
         }
       },
-      "SPARK MAX [1]": {
-        "header": {
-          "open": true
-        }
-      },
       "SPARK MAX [2]": {
         "header": {
           "open": true
         }
-      },
-      "SPARK MAX [3]": {
-        "header": {
-          "open": true
-        }
+      }
+    },
+    "PWM Outputs": {
+      "window": {
+        "visible": true
       }
     },
     "RoboRIO": {
@@ -35,7 +30,11 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/LiveWindow/DriveTrain": "Subsystem",
+      "/LiveWindow/Intake": "Subsystem",
+      "/LiveWindow/Shooter": "Subsystem",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
+      "/LiveWindow/Ungrouped/PWMSparkMax[0]": "Motor Controller",
+      "/LiveWindow/Ungrouped/PWMSparkMax[1]": "Motor Controller",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler"
     }
   },
