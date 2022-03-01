@@ -36,9 +36,6 @@ public class Shoot extends CommandBase {
 
   public void Shoot(float rpm, boolean useCargoSensor)
   {
-    //return if cargo sensor is used and there is no cargo to save battery
-    if(RobotContainer.CargoSensor.get() && useCargoSensor) return;
-
     //wait async for both motors to reach speed
 
     //advance cargo feeder

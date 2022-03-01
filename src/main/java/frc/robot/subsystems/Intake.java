@@ -35,13 +35,10 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void IntakeCargoAsync() {
+  /**Called when button is pressed */
+  public void IntakeCargoStartAsync() {
     new Thread(() -> {
-      // Do whatever
-      // cannot intake if cargo is already in intake
-      if (RobotContainer.IntakeSensor.get())
-        return;
-
+      
       // extend pickup arm
       intakeSolenoid.set(Value.kForward);
 
@@ -51,18 +48,25 @@ public class Intake extends SubsystemBase {
         e.printStackTrace();
         return;
       }
+      intakeMotor.set(.4);
+      }).start();
+  }
 
-      //run motor until cargo is loaded or half second elapses
-      intakeMotor.set(.5);
-      long timeout = System.currentTimeMillis()+500;
-      while(RobotContainer.IntakeSensor.get()==false)
-      {
-        try { Thread.sleep(10);} 
-        catch (InterruptedException e) {break;}
+  /**Called when button is released */
+  public void IntakeCargoStoptAsync() {
+    new Thread(() -> {
+      //stop motor
+      intakeMotor.set(0);
+      
+      // extend pickup arm
+      intakeSolenoid.set(Value.kReverse);
 
-        if(System.currentTimeMillis()>timeout)break;
+      //give arm time to extend
+      try { Thread.sleep(500);} 
+      catch (InterruptedException e) {
+        e.printStackTrace();
+        return;
       }
-      intakeMotor.set(0);  
-    }).start();
+      }).start();
   }
 }

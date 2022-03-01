@@ -23,13 +23,9 @@ public class Constants {
     //PWM Channels
     public static final int IntakePWM = 0;
     public static final int IndexerPWM = 1;
-    public static final int FeederTopPWM = 2;
-    public static final int FeederBottomPWM = 3;
-
+ 
     //Digital IO Channels
-    public static final int CargoSensorDI = 0;
-    public static final int IntakeSensorDI = 0;
-    
+     
     //Pnuematic Hub 
     public static final PneumaticsModuleType PHubType = PneumaticsModuleType.REVPH;
     public static final int IntakeSolenoidForwardChannel = 0;
