@@ -26,7 +26,22 @@ public class Shooter extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
+  public void periodic() {  
     // This method will be called once per scheduler run
   }
+
+  /**Called when button is pressed */
+public void shooterStartASync(){
+    m_front.set(ControlMode.PercentOutput, 10);
+    m_rear.set(ControlMode.PercentOutput, 10);
+
+  }
+
+  /**Called when button is released */
+  public void shooterStopASync(){
+    m_front.set(ControlMode.PercentOutput, 0);
+    m_rear.set(ControlMode.PercentOutput, 0);
+
+  }
+
 }
