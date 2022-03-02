@@ -40,13 +40,12 @@ public class Intake extends SubsystemBase {
 
   /**Called when button is pressed */
   public void IntakeCargoStartAsync() {
-   // new Thread(() -> {
       
       // extend pickup arm
       intakeSolenoid.set(Value.kForward);
 
       //give arm time to extend
-      try { Thread.sleep(500);} 
+      try { Thread.sleep(100);} 
       catch (InterruptedException e) {
         e.printStackTrace();
         return;
@@ -55,12 +54,10 @@ public class Intake extends SubsystemBase {
       //start motors
       intakeMotor.set(.4);
       indexMotor.set(.4);
-  //    }).start();
   }
 
   /**Called when button is released */
   public void IntakeCargoStoptAsync() {
-    //new Thread(() -> {
       //stop motors
       intakeMotor.set(0);
       indexMotor.set(0);
@@ -68,11 +65,10 @@ public class Intake extends SubsystemBase {
       intakeSolenoid.set(Value.kReverse);
 
       //give arm time to extend
-      try { Thread.sleep(500);} 
+      try { Thread.sleep(100);} 
       catch (InterruptedException e) {
         e.printStackTrace();
         return;
       }
-    //  }).start();
   }
 }
