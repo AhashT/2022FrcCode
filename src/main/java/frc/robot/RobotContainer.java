@@ -12,6 +12,7 @@ import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.StartIntake;
 import frc.robot.commands.StopIntake;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.ShootStop;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -43,18 +44,23 @@ public class RobotContainer {
         startIntake.addRequirements(intake);
         StopIntake stopIntake = new StopIntake(intake);
         stopIntake.addRequirements(intake);
+       
         /**Right bumper */
         JoystickButton intakeButton = new JoystickButton(xbox, XboxController.Button.kRightBumper.ordinal());
         intakeButton.whenPressed(startIntake);
         intakeButton.whenReleased(stopIntake);
         
-        /**X button */
+        
         shooter = new Shooter();
         Shoot shooters = new Shoot(shooter);
         shooters.addRequirements(shooter);
+        ShootStop shootersStop = new ShootStop(shooter);
+        shootersStop.addRequirements(shooter);
+
+        /**X button */
         JoystickButton shootButton = new JoystickButton(xbox, XboxController.Button.kX.ordinal());
         shootButton.whenPressed(shooters);
-        //shootButton.whenReleased();
+        shootButton.whenReleased(shootersStop);
 
         PHub = new PneumaticHub(Constants.PHubdID);
     }
