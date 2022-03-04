@@ -30,14 +30,17 @@ public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
   public DriveTrain() {
 
-     m_L1 = new CANSparkMax(Constants.left_motor1, MotorType.kBrushless);
-     m_R1 = new CANSparkMax(Constants.right_motor1, MotorType.kBrushless);
+    m_L1 = new CANSparkMax(Constants.left_motor1, MotorType.kBrushless);
+    m_L2 = new CANSparkMax(Constants.left_motor2, MotorType.kBrushless);
+    m_R1 = new CANSparkMax(Constants.right_motor1, MotorType.kBrushless);
+    m_R2 = new CANSparkMax(Constants.right_motor2, MotorType.kBrushless);
 
-    
-     drive = new DifferentialDrive(m_L1, m_R1); 
+    m_Lcontroller = new MotorControllerGroup(m_L1,m_L2);
+    m_Rcontroller = new MotorControllerGroup(m_R1, m_R2);
+    drive = new DifferentialDrive(m_Lcontroller, m_Rcontroller); 
 
-     m_L1.setInverted(true);
-     m_R1.setInverted(false);
+    m_L1.setInverted(true);
+    m_R1.setInverted(false);
    
   }
 
