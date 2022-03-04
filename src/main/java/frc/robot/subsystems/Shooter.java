@@ -32,8 +32,8 @@ public class Shooter extends SubsystemBase {
 
   /**Called when button is pressed */
 public void shooterStartASync(){
-    m_front.set(ControlMode.PercentOutput, 10);
-    m_rear.set(ControlMode.PercentOutput, 10);
+    m_front.set(ControlMode.PercentOutput, 100);
+    m_rear.set(ControlMode.PercentOutput, 100);
 
   }
 

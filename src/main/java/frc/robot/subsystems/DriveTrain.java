@@ -41,6 +41,8 @@ public class DriveTrain extends SubsystemBase {
 
     m_L1.setInverted(true);
     m_R1.setInverted(false);
+    m_L2.setInverted(true);
+    m_R2.setInverted(false);
    
   }
 

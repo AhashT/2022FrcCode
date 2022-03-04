@@ -9,11 +9,11 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
 
-public class Shoot extends CommandBase {
+public class StopShooter extends CommandBase {
   private Shooter shoot; 
  
   /** Creates a new Shoot. */
-  public Shoot(Shooter shoot) {
+  public StopShooter(Shooter shoot) {
     this.shoot = shoot;
     addRequirements(shoot);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -26,7 +26,7 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shoot.shooterStartASync();
+      shoot.shooterStopASync();
   }
 
   // Called once the command ends or is interrupted.
@@ -48,6 +48,5 @@ public class Shoot extends CommandBase {
     //wait async for 3 seconds
 
     //set motor speed to zero
-    
   }
 }
