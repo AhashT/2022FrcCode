@@ -23,6 +23,10 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
     m_front = new TalonFX(Constants.shooter_top_motor);
     m_rear= new TalonFX(Constants.shooter_bottom_motor);
+
+    //just guessing here KSM 2022-03-03
+    m_front.configMotionAcceleration(4000);
+    m_rear.configMotionAcceleration(4000);
   }
 
   @Override
