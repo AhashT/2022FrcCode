@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.motorcontrol.*;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-import com.fasterxml.jackson.databind.ser.impl.FailingSerializer;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
