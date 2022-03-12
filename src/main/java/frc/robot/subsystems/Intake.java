@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 /**
  * Extends roller(?) to grab cargo and advance it to indexer.
@@ -28,7 +27,7 @@ public class Intake extends SubsystemBase {
 
   public Intake() {
     super();
-   intakeSolenoid.set(Value.kReverse);
+    intakeSolenoid.set(Value.kReverse);
     intakeMotor = new PWMSparkMax(Constants.IntakePWM);
     indexMotor = new PWMSparkMax(Constants.IndexerPWM);
   }

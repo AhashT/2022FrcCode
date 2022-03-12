@@ -13,7 +13,6 @@ https://maven.ctr-electronics.com/release/com/ctre/phoenix/Phoenix-frc2022-lates
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Shooter extends SubsystemBase {
   TalonFX m_front;

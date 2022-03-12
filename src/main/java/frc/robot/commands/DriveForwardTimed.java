@@ -13,6 +13,10 @@ public class DriveForwardTimed extends CommandBase {
 
   DriveTrain driveTrain;
   private boolean finished = false;
+
+  /**Prevents command from runing multiple times. */
+  private boolean isRunning = false;
+
   Timer timer;
   /** Creates a new DriveForwardTimed. */
   public DriveForwardTimed(DriveTrain driveT) {
@@ -20,13 +24,20 @@ public class DriveForwardTimed extends CommandBase {
     driveTrain = driveT;
     addRequirements(driveTrain);
     timer = new Timer();
-
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    finished = false;
+    isRunning = false;
+  }
 
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {   
+    if(isRunning || finished) return;
+    isRunning = true;
     timer.reset();
     timer.start();
     
@@ -34,11 +45,8 @@ public class DriveForwardTimed extends CommandBase {
       driveTrain.driveForward(Constants.AutoSpeed);
     }
     finished = true;
+    isRunning = false;
   }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override

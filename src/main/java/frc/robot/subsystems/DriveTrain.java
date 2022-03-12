@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.motorcontrol.*;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
-import com.fasterxml.jackson.databind.ser.impl.FailingSerializer;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -30,10 +29,10 @@ public class DriveTrain extends SubsystemBase {
   /** Creates a new DriveTrain. */
   public DriveTrain() {
 
-    m_L1 = new CANSparkMax(Constants.left_motor1, MotorType.kBrushless);
-    m_L2 = new CANSparkMax(Constants.left_motor2, MotorType.kBrushless);
-    m_R1 = new CANSparkMax(Constants.right_motor1, MotorType.kBrushless);
-    m_R2 = new CANSparkMax(Constants.right_motor2, MotorType.kBrushless);
+    m_L1 = new CANSparkMax(Constants.left_front_motor, MotorType.kBrushless);
+    m_L2 = new CANSparkMax(Constants.left_rear_motor, MotorType.kBrushless);
+    m_R1 = new CANSparkMax(Constants.right_front_motor, MotorType.kBrushless);
+    m_R2 = new CANSparkMax(Constants.right_rear_motor, MotorType.kBrushless);
 
     m_Lcontroller = new MotorControllerGroup(m_L1,m_L2);
     m_Rcontroller = new MotorControllerGroup(m_R1, m_R2);
@@ -53,9 +52,8 @@ public class DriveTrain extends SubsystemBase {
 
   public void driveJoysticks(XboxController dJoystick, double speed){
     
-    //drive.arcadeDrive(dJoystick.getRawAxis((int) (Constants.controller_y_axis)), dJoystick.getRawAxis((int) (Constants.controller_x_axis)));
+    //drive.arcadeDrive(dJoystick.getRawAxis((int) (Constants.controller_y_axis*speed)), dJoystick.getRawAxis((int) (Constants.controller_x_axis*speed)));
     drive.arcadeDrive(dJoystick.getLeftY() * -1.0, dJoystick.getLeftX());
-    
   }
 
   public void driveForward(double speed){
