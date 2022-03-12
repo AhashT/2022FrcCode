@@ -28,7 +28,7 @@ public class Intake extends SubsystemBase {
 
   public Intake() {
     super();
-    intakeSolenoid.set(Value.kReverse);
+   intakeSolenoid.set(Value.kReverse);
     intakeMotor = new PWMSparkMax(Constants.IntakePWM);
     indexMotor = new PWMSparkMax(Constants.IndexerPWM);
   }
