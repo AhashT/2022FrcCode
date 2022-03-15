@@ -12,6 +12,8 @@ import frc.robot.subsystems.DriveTrain;
 public class DriveTimed extends CommandBase {
 
   DriveTrain driveTrain;
+  double speed;
+  double seconds;
   private boolean finished = false;
 
   /**Prevents command from runing multiple times. */
@@ -19,7 +21,7 @@ public class DriveTimed extends CommandBase {
 
   Timer timer;
   /** Creates a new DriveForwardTimed. */
-  public DriveTimed(DriveTrain driveT) {
+  public DriveTimed(DriveTrain driveT, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     driveTrain = driveT;
     addRequirements(driveTrain);
