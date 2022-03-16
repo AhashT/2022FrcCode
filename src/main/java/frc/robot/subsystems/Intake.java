@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
@@ -21,15 +24,19 @@ public class Intake extends SubsystemBase {
   private DoubleSolenoid intakeSolenoid =  new DoubleSolenoid(Constants.PHubdID, Constants.PHubType, Constants.IntakeSolenoidForwardChannel, Constants.IntakeSolenoidReverseChannel);
 
   /**deivers cargo to indexer */
-  private PWMSparkMax intakeMotor;
+  private TalonFX intakeMotor;
 
   private PWMSparkMax indexMotor;
 
   public Intake() {
     super();
     intakeSolenoid.set(Value.kReverse);
-    intakeMotor = new PWMSparkMax(Constants.IntakePWM);
+    intakeMotor = new TalonFX(Constants.IntakeCanID);
     indexMotor = new PWMSparkMax(Constants.IndexerPWM);
+
+    //just guessing here KSM 2022-03-03
+    intakeMotor.configMotionAcceleration(4000);
+    
   }
   
   @Override
@@ -51,14 +58,14 @@ public class Intake extends SubsystemBase {
       }
 
       //start motors
-      intakeMotor.set(.4);
+      intakeMotor.set(ControlMode.PercentOutput,.4);
       indexMotor.set(.4);
   }
 
   /**Called when button is released */
   public void IntakeCargoStoptAsync() {
       //stop motors
-      intakeMotor.set(0);
+      intakeMotor.set(ControlMode.PercentOutput,0);
       indexMotor.set(0);
       // extend pickup arm
       intakeSolenoid.set(Value.kReverse);
