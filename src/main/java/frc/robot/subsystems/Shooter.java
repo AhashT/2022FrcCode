@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /*
 import this library for Talon:
@@ -17,6 +18,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 public class Shooter extends SubsystemBase {
   TalonFX m_front;
   TalonFX m_rear;
+
+  public double RPM = 1000.0;
+  public double targetRPM = 2000.0; 
 
   /** Creates a new Shooter. */
   public Shooter() {
