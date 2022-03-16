@@ -6,17 +6,17 @@
           "open": true
         }
       },
-      "SPARK MAX [2]": {
-        "header": {
-          "open": true
-      }
-    },
-      "SPARK MAX [3]": {
+      "Talon FX[5]": {
         "header": {
           "open": true
         }
       },
-      "SPARK MAX [4]": {
+      "Talon FX[5]/Integrated Sensor": {
+        "header": {
+          "open": true
+        }
+      },
+      "Talon FX[6]/Integrated Sensor": {
         "header": {
           "open": true
         }
@@ -45,7 +45,16 @@
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/PWMSparkMax[0]": "Motor Controller",
       "/LiveWindow/Ungrouped/PWMSparkMax[1]": "Motor Controller",
-      "/LiveWindow/Ungrouped/Scheduler": "Scheduler"
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/LiveWindow/Ungrouped/Talon FX [5]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [6]": "Motor Controller"
+    },
+    "windows": {
+      "/LiveWindow/Shooter": {
+        "window": {
+          "visible": true
+        }
+      }
     }
   },
   "NetworkTables": {

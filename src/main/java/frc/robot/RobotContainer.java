@@ -10,9 +10,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveForwardTimed;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.StartIntake;
-import frc.robot.commands.StopIntake;
 import frc.robot.commands.StartShooter;
+import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopShooter;
+import frc.robot.sim.PhysicsSim;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -60,10 +61,19 @@ public class RobotContainer {
         shootButton.whenPressed(startShooter);
         shootButton.whenReleased(stopShooters);
 
-        PHub = new PneumaticHub(Constants.PHubdID);
+        PHub = new PneumaticHub(Constants.PHubdID);        
     }
 
     public Command getAutonmousCommand(){
         return driveForwardTimed;
     }
+
+    public void simulationInit() {
+		PhysicsSim.getInstance().addTalonFX(shooter.m_top, 0.75, 20660);
+		PhysicsSim.getInstance().addTalonFX(shooter.m_btm, 0.75, 20660);
+	}
+
+	public void simulationPeriodic() {
+		PhysicsSim.getInstance().run();
+	}
 }

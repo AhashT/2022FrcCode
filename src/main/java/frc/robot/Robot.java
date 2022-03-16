@@ -6,10 +6,9 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import frc.robot.sim.PhysicsSim;
 
 /**
  * This is a demo program showing the use of the DifferentialDrive class. Runs the motors with
@@ -18,18 +17,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-  public double shooterRPM;
-
-
+  
  @Override
   public void robotInit() {
-    // We need to invert one side of the drivetrain so that positive voltages
-    // result in both sides moving forward. Depending on how your robot's
-    // gearbox is constructed, you might have to invert the left side instead.
     m_robotContainer = new RobotContainer(); 
-    CameraServer.startAutomaticCapture();
-
-    
+    CameraServer.startAutomaticCapture();  
   }
 
   @Override
@@ -72,4 +64,5 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic(){}
 
+ 
 }
