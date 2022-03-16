@@ -34,7 +34,10 @@
     }
   },
   "NetworkTables": {
-    "FMSInfo": {
+    "Shuffleboard": {
+      "Intake": {
+        "open": true
+      },
       "open": true
     }
   }
