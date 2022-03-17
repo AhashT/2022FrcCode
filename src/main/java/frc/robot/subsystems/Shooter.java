@@ -40,11 +40,17 @@ public class Shooter extends SubsystemBase {
       .withProperties(Map.of("min", 0, "max", 6380))
       .getEntry();
 
-  public WPI_TalonFX m_top;
-  public WPI_TalonFX m_btm;
+      public WPI_TalonFX m_top;
+      public WPI_TalonFX m_btm;
 
-  /**Desired Shooter rpm for both motors */
-  public double targetRPM;
+  /**Fake top motorRPM for testing shuffleboard */
+  public double topRPM;
+
+  /**Fake bottom motorRPM for testing shuffleboard */
+  public double btmRPM;
+
+  /**Desired top and bottom RPM */
+  public double targetRPM; 
 
   /** Creates a new Shooter. */
   public Shooter() {
@@ -87,15 +93,17 @@ public class Shooter extends SubsystemBase {
 		m_btm.config_kI(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kI, Constants.kTimeoutMs);
 		m_btm.config_kD(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kD, Constants.kTimeoutMs);
     
+  
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     targetRPM = nte_ShooterTargetRPM.getDouble(-1);
-    nte_ShooterTopRPM.setValue(m_top.getSelectedSensorVelocity(0));
-    nte_ShooterBtmRPM.setValue(m_btm.getSelectedSensorVelocity(0));
-    
+    topRPM = targetRPM/2.0;
+    btmRPM = targetRPM/2.0;
+    nte_ShooterTopRPM.setValue(topRPM);
+    nte_ShooterBtmRPM.setValue(btmRPM);
   }
 
   /** Called when button is pressed */

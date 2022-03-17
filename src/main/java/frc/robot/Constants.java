@@ -18,12 +18,12 @@ public class Constants {
     public static final int shooter_bottom_motor = 6;
     public static final int ClimbLeaderCanID = 7;
     public static final int ClimbFollwerCanID = 8;
+    public static final int IntakeCanID = 9;
     public static final int PHubdID = 21;
-
+    
     //PWM Channels
-    public static final int IntakePWM = 0;
     public static final int IndexerPWM = 1;
- 
+    
     //Digital IO Channels
      
     //Pnuematic Hub 

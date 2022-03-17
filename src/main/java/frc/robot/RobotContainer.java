@@ -46,7 +46,7 @@ public class RobotContainer {
         stopIntake.addRequirements(intake);
        
         /**Right bumper */
-        JoystickButton intakeButton = new JoystickButton(xbox, XboxController.Button.kRightBumper.ordinal());
+        JoystickButton intakeButton = new JoystickButton(xbox, 6);
         intakeButton.whenPressed(startIntake);
         intakeButton.whenReleased(stopIntake);
         
@@ -57,7 +57,7 @@ public class RobotContainer {
         stopShooters.addRequirements(shooter);
 
         /**X button */
-        JoystickButton shootButton = new JoystickButton(xbox, XboxController.Button.kX.ordinal());
+        JoystickButton shootButton = new JoystickButton(xbox, 1);
         shootButton.whenPressed(startShooter);
         shootButton.whenReleased(stopShooters);
 
