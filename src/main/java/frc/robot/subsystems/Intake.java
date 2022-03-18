@@ -26,7 +26,7 @@ public class Intake extends SubsystemBase {
   private ShuffleboardTab tab = Shuffleboard.getTab("Intake");
     private NetworkTableEntry nte_IntakeTargetRPM = tab.add("IntakeTargetRPM", 0)
         .withWidget(BuiltInWidgets.kNumberSlider)
-        .withProperties(Map.of("min", 0, "max", 6380))
+        .withProperties(Map.of("min", 0.0, "max", 1.0))
         .getEntry();
     
 
@@ -52,7 +52,7 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    targetRPM = nte_IntakeTargetRPM.getDouble(-1);
+    targetRPM = nte_IntakeTargetRPM.getDouble(0.4);
     
   }
 
@@ -63,14 +63,14 @@ public class Intake extends SubsystemBase {
       intakeSolenoid.set(Value.kForward);
 
       //give arm time to extend
-      try { Thread.sleep(100);} 
+     /* try { Thread.sleep(100);} 
       catch (InterruptedException e) {
         e.printStackTrace();
-        return;
-      }
+        return; 
+      }*/
 
       //start motors
-      intakeMotor.set(ControlMode.Velocity,targetRPM);
+      intakeMotor.set(ControlMode.PercentOutput, targetRPM);
       indexMotor.set(.4);
   }
 
@@ -83,10 +83,10 @@ public class Intake extends SubsystemBase {
       intakeSolenoid.set(Value.kReverse);
 
       //give arm time to extend
-      try { Thread.sleep(100);} 
+     /* try { Thread.sleep(100);} 
       catch (InterruptedException e) {
         e.printStackTrace();
         return;
-      }
+      } */
   }
 }
