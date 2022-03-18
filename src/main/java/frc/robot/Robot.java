@@ -8,6 +8,8 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.DriveTimed;
+
 
 
 /**
@@ -41,12 +43,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit(){
-    m_autonomousCommand = m_robotContainer.getAutonmousCommand();
+   // m_autonomousCommand = m_robotContainer.getAutonmousCommand();
   }
 
   @Override
   public void autonomousPeriodic(){
-    m_autonomousCommand.execute();
+    //m_autonomousCommand.execute();
+    m_robotContainer.driveBackward.andThen(m_robotContainer.driveForward).execute();;
   }
 
   @Override
