@@ -43,7 +43,7 @@ public class DriveTimed extends CommandBase {
     timer.reset();
     timer.start();
     
-    while(timer.get() < Constants.DriveForwardtime){
+    while(timer.get() < Constants.DriveBackwardtime){
       driveTrain.driveForward(Constants.AutoSpeed);
     }
     finished = true;
