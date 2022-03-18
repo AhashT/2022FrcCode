@@ -9,6 +9,7 @@ import frc.robot.subsystems.Intake;
 
 public class StartIntake extends CommandBase {
   private Intake intake;
+  private boolean finished;
 
   /** Creates a new StartIntake. */
   public StartIntake(Intake intake) {
@@ -24,7 +25,9 @@ public class StartIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.IntakeCargoStartAsync();
+    finished = false;
+    intake.IntakeCargoStart();
+    finished = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -34,6 +37,6 @@ public class StartIntake extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return finished;
   }
 }

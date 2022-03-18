@@ -6,17 +6,12 @@
           "open": true
         }
       },
-      "Talon FX[5]": {
+      "Talon FX[9]": {
         "header": {
           "open": true
         }
       },
-      "Talon FX[5]/Integrated Sensor": {
-        "header": {
-          "open": true
-        }
-      },
-      "Talon FX[6]/Integrated Sensor": {
+      "Talon FX[9]/Integrated Sensor": {
         "header": {
           "open": true
         }
@@ -47,7 +42,8 @@
       "/LiveWindow/Ungrouped/PWMSparkMax[1]": "Motor Controller",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/LiveWindow/Ungrouped/Talon FX [5]": "Motor Controller",
-      "/LiveWindow/Ungrouped/Talon FX [6]": "Motor Controller"
+      "/LiveWindow/Ungrouped/Talon FX [6]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Talon FX [9]": "Motor Controller"
     },
     "windows": {
       "/LiveWindow/Shooter": {
@@ -60,7 +56,10 @@
   "NetworkTables": {
     "Shuffleboard": {
       "Intake": {
-      "open": true
+        "open": true
+      },
+      "Shooter": {
+        "open": true
       },
       "open": true
     }

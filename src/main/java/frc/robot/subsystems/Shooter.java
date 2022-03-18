@@ -30,90 +30,96 @@ public class Shooter extends SubsystemBase {
       .withProperties(Map.of("min", 0, "max", 6380))
       .getEntry();
 
-      private NetworkTableEntry nte_ShooterTopRPM = tab.add("ShooterTopRPM", 0)
+  private NetworkTableEntry nte_ShooterTopRPM = tab.add("ShooterTopRPM", 0)
       .withWidget(BuiltInWidgets.kNumberBar)
       .withProperties(Map.of("min", 0, "max", 6380))
       .getEntry();
 
-      private NetworkTableEntry nte_ShooterBtmRPM = tab.add("ShooterBtmRPM", 0)
+  private NetworkTableEntry nte_ShooterBtmRPM = tab.add("ShooterBtmRPM", 0)
       .withWidget(BuiltInWidgets.kNumberBar)
       .withProperties(Map.of("min", 0, "max", 6380))
       .getEntry();
 
-      public WPI_TalonFX m_top;
-      public WPI_TalonFX m_btm;
+  public WPI_TalonFX m_top;
+  public WPI_TalonFX m_btm;
 
-  /**Fake top motorRPM for testing shuffleboard */
+  /** Fake top motorRPM for testing shuffleboard */
   public double topRPM;
 
-  /**Fake bottom motorRPM for testing shuffleboard */
+  /** Fake bottom motorRPM for testing shuffleboard */
   public double btmRPM;
 
-  /**Desired top and bottom RPM */
-  public double targetRPM; 
+  /** Desired top and bottom RPM */
+  public double targetRPM;
 
   /** Creates a new Shooter. */
   public Shooter() {
     m_top = new WPI_TalonFX(Constants.shooter_top_motor);
     m_btm = new WPI_TalonFX(Constants.shooter_bottom_motor);
-    
-    /* Factory Default all hardware to prevent unexpected behaviour */
-		m_top.configFactoryDefault();
-		m_btm.configFactoryDefault();
 
-		/* Config neutral deadband to be the smallest possible */
-		m_top.configNeutralDeadband(0.002);
-		m_btm.configNeutralDeadband(0.002);
+    }
 
-		/* Config sensor used for Primary PID [Velocity] */
-		m_top.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx,
-				Constants.kTimeoutMs);
-		m_btm.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx,
-				Constants.kTimeoutMs);
+  /**Call fromRobotInit() */
+  public void init(){
+/* Factory Default all hardware to prevent unexpected behaviour */
+    m_top.configFactoryDefault();
+    m_btm.configFactoryDefault();
 
-		/* Config the peak and nominal outputs */
-		m_top.configNominalOutputForward(0, Constants.kTimeoutMs);
-		m_top.configNominalOutputReverse(0, Constants.kTimeoutMs);
-		m_top.configPeakOutputForward(1, Constants.kTimeoutMs);
-		m_top.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+    /* Config neutral deadband to be the smallest possible */
+    m_top.configNeutralDeadband(0.002);
+    m_btm.configNeutralDeadband(0.002);
 
-		m_btm.configNominalOutputForward(0, Constants.kTimeoutMs);
-		m_btm.configNominalOutputReverse(0, Constants.kTimeoutMs);
-		m_btm.configPeakOutputForward(1, Constants.kTimeoutMs);
-		m_btm.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+    /* Config sensor used for Primary PID [Velocity] */
+    m_top.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+    m_btm.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
 
-		/* Config the Velocity closed loop gains in slot0 */
-		m_top.config_kF(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kF, Constants.kTimeoutMs);
-		m_top.config_kP(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kP, Constants.kTimeoutMs);
-		m_top.config_kI(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kI, Constants.kTimeoutMs);
-		m_top.config_kD(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kD, Constants.kTimeoutMs);
+    /* Config the peak and nominal outputs */
+    m_top.configNominalOutputForward(0, Constants.kTimeoutMs);
+    m_top.configNominalOutputReverse(0, Constants.kTimeoutMs);
+    m_top.configPeakOutputForward(1, Constants.kTimeoutMs);
+    m_top.configPeakOutputReverse(-1, Constants.kTimeoutMs);
 
-		m_btm.config_kF(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kF, Constants.kTimeoutMs);
-		m_btm.config_kP(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kP, Constants.kTimeoutMs);
-		m_btm.config_kI(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kI, Constants.kTimeoutMs);
-		m_btm.config_kD(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kD, Constants.kTimeoutMs);
-    
-  
+    m_btm.configNominalOutputForward(0, Constants.kTimeoutMs);
+    m_btm.configNominalOutputReverse(0, Constants.kTimeoutMs);
+    m_btm.configPeakOutputForward(1, Constants.kTimeoutMs);
+    m_btm.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+
+    /* Config the Velocity closed loop gains in slot0 */
+    m_top.config_kF(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kF, Constants.kTimeoutMs);
+    m_top.config_kP(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kP, Constants.kTimeoutMs);
+    m_top.config_kI(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kI, Constants.kTimeoutMs);
+    m_top.config_kD(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kD, Constants.kTimeoutMs);
+
+    m_btm.config_kF(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kF, Constants.kTimeoutMs);
+    m_btm.config_kP(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kP, Constants.kTimeoutMs);
+    m_btm.config_kI(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kI, Constants.kTimeoutMs);
+    m_btm.config_kD(Constants.kPIDLoopIdx, Constants.kGains_Velocit.kD, Constants.kTimeoutMs);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    targetRPM = nte_ShooterTargetRPM.getDouble(-1);
-    topRPM = targetRPM/2.0;
-    btmRPM = targetRPM/2.0;
-    nte_ShooterTopRPM.setValue(topRPM);
-    nte_ShooterBtmRPM.setValue(btmRPM);
+    targetRPM = nte_ShooterTargetRPM.getDouble(0);
+
+    var topVelocityUnits = m_top.getSelectedSensorVelocity(Constants.kPIDLoopIdx);
+    var topMotorRPM = topVelocityUnits <= 0 ? 0 : 2048.0 / 600.0 / topVelocityUnits;
+    nte_ShooterTopRPM.setValue(topMotorRPM);
+
+    var btmVelocityUnits = m_btm.getSelectedSensorVelocity(Constants.kPIDLoopIdx);
+    var btmMotorRPM = topVelocityUnits <= 0 ? 0 : 2048.0 / 600.0 / btmVelocityUnits;
+    nte_ShooterBtmRPM.setValue(btmMotorRPM);
+
   }
 
   /** Called when button is pressed */
-  public void shooterStartASync() {
-    m_top.set(ControlMode.Velocity, targetRPM);
-    m_btm.set(ControlMode.Velocity, targetRPM);
+  public void shooterStart() {
+    var targetTargetVelocity_UnitsPer100ms = targetRPM * 2048.0 / 600.0;
+    m_top.set(ControlMode.Velocity, targetTargetVelocity_UnitsPer100ms);
+    m_btm.set(ControlMode.Velocity, targetTargetVelocity_UnitsPer100ms);
   }
 
   /** Called when button is released */
-  public void shooterStopASync() {
+  public void shooterStop() {
     m_top.set(ControlMode.PercentOutput, 0);
     m_btm.set(ControlMode.PercentOutput, 0);
   }

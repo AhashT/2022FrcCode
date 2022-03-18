@@ -47,7 +47,7 @@ public class RobotContainer {
        
         /**Right bumper */
         JoystickButton intakeButton = new JoystickButton(xbox, 6);
-        intakeButton.whenPressed(startIntake);
+        intakeButton.whileHeld(startIntake);
         intakeButton.whenReleased(stopIntake);
         
         shooter = new Shooter();
@@ -55,10 +55,11 @@ public class RobotContainer {
         startShooter.addRequirements(shooter);
         StopShooter stopShooters = new StopShooter(shooter);
         stopShooters.addRequirements(shooter);
+        shooter.init();
 
         /**X button */
         JoystickButton shootButton = new JoystickButton(xbox, 1);
-        shootButton.whenPressed(startShooter);
+        shootButton.whileHeld(startShooter);
         shootButton.whenReleased(stopShooters);
 
         PHub = new PneumaticHub(Constants.PHubdID);        
@@ -71,9 +72,12 @@ public class RobotContainer {
     public void simulationInit() {
 		PhysicsSim.getInstance().addTalonFX(shooter.m_top, 0.75, 20660);
 		PhysicsSim.getInstance().addTalonFX(shooter.m_btm, 0.75, 20660);
+        PhysicsSim.getInstance().addTalonFX(intake.intakeMotor,0.75,206660);
 	}
 
 	public void simulationPeriodic() {
 		PhysicsSim.getInstance().run();
 	}
+
+    
 }
