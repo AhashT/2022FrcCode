@@ -6,8 +6,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveBackwardTimed;
+import frc.robot.commands.DriveTimed;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.StartIntake;
 import frc.robot.commands.StopIntake;
@@ -26,6 +28,9 @@ public class RobotContainer {
     public final Shooter shooter;
     public final Intake intake;         
     public final PneumaticHub PHub;
+    public final DriveTimed driveBackward;
+    public final DriveTimed driveForward;
+    private SequentialCommandGroup driveTIMED;
 
     public RobotContainer(){
         driveT = new DriveTrain();
@@ -61,9 +66,17 @@ public class RobotContainer {
         shootButton.whenReleased(stopShooters);
 
         PHub = new PneumaticHub(Constants.PHubdID);
+
+        // Autonomous
+        driveForward = new DriveTimed(driveT, 0.4, 4);
+        driveBackward = new DriveTimed(driveT, -0.4, 4);
+        driveForwardTimed.addRequirements(driveT);
+
+        // Sequence
+         //driveTIMED = new SequentialCommandGroup(driveBackward.andThen(driveForward));
     }
 
     public Command getAutonmousCommand(){
-        return driveForwardTimed;
+        return driveBackward.andThen(driveForward);
     }
 }

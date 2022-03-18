@@ -21,9 +21,11 @@ public class DriveTimed extends CommandBase {
 
   Timer timer;
   /** Creates a new DriveForwardTimed. */
-  public DriveTimed(DriveTrain driveT, double speed) {
+  public DriveTimed(DriveTrain driveT, double speed, double seconds) {
     // Use addRequirements() here to declare subsystem dependencies.
     driveTrain = driveT;
+    this.speed = speed;
+    this.seconds = seconds;
     addRequirements(driveTrain);
     timer = new Timer();
   }
@@ -43,8 +45,8 @@ public class DriveTimed extends CommandBase {
     timer.reset();
     timer.start();
     
-    while(timer.get() < Constants.DriveBackwardtime){
-      driveTrain.driveForward(Constants.AutoSpeed);
+    while(timer.get() < seconds){
+      driveTrain.driveForward(speed);
     }
     finished = true;
     isRunning = false;

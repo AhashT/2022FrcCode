@@ -55,7 +55,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
 
       /**For debugging - remove before competition */
-      m_autonomousCommand.initialize();
+      //m_autonomousCommand.initialize();
     }
   }
 
