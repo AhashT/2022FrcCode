@@ -6,8 +6,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveForwardTimed;
+import frc.robot.commands.DriveTimed;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.StartIntake;
 import frc.robot.commands.StopIntake;
@@ -22,6 +24,8 @@ public class RobotContainer {
     private final DriveWithJoysticks driveWithJoysticks;
     private final DriveTrain driveT;
     private final DriveForwardTimed driveForwardTimed;
+    public final DriveTimed driveTimed;
+    public final DriveTimed driveForward;
     public static XboxController xbox;
     public final Shooter shooter;
     public final Intake intake;         
@@ -33,8 +37,6 @@ public class RobotContainer {
         driveWithJoysticks.addRequirements(driveT);
         driveT.setDefaultCommand(driveWithJoysticks);
 
-        driveForwardTimed = new DriveForwardTimed(driveT);
-        driveForwardTimed.addRequirements(driveT);
 
         xbox = new XboxController(Constants.port_number);
 
@@ -61,9 +63,16 @@ public class RobotContainer {
         shootButton.whenReleased(stopShooters);
 
         PHub = new PneumaticHub(Constants.PHubdID);
+
+        // auto Commands
+        driveForwardTimed = new DriveForwardTimed(driveT);
+        driveForwardTimed.addRequirements(driveT);
+
+        driveTimed = new DriveTimed(driveT, -0.6, 4);
+        driveForward = new DriveTimed(driveT, 0.6, 5);
     }
 
     public Command getAutonmousCommand(){
-        return driveForwardTimed;
+        return SequentialCommandGroup(driveTimed, driveForward);
     }
 }
