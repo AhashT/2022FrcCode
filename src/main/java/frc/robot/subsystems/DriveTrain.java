@@ -53,12 +53,26 @@ public class DriveTrain extends SubsystemBase {
   public void driveJoysticks(XboxController dJoystick, double speed){
     
     //drive.arcadeDrive(dJoystick.getRawAxis((int) (Constants.controller_y_axis*speed)), dJoystick.getRawAxis((int) (Constants.controller_x_axis*speed)));
-    drive.arcadeDrive(dJoystick.getLeftY() * -0.6, dJoystick.getLeftX()*0.6);
+    drive.arcadeDrive(dJoystick.getLeftY() * -0.9, dJoystick.getLeftX()*0.9);
   }
 
   public void driveForward(double speed){
     drive.tankDrive(speed, speed);
 
+  }
+
+  public void reverseDrive(){
+    m_L1.setInverted(false);
+    m_R1.setInverted(true);
+    m_L2.setInverted(false);
+    m_R2.setInverted(true);
+  }
+
+  public void normalDrive(){
+    m_L1.setInverted(true);
+    m_R1.setInverted(false);
+    m_L2.setInverted(true);
+    m_R2.setInverted(false);
   }
 
   public void stop(){
