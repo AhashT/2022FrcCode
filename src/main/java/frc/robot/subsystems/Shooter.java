@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-import frc.robot.Constants;
+import static frc.robot.Constants.*;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -52,8 +52,8 @@ public class Shooter extends SubsystemBase {
 
   /** Creates a new Shooter. */
   public Shooter() {
-    m_front = new TalonFX(Constants.shooter_top_motor);
-    m_rear= new TalonFX(Constants.shooter_bottom_motor);
+    m_front = new TalonFX(shooter_top_motor);
+    m_rear= new TalonFX(shooter_bottom_motor);
 
     //just guessing here KSM 2022-03-03
     m_front.configMotionAcceleration(4000);
@@ -72,13 +72,13 @@ public class Shooter extends SubsystemBase {
   }
 
   /**Called when button is pressed */
-public void shooterStartASync(){
+public void shooterStart(){
     m_front.set(ControlMode.PercentOutput, 100);
     m_rear.set(ControlMode.PercentOutput, 100); 
   }
 
   /**Called when button is released */
-  public void shooterStopASync(){
+  public void shooterStop(){
     m_front.set(ControlMode.PercentOutput, 0);
     m_rear.set(ControlMode.PercentOutput, 0);
 
