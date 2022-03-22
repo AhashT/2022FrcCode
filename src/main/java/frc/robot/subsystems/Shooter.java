@@ -25,27 +25,27 @@ public class Shooter extends SubsystemBase {
   private ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
   private NetworkTableEntry nte_ShooterTargetRPM = tab.add("ShooterTargetRPM", 0)
       .withWidget(BuiltInWidgets.kNumberSlider)
-      .withProperties(Map.of("min", 0, "max", 6380))
+      .withProperties(Map.of("min", 0.0, "max", 1.0))
       .getEntry();
 
       private NetworkTableEntry nte_ShooterTopRPM = tab.add("ShooterTopRPM", 0)
       .withWidget(BuiltInWidgets.kNumberBar)
-      .withProperties(Map.of("min", 0, "max", 6380))
+      .withProperties(Map.of("min", 0.0, "max", 10000.0))
       .getEntry();
 
       private NetworkTableEntry nte_ShooterBtmRPM = tab.add("ShooterBtmRPM", 0)
       .withWidget(BuiltInWidgets.kNumberBar)
-      .withProperties(Map.of("min", 0, "max", 6380))
+      .withProperties(Map.of("min", 0.0, "max", 10000.0))
       .getEntry();
 
   TalonFX m_front;
   TalonFX m_rear;
 
   /**Fake top motorRPM for testing shuffleboard */
-  public double topRPM;
+  public double frontRPM;
 
   /**Fake bottom motorRPM for testing shuffleboard */
-  public double btmRPM;
+  public double rearRPM;
 
   /**Desired top and bottom RPM */
   public double targetRPM; 
@@ -53,10 +53,12 @@ public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   public Shooter() {
     m_front = new TalonFX(shooter_top_motor);
+    m_front.configFactoryDefault();
     m_rear= new TalonFX(shooter_bottom_motor);
+    m_rear.configFactoryDefault();
 
     //just guessing here KSM 2022-03-03
-    m_front.configMotionAcceleration(4000);
+    m_front.configMotionAcceleration(1000);
     m_rear.configMotionAcceleration(4000); 
   
   }
@@ -64,17 +66,15 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {  
     // This method will be called once per scheduler run
-    targetRPM = nte_ShooterTargetRPM.getDouble(-1);
-    topRPM = targetRPM/2.0;
-    btmRPM = targetRPM/2.0;
-    nte_ShooterTopRPM.setValue(topRPM);
-    nte_ShooterBtmRPM.setValue(btmRPM);
+    targetRPM = nte_ShooterTargetRPM.getDouble(0);
+    nte_ShooterTopRPM.setDouble(m_front.getSelectedSensorVelocity());
+    nte_ShooterBtmRPM.setDouble(m_rear.getSelectedSensorVelocity());
   }
 
   /**Called when button is pressed */
 public void shooterStart(){
-    m_front.set(ControlMode.PercentOutput, 100);
-    m_rear.set(ControlMode.PercentOutput, 100); 
+    m_front.set(ControlMode.PercentOutput, targetRPM);
+    m_rear.set(ControlMode.PercentOutput, targetRPM); 
   }
 
   /**Called when button is released */
