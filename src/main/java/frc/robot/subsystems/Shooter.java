@@ -56,10 +56,11 @@ public class Shooter extends SubsystemBase {
     m_front.configFactoryDefault();
     m_rear= new TalonFX(shooter_bottom_motor);
     m_rear.configFactoryDefault();
+    m_rear.setInverted(true);
 
     //just guessing here KSM 2022-03-03
     m_front.configMotionAcceleration(1000);
-    m_rear.configMotionAcceleration(4000); 
+    m_rear.configMotionAcceleration(1000); 
   
   }
 
