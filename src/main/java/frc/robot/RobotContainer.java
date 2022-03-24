@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveForwardTimed;
 import frc.robot.commands.DriveWithJoysticks;
-import frc.robot.commands.NormalDrive;
-import frc.robot.commands.ReverseDrive;
+//import frc.robot.commands.NormalDrive;
+//import frc.robot.commands.ReverseDrive;
 import frc.robot.commands.StartIntake;
 import frc.robot.commands.StartShooter;
 import frc.robot.commands.StopIntake;
@@ -23,7 +23,7 @@ public class RobotContainer {
 
     private final DriveWithJoysticks driveWithJoysticks;
     private final DriveTrain driveT;
-    public final DriveTrain driveTrain;
+    //public final DriveTrain driveTrain;
     private final DriveForwardTimed driveForwardTimed;
     public static XboxController xbox;
     public static XboxController xboxOP;
@@ -65,7 +65,7 @@ public class RobotContainer {
         shootButton.whenPressed(startShooter);
         shootButton.whenReleased(stopShooters);
 
-        driveTrain = new DriveTrain();
+       /* driveTrain = new DriveTrain();
         ReverseDrive reverseDrive = new ReverseDrive(driveTrain);
         reverseDrive.addRequirements(driveTrain);
         NormalDrive normalDrive = new NormalDrive(driveTrain);
@@ -73,7 +73,7 @@ public class RobotContainer {
         // A button
         JoystickButton reverseButton = new JoystickButton(xbox, 2);
         reverseButton.whenPressed(reverseDrive);
-        reverseButton.whenReleased(normalDrive);
+        reverseButton.whenReleased(normalDrive);*/
 
         PHub = new PneumaticHub(Constants.PHubdID);
     }
