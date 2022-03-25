@@ -15,11 +15,12 @@ https://maven.ctr-electronics.com/release/com/ctre/phoenix/Phoenix-frc2022-lates
  */
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.sim.PhysicsSim;
 
 import java.util.Map;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Shooter extends SubsystemBase {
   private ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
@@ -38,9 +39,8 @@ public class Shooter extends SubsystemBase {
       .withProperties(Map.of("min", 0.0, "max", 10000.0))
       .getEntry();
 
-  TalonFX m_front;
-  TalonFX m_rear;
-
+      WPI_TalonFX m_top;
+  
   /**Fake top motorRPM for testing shuffleboard */
   public double frontRPM;
 
@@ -52,37 +52,43 @@ public class Shooter extends SubsystemBase {
 
   /** Creates a new Shooter. */
   public Shooter() {
-    m_front = new TalonFX(shooter_top_motor);
-    m_front.configFactoryDefault();
-    m_rear= new TalonFX(shooter_bottom_motor);
-    m_rear.configFactoryDefault();
-    m_rear.setInverted(true);
-
+    m_top = new WPI_TalonFX(shooter_top_motor);
+    m_top.configFactoryDefault();
+   
     //just guessing here KSM 2022-03-03
-    m_front.configMotionAcceleration(1000);
-    m_rear.configMotionAcceleration(1000); 
-  
+    m_top.configMotionAcceleration(1000);
+   
   }
 
   @Override
   public void periodic() {  
     // This method will be called once per scheduler run
     targetRPM = nte_ShooterTargetRPM.getDouble(0);
-    nte_ShooterTopRPM.setDouble(m_front.getSelectedSensorVelocity());
-    nte_ShooterBtmRPM.setDouble(m_rear.getSelectedSensorVelocity());
+    nte_ShooterTopRPM.setDouble(m_top.getSelectedSensorVelocity());
+    nte_ShooterBtmRPM.setDouble(0);
   }
 
   /**Called when button is pressed */
 public void shooterStart(){
-    m_front.set(ControlMode.PercentOutput, targetRPM);
-    m_rear.set(ControlMode.PercentOutput, targetRPM); 
+    m_top.set(ControlMode.PercentOutput, targetRPM);
   }
 
   /**Called when button is released */
   public void shooterStop(){
-    m_front.set(ControlMode.PercentOutput, 0);
-    m_rear.set(ControlMode.PercentOutput, 0);
+    m_top.set(ControlMode.PercentOutput, 0);
 
   }
+
+  public void simulationInit() {
+	  PhysicsSim.getInstance().addTalonFX(m_top, 0.75, 20660);
+	}
+
+  @Override
+  public void simulationPeriodic()
+  {
+    PhysicsSim.getInstance().run();
+  }
+
+
 
 }
