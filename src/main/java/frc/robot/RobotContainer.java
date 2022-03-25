@@ -29,5 +29,9 @@ public class RobotContainer {
         shooter.simulationInit();
 	}
 
+    public void robotInit() {
+        shooter.robotInit();
+    }
+
     
 }
