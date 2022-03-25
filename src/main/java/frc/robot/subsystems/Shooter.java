@@ -25,43 +25,103 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Shooter extends SubsystemBase {
   private ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
-  private NetworkTableEntry nte_ShooterTargetRPM = tab.add("ShooterTargetRPM", 0)
+  private NetworkTableEntry nte_ShooterTargetRPM = tab.add("ShooterTargetRPM", 3000)
       .withWidget(BuiltInWidgets.kNumberSlider)
       .withProperties(Map.of("min", 0.0, "max", 6380.0))
+      .withPosition(0,0)
       .getEntry();
 
-      private NetworkTableEntry nte_ShooterTopRPM = tab.add("ShooterTopRPM", 0)
+  private NetworkTableEntry nte_ShooterTopRPM = tab.add("ShooterTopRPM", 0)
       .withWidget(BuiltInWidgets.kNumberBar)
       .withProperties(Map.of("min", 0.0, "max", 6380.0))
+      .withPosition(2,0)
       .getEntry();
 
-      private NetworkTableEntry nte_ShooterBtmRPM = tab.add("ShooterBtmRPM", 0)
+  private NetworkTableEntry nte_ShooterBtmRPM = tab.add("ShooterBtmRPM", 0)
       .withWidget(BuiltInWidgets.kNumberBar)
       .withProperties(Map.of("min", 0.0, "max", 6380.0))
+      .withPosition(3, 0)
       .getEntry();
 
-      WPI_TalonFX m_top;
+    private NetworkTableEntry nte_kP= tab.add("kP",0.1)
+      .withWidget(BuiltInWidgets.kTextView)
+      .withProperties(Map.of("min", 0.0, "max", 1.0))
+      .withPosition(0, 1)
+      .getEntry();
   
-  /**Desired top and bottom RPM */
-  public double targetRPM; 
+    private NetworkTableEntry nte_kI= tab.add("kI",0.001)
+      .withWidget(BuiltInWidgets.kTextView)
+      .withProperties(Map.of("min", 0.0, "max", 1.0))
+      .withPosition(0, 2)
+      .getEntry();
+  
+    private NetworkTableEntry nte_kD= tab.add("kD",0.1)
+      .withWidget(BuiltInWidgets.kTextView)
+      .withProperties(Map.of("min", 0.0, "max", 10.0))
+      .withPosition(0, 3)
+      .getEntry();
+  
+    private NetworkTableEntry nte_kF= tab.add("kF",0.00495159)
+      .withWidget(BuiltInWidgets.kTextView)
+      .withProperties(Map.of("min", 0.0, "max", 1.0))
+      .withPosition(0, 4)
+      .getEntry();
+      
+    private NetworkTableEntry nte_Iz= tab.add("Iz",300)
+      .withWidget(BuiltInWidgets.kTextView)
+      .withProperties(Map.of("min", 0, "max", 1000))
+      .withPosition(1, 1)
+      .getEntry();
+  
+    private NetworkTableEntry nte_Peak= tab.add("Peak",1.0)
+      .withWidget(BuiltInWidgets.kTextView)
+      .withProperties(Map.of("min", 0.0, "max", 1.0))
+      .withPosition(1, 2)
+      .getEntry();
+  
+      private NetworkTableEntry nte_Vplot= tab.add("Velocity",1.0)
+      .withWidget(BuiltInWidgets.kGraph)
+      //.withProperties(Map.of("min", 0.0, "max", 1.0))
+      .withPosition(2, 1)
+      .getEntry();
+
+      private NetworkTableEntry nte_Eplot= tab.add("Error",1.0)
+      .withWidget(BuiltInWidgets.kGraph)
+      //.withProperties(Map.of("min", 0.0, "max", 1.0))
+      .withPosition(2, 4)
+      .getEntry();
+  
+    WPI_TalonFX m_top;
+
+  /** Desired top and bottom RPM */
+  public double targetRPM;
 
   /** Creates a new Shooter. */
   public Shooter() {
     m_top = new WPI_TalonFX(shooter_top_motor);
     m_top.configFactoryDefault();
-   
-    //just guessing here KSM 2022-03-03
+
+    // just guessing here KSM 2022-03-03
     m_top.configMotionAcceleration(1000);
-   
+
   }
 
   @Override
-  public void periodic() {  
+  public void periodic() {
     // This method will be called once per scheduler run
     targetRPM = nte_ShooterTargetRPM.getDouble(0);
-    var topRPM = m_top.getSelectedSensorVelocity()/3.4133;
+    var topRPM = m_top.getSelectedSensorVelocity() / 3.4133;
     nte_ShooterTopRPM.setDouble(topRPM);
     nte_ShooterBtmRPM.setDouble(0);
+    nte_Vplot.setValue(m_top.getSelectedSensorVelocity());
+    nte_Eplot.setValue(m_top.getErrorDerivative());
+
+    /* Config the Velocity closed loop gains in slot0 */
+		m_top.config_kF(kPIDLoopIdx, nte_kF.getDouble(0.00495159), kTimeoutMs);
+		m_top.config_kP(kPIDLoopIdx, nte_kP.getDouble(0.1), kTimeoutMs);
+		m_top.config_kI(kPIDLoopIdx, nte_kI.getDouble(0.001), kTimeoutMs);
+		m_top.config_kD(kPIDLoopIdx, nte_kD.getDouble(5), kTimeoutMs);
+	
   }
 
   /**Called when button is pressed */
