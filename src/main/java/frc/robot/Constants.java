@@ -32,10 +32,10 @@ public class Constants {
     public static final int IntakeSolenoidReverseChannel = 1;
     
     public static int controller_y_axis = 1;
-    public static int controller_x_axis = 0; 
+    public static int controller_x_axis = 0;
 
     public static final double driveTrainSpeed = 0.5;
-    public static final int DriveForwardtime = 3;
+    public static final int DriveBackwardtime = 3;
     public static final double AutoSpeed = -0.4;
     public static final int port_number = 0; 
 
