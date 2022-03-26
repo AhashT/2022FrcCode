@@ -37,11 +37,14 @@ public class DriveTrain extends SubsystemBase {
     m_Lcontroller = new MotorControllerGroup(m_L1,m_L2);
     m_Rcontroller = new MotorControllerGroup(m_R1, m_R2);
     drive = new DifferentialDrive(m_Lcontroller, m_Rcontroller); 
+    // Make sures the motor aren't used when analong stick is barely moving.
+    drive.setDeadband(0.05);
 
     m_L1.setInverted(true);
     m_R1.setInverted(false);
     m_L2.setInverted(true);
     m_R2.setInverted(false);
+
    
   }
 
@@ -52,8 +55,8 @@ public class DriveTrain extends SubsystemBase {
 
   public void driveJoysticks(XboxController dJoystick, double speed){
     
-    //drive.arcadeDrive(dJoystick.getRawAxis((int) (Constants.controller_y_axis*speed)), dJoystick.getRawAxis((int) (Constants.controller_x_axis*speed)));
-    drive.arcadeDrive(dJoystick.getLeftY() * -0.6, dJoystick.getLeftX()*0.6);
+    drive.arcadeDrive(dJoystick.getRawAxis((int) (Constants.controller_y_axis*-speed)), dJoystick.getRawAxis((int) (Constants.controller_x_axis*speed)));
+    //drive.arcadeDrive(dJoystick.getLeftY() * -0.6, dJoystick.getLeftX()*0.6);
   }
 
   public void driveForward(double speed){

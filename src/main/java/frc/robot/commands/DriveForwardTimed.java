@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 
-public class DriveBackwardTimed extends CommandBase {
+public class DriveForwardTimed extends CommandBase {
 
   DriveTrain driveTrain;
   private boolean finished = false;
@@ -19,7 +19,7 @@ public class DriveBackwardTimed extends CommandBase {
 
   Timer timer;
   /** Creates a new DriveForwardTimed. */
-  public DriveBackwardTimed(DriveTrain driveT) {
+  public DriveForwardTimed(DriveTrain driveT) {
     // Use addRequirements() here to declare subsystem dependencies.
     driveTrain = driveT;
     addRequirements(driveTrain);

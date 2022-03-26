@@ -48,8 +48,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic(){
-    //m_autonomousCommand.execute();
-    m_robotContainer.driveBackward.andThen(m_robotContainer.driveForward).execute();;
+    m_autonomousCommand.schedule();
   }
 
   @Override
@@ -57,8 +56,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
 
-      /**For debugging - remove before competition */
-      //m_autonomousCommand.initialize();
+      
     }
   }
 
