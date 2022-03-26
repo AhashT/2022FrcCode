@@ -26,7 +26,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 public class Shooter extends SubsystemBase {
   private ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
   private NetworkTableEntry nte_ShooterTargetRPM = tab.add("ShooterTargetRPM", 3000)
-      .withWidget(BuiltInWidgets.kNumberSlider)
+      .withWidget(BuiltInWidgets.kTextView)
       .withProperties(Map.of("min", 0.0, "max", 6380.0))
       .withPosition(0,0)
       .getEntry();
