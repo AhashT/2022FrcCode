@@ -8,13 +8,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
 public class StartShooter extends CommandBase {
-  private Shooter shoot; 
+  private Shooter shooter; 
  
   /** Creates a new Shoot. */
-  public StartShooter(Shooter shoot) {
-    this.shoot = shoot;
-    addRequirements(shoot);
-    // Use addRequirements() here to declare subsystem dependencies.
+  public StartShooter(Shooter shooter) {
+    this.shooter = shooter;
+    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
@@ -24,7 +23,7 @@ public class StartShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shoot.shooterStartASync();
+    shooter.shooterStart();
   }
 
   // Called once the command ends or is interrupted.
@@ -34,7 +33,7 @@ public class StartShooter extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 
 }

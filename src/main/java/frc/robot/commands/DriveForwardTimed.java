@@ -11,12 +11,8 @@ import frc.robot.subsystems.DriveTrain;
 
 public class DriveForwardTimed extends CommandBase {
 
-  DriveTrain driveTrain;
-  private boolean finished = false;
-
-  /**Prevents command from runing multiple times. */
-  private boolean isRunning = false;
-
+  private final DriveTrain driveTrain;
+  
   Timer timer;
   /** Creates a new DriveForwardTimed. */
   public DriveForwardTimed(DriveTrain driveT) {
@@ -28,24 +24,17 @@ public class DriveForwardTimed extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    finished = false;
-    isRunning = false;
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {   
-    if(isRunning || finished) return;
-    isRunning = true;
     timer.reset();
     timer.start();
     
     while(timer.get() < Constants.DriveBackwardtime){
       driveTrain.driveForward(Constants.AutoSpeed);
     }
-    finished = true;
-    isRunning = false;
   }
 
   // Called once the command ends or is interrupted.
@@ -57,6 +46,6 @@ public class DriveForwardTimed extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return finished;
+    return true;
   }
 }

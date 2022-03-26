@@ -19,6 +19,7 @@ import frc.robot.commands.DriveTimed;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  public double shooterRPM;
 
 
  @Override
@@ -28,6 +29,8 @@ public class Robot extends TimedRobot {
     // gearbox is constructed, you might have to invert the left side instead.
     m_robotContainer = new RobotContainer(); 
     CameraServer.startAutomaticCapture();
+
+    
   }
 
   @Override
