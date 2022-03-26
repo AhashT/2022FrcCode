@@ -5,9 +5,7 @@
 package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.DriveBackwardTimed;
 import frc.robot.commands.DriveTimed;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.StartIntake;
@@ -23,9 +21,8 @@ public class RobotContainer {
     private final XboxController xbox = new XboxController(port_number);
     private final DriveTrain driveT= new DriveTrain();
     private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(driveT, xbox);;
-    private final DriveForwardTimed driveForwardTimed = new DriveForwardTimed(driveT);
     private final Shooter shooter = new Shooter();
-    private final Intake intake = new Intake();        
+     private final Intake intake = new Intake();        
     private final StartIntake startIntake = new StartIntake(intake);
     private final StopIntake stopIntake = new StopIntake(intake);
     private final StartShooter startShooter = new StartShooter(shooter);
@@ -46,15 +43,12 @@ public class RobotContainer {
 
 
         // Autonomous
-        driveForward = new DriveTimed(driveT, 0.4, 4);
-        driveBackward = new DriveTimed(driveT, -0.4, 4);
-        driveForwardTimed.addRequirements(driveT);
 
         // Sequence
          //driveTIMED = new SequentialCommandGroup(driveBackward.andThen(driveForward));
     }
 
     public Command getAutonmousCommand(){
-        return driveBackward.andThen(driveForward);
+        return new DriveTimed(driveT, -0.4, 4).andThen(new DriveTimed(driveT, 0.4, 4));
     }
 }
