@@ -20,7 +20,7 @@ public class RobotContainer {
                 
         /**X button */
         JoystickButton shootButton = new JoystickButton(xbox, 1);
-        shootButton.whileHeld(startShooter);
+        shootButton.whenPressed(startShooter);
         shootButton.whenReleased(stopShooters);
 
     }
@@ -33,5 +33,12 @@ public class RobotContainer {
         shooter.robotInit();
     }
 
+    public void testInit(){
+        shooter.testInit();
+    }
     
+    public void testPeriodic(){
+        shooter.testPeriodic();
+    }
+  
 }

@@ -20,12 +20,14 @@ public class StopShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("***StopShooterInit");
     isRunning = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("***StopShooterExecute");
       shooter.shooterStop();
       isRunning = false;
   }
@@ -37,6 +39,7 @@ public class StopShooter extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    System.out.println("***StopShooterIsFinished: "+!isRunning);
     return !isRunning;
   }
 

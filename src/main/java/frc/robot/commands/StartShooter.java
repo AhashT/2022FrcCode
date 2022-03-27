@@ -13,6 +13,7 @@ public class StartShooter extends CommandBase {
  
   /** Creates a new Shoot. */
   public StartShooter(Shooter shooter) {
+    System.out.println("***StartShooterExecute");
     this.shooter = shooter;
     addRequirements(shooter);
   }
@@ -20,12 +21,14 @@ public class StartShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("***StartShooterInit");
     isRunning= true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("***StartShooterExecute");
     shooter.shooterStart();
     isRunning = false;
   }
@@ -37,6 +40,7 @@ public class StartShooter extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    System.out.println("***StartShooterIsFinished: "+!isRunning);
     return !isRunning;
     //return false;
   }
