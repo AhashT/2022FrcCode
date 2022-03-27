@@ -7,14 +7,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
-public class StopShooter extends CommandBase {
+public class WaitForTargetRPM extends CommandBase {
   private Shooter shooter;
-  private boolean isRunning; 
- 
-  /** Creates a new Shoot. */
-  public StopShooter(Shooter shooter) {
-    addRequirements(shooter);
+  private boolean isRunning;
+
+  /** Creates a new WaitForTargetRPM. */
+  public WaitForTargetRPM(Shooter shooter) {
     this.shooter = shooter;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
@@ -26,8 +27,8 @@ public class StopShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      shooter.shooterStop();
-      isRunning=false;
+    shooter.waitForRpm();
+    isRunning=false;
   }
 
   // Called once the command ends or is interrupted.
@@ -37,18 +38,6 @@ public class StopShooter extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //return !isRunning;
-    return false;
-  }
-
-  public void Shoot(float rpm, boolean useCargoSensor)
-  {
-    //wait async for both motors to reach speed
-
-    //advance cargo feeder
-    
-    //wait async for 3 seconds
-
-    //set motor speed to zero
+    return !isRunning;
   }
 }
