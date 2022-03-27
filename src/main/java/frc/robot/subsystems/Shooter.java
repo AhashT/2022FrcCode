@@ -178,7 +178,7 @@ public class Shooter extends SubsystemBase {
         var avgVelocity = (m_top.getSelectedSensorVelocity() + m_btm.getSelectedSensorVelocity()) / 2;
         var avgRPM = avgVelocity / 3.4133;
         feederFlag = avgRPM * .95 > targetRPM;
-        System.out.println("TargetRPM: " + targetRPM+" AvgRpm: "+avgRPM);
+        //System.out.println("TargetRPM: " + targetRPM+" AvgRpm: "+avgRPM);
     }
 
     /** Called when button is pressed */
@@ -191,7 +191,7 @@ public class Shooter extends SubsystemBase {
         long start_time = System.currentTimeMillis();
         long wait_time = 2000;
         long end_time = start_time + wait_time;
-        System.out.println("***WaitForRpm wait started flag: " + feederFlag);
+        //System.out.println("***WaitForRpm wait started flag: " + feederFlag);
         while (System.currentTimeMillis() < end_time && !feederFlag) {
             try {
                 Thread.sleep(20);
@@ -199,7 +199,7 @@ public class Shooter extends SubsystemBase {
                 System.err.format("IOException: %s%n", ex);
             }
         }
-        System.out.println("***WaitForRpm wait ended flag: " + feederFlag);
+        //System.out.println("***WaitForRpm wait ended flag: " + feederFlag);
         return feederFlag;
     }
 

@@ -22,10 +22,12 @@ public class Constants {
     public static final int PHubdID = 21;
     
     //PWM Channels
-    public static final int IndexerPWM = 1;
+    public static final int IndexerPWM = 0;
     public static final int FeederPWM = 1;
     
     //Digital IO Channels
+    public static final int index0SensorPort = 0;
+    public static final int index1SensorPort = 1;
      
     //Pnuematic Hub 
     public static final PneumaticsModuleType PHubType = PneumaticsModuleType.REVPH;

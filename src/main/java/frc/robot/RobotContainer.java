@@ -5,24 +5,30 @@
 package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.FeedOne;
 import frc.robot.commands.StartShooter;
 import frc.robot.commands.StopShooter;
 import frc.robot.commands.WaitForTargetRPM;
+import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Shooter;
 import static frc.robot.Constants.*;
 
 public class RobotContainer {
     private final XboxController xbox = new XboxController(port_number);
     private final Shooter shooter = new Shooter();
+    private final Feeder feeder = new Feeder();
     private final StartShooter startShooter = new StartShooter(shooter);
     private final StopShooter stopShooters = new StopShooter(shooter);
     private final WaitForTargetRPM waitForTargetRPM = new WaitForTargetRPM(shooter);
-     
+    private final FeedOne feedOne = new FeedOne(feeder); 
+
     public RobotContainer(){        
                 
         /**X button */
         JoystickButton shootButton = new JoystickButton(xbox, 1);
-        shootButton.whenPressed(startShooter.andThen(waitForTargetRPM));
+        shootButton.whenPressed(startShooter
+                    .andThen(waitForTargetRPM)
+                    .andThen(feedOne));
         shootButton.whenReleased(stopShooters);
     }
 
