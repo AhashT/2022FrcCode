@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
 public class StopShooter extends CommandBase {
-  private Shooter shooter; 
+  private Shooter shooter;
+  private boolean isRunning; 
  
   /** Creates a new Shoot. */
   public StopShooter(Shooter shooter) {
@@ -18,12 +19,15 @@ public class StopShooter extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    isRunning = true;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
       shooter.shooterStop();
+      isRunning = false;
   }
 
   // Called once the command ends or is interrupted.
@@ -33,7 +37,7 @@ public class StopShooter extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return !isRunning;
   }
 
   public void Shoot(float rpm, boolean useCargoSensor)
