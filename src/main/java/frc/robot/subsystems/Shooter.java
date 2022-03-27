@@ -167,6 +167,7 @@ public class Shooter extends SubsystemBase {
 
         m_btm = new WPI_TalonFX(shooter_btm_motor);
         m_btm.configFactoryDefault();
+        m_btm.setInverted(true);
         m_btm.configMotionAcceleration(1000);
 
     }
@@ -271,7 +272,6 @@ public class Shooter extends SubsystemBase {
     public void testInit() {
 
         System.out.println("***Shooter testInit() " + initCounter++);
-        nte_ShooterTargetRPM.setValue(topGains.speed);
         nte_TestShoot_button.setValue(false);
 
     }

@@ -23,6 +23,7 @@ public class Constants {
     
     //PWM Channels
     public static final int IndexerPWM = 1;
+    public static final int FeederPWM = 1;
     
     //Digital IO Channels
      
