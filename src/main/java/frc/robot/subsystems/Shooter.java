@@ -156,6 +156,7 @@ public class Shooter extends SubsystemBase {
     private int periodicCounter;
     private boolean testButtonPressed;
     private boolean testRunning;
+    private boolean feederFlag;
 
     /** Creates a new Shooter. */
     public Shooter() {
@@ -172,13 +173,32 @@ public class Shooter extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-
+        var avgVelocity = (m_top.getSelectedSensorVelocity() + m_btm.getSelectedSensorVelocity()) / 2;
+        var avgRPM = avgVelocity / 3.4133;
+        feederFlag = avgRPM * .95 > targetRPM;
+        System.out.println("TargetRPM: " + targetRPM+" AvgRpm: "+avgRPM);
     }
 
     /** Called when button is pressed */
     public void shooterStart() {
         m_top.set(ControlMode.Velocity, targetRPM * 3.4133);
         m_btm.set(ControlMode.Velocity, targetRPM * 3.4133);
+    }
+
+    public boolean waitForRpm() {
+        long start_time = System.currentTimeMillis();
+        long wait_time = 2000;
+        long end_time = start_time + wait_time;
+        System.out.println("***WaitForRpm wait started flag: " + feederFlag);
+        while (System.currentTimeMillis() < end_time && !feederFlag) {
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException ex) {
+                System.err.format("IOException: %s%n", ex);
+            }
+        }
+        System.out.println("***WaitForRpm wait ended flag: " + feederFlag);
+        return feederFlag;
     }
 
     /** Called when button is released */
@@ -198,6 +218,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void robotInit() {
+        targetRPM = topGains.speed;
         m_top.configFactoryDefault();
         m_btm.configFactoryDefault();
 
@@ -222,6 +243,7 @@ public class Shooter extends SubsystemBase {
         /* Select preconfigured gains from tuning tests */
         topGains = GainsAr[0];
         btmGains = GainsAr[3];
+        feederFlag = false;
 
         /* Config the Velocity closed loop gains in slot0 */
         m_top.config_kP(kPIDLoopIdx, topGains.Gains.kP, kTimeoutMs);
@@ -256,8 +278,9 @@ public class Shooter extends SubsystemBase {
     public void testPeriodic() {
         System.out.println("***Shooter testPeriodic() " + periodicCounter++);
 
-        if(!Robot.isReal())  simulationPeriodic();
-        
+        if (!Robot.isReal())
+            simulationPeriodic();
+
         /* check for test button state change */
         testButtonPressed = nte_TestShoot_button.getBoolean(false);
         if (testButtonPressed) {
