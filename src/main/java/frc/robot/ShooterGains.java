@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import java.security.PublicKey;
-
 /** Add your docs here. */
 public class ShooterGains {
     

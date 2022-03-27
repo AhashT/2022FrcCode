@@ -65,14 +65,14 @@ public class Constants {
      * 
 	 * 	                                    			  kP   	 kI    kD      kF          Iz    PeakOut */
    public final static Gains kGains_Velocit  = new Gains( 0.1, 0.001,  5, 1023.0/20660.0,  300,  1.00);
-public static ShooterGains[] GainsAr = new ShooterGains[] {
-    new ShooterGains(4131, ShooterGains.top, new Gains(0.0075, 0.004, 0.5, 0.005, 300, 1.00)),
-    new ShooterGains(5200, ShooterGains.top, new Gains(0.0075, 0.00035, 0.5, 0.005, 300, 1.00)),
-    new ShooterGains(6380, ShooterGains.top, new Gains(0.0075, 0.00035, 0.5, 0.005, 300, 1.00)),
-    new ShooterGains(4131, ShooterGains.btm, new Gains(0.0075, 0.004, 0.5, 0.005, 300, 1.00)),
-    new ShooterGains(5200, ShooterGains.btm, new Gains(0.0075, 0.0004, 0.5, 0.005, 300, 1.00)),
-    new ShooterGains(6380, ShooterGains.btm, new Gains(0.0075, 0.00035, 0.5, 0.005, 300, 1.00))
-};
+    public static ShooterGains[] GainsAr = new ShooterGains[] {
+            new ShooterGains(4131, ShooterGains.top, new Gains(0.0075, 0.004, 0.5, 0.005, 300, 1.00)),
+            new ShooterGains(5200, ShooterGains.top, new Gains(0.0075, 0.00035, 0.5, 0.005, 300, 1.00)),
+            new ShooterGains(6380, ShooterGains.top, new Gains(0.0075, 0.00035, 0.5, 0.005, 300, 1.00)),
+            new ShooterGains(4131, ShooterGains.btm, new Gains(0.0075, 0.004, 0.5, 0.005, 300, 1.00)),
+            new ShooterGains(5200, ShooterGains.btm, new Gains(0.0075, 0.0004, 0.5, 0.005, 300, 1.00)),
+            new ShooterGains(6380, ShooterGains.btm, new Gains(0.0075, 0.00035, 0.5, 0.005, 300, 1.00))
+    };
    
 
    }

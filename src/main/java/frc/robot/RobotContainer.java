@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.StartShooter;
 import frc.robot.commands.StopShooter;
+import frc.robot.commands.WaitForTargetRPM;
 import frc.robot.subsystems.Shooter;
 import static frc.robot.Constants.*;
 
@@ -15,14 +16,14 @@ public class RobotContainer {
     private final Shooter shooter = new Shooter();
     private final StartShooter startShooter = new StartShooter(shooter);
     private final StopShooter stopShooters = new StopShooter(shooter);
+    private final WaitForTargetRPM waitForTargetRPM = new WaitForTargetRPM(shooter);
      
     public RobotContainer(){        
                 
         /**X button */
         JoystickButton shootButton = new JoystickButton(xbox, 1);
-        shootButton.whileHeld(startShooter);
+        shootButton.whenPressed(startShooter.andThen(waitForTargetRPM));
         shootButton.whenReleased(stopShooters);
-
     }
 
     public void simulationInit() {
@@ -33,5 +34,12 @@ public class RobotContainer {
         shooter.robotInit();
     }
 
+    public void testInit(){
+        shooter.testInit();
+    }
     
+    public void testPeriodic(){
+        shooter.testPeriodic();
+    }
+  
 }

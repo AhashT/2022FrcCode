@@ -27,8 +27,10 @@ public class WaitForTargetRPM extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.waitForRpm();
-    isRunning=false;
+    new Thread(()->{
+      shooter.waitForRpm();
+      isRunning=false;  
+    }).start();;
   }
 
   // Called once the command ends or is interrupted.
