@@ -1,10 +1,5 @@
 {
   "HALProvider": {
-    "DIO": {
-      "window": {
-        "visible": true
-      }
-    },
     "Other Devices": {
       "SPARK MAX [0]": {
         "header": {

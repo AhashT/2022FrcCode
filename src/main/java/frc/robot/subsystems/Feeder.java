@@ -17,7 +17,7 @@ public class Feeder extends SubsystemBase {
   DigitalInput index0Sensor = new DigitalInput(index0SensorPort);
 
   public Feeder() {
-    m_feeder = new PWMSparkMax(IndexerPWM);
+    m_feeder = new PWMSparkMax(FeederPWM);
     m_feeder.set(0);
   }
 
