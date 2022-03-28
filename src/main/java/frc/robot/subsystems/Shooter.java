@@ -1,6 +1,10 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
+/*
+import this library for Talon:
+https://maven.ctr-electronics.com/release/com/ctre/phoenix/Phoenix-frc2022-latest.json
+ */
 
 package frc.robot.subsystems;
 
@@ -20,14 +24,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-
-/*
-import this library for Talon:
-https://maven.ctr-electronics.com/release/com/ctre/phoenix/Phoenix-frc2022-latest.json
- */
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.ShooterGains;
 import frc.robot.sim.PhysicsSim;
