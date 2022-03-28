@@ -33,15 +33,12 @@ public class RobotContainer {
     private SequentialCommandGroup driveTIMED;
 
     public RobotContainer(){
+        xbox = new XboxController(Constants.port_number);
+
         driveT = new DriveTrain();
-        driveWithJoysticks = new DriveWithJoysticks(driveT);
+        driveWithJoysticks = new DriveWithJoysticks(driveT, xbox);
         driveWithJoysticks.addRequirements(driveT);
         driveT.setDefaultCommand(driveWithJoysticks);
-
-        driveForwardTimed = new DriveBackwardTimed(driveT);
-        driveForwardTimed.addRequirements(driveT);
-
-        xbox = new XboxController(Constants.port_number);
 
         intake = new Intake();
         StartIntake startIntake = new StartIntake(intake);
@@ -67,16 +64,20 @@ public class RobotContainer {
 
         PHub = new PneumaticHub(Constants.PHubdID);
 
+        // Drive Forward Test Auto
+        driveForwardTimed = new DriveBackwardTimed(driveT);
+        driveForwardTimed.addRequirements(driveT);
         // Autonomous
         driveForward = new DriveTimed(driveT, 0.4, 4);
+        driveForward.addRequirements(driveT);
         driveBackward = new DriveTimed(driveT, -0.4, 4);
-        driveForwardTimed.addRequirements(driveT);
+        driveBackward.addRequirements(driveT);
 
         // Sequence
          //driveTIMED = new SequentialCommandGroup(driveBackward.andThen(driveForward));
     }
 
     public Command getAutonmousCommand(){
-        return driveBackward.andThen(driveForward);
+        return driveForwardTimed;
     }
 }
