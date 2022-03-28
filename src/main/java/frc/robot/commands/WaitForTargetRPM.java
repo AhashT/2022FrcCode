@@ -30,7 +30,7 @@ public class WaitForTargetRPM extends CommandBase {
     new Thread(()->{
       shooter.waitForRpm();
       isRunning=false;  
-    }).start();;
+    }).start();
   }
 
   // Called once the command ends or is interrupted.

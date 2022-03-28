@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+//import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -33,7 +33,7 @@ public class Intake extends SubsystemBase {
   /** deivers cargo to indexer */
   private TalonFX intakeMotor;
 
-  private PWMSparkMax indexMotor;
+  //private PWMSparkMax indexMotor;
   private double targetRPM;
 
   private final DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PHubdID, PHubType, IntakeSolenoidForwardChannel,
@@ -42,7 +42,7 @@ public class Intake extends SubsystemBase {
   public Intake() {
     intakeSolenoid.set(Value.kReverse);
     intakeMotor = new TalonFX(IntakeCanID);
-    indexMotor = new PWMSparkMax(IndexerPWM);
+    //indexMotor = new PWMSparkMax(IndexerPWM);
 
     // just guessing here KSM 2022-03-03
     intakeMotor.configMotionAcceleration(4000);
@@ -73,14 +73,14 @@ public class Intake extends SubsystemBase {
 
     // start motors
     intakeMotor.set(ControlMode.PercentOutput, targetRPM);
-    indexMotor.set(.4);
+    //indexMotor.set(.4);
   }
 
   /** Called when button is released */
   public void IntakeCargoStoptAsync() {
     // stop motors
     intakeMotor.set(ControlMode.PercentOutput, 0);
-    indexMotor.set(0);
+    //indexMotor.set(0);
     // extend pickup arm
     intakeSolenoid.set(Value.kReverse);
 

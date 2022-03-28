@@ -45,7 +45,7 @@ public class RobotContainer {
 
         /** X button */
         JoystickButton shootButton = new JoystickButton(xbox, 1);
-        shootButton.whenPressed(startShooter
+        shootButton.whileHeld(startShooter
         .andThen(waitForTargetRPM)
         .andThen(feedOne));
         shootButton.whenReleased(stopShooters);
