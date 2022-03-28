@@ -4,31 +4,48 @@
 
 package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.DriveForwardTimed;
+import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.FeedOne;
+import frc.robot.commands.StartIntake;
 import frc.robot.commands.StartShooter;
+import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopShooter;
 import frc.robot.commands.WaitForTargetRPM;
 import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import static frc.robot.Constants.*;
 
 public class RobotContainer {
     private final XboxController xbox = new XboxController(port_number);
+    private final DriveTrain driveT= new DriveTrain();
+    private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(driveT, xbox);;
+    private final DriveForwardTimed driveForwardTimed = new DriveForwardTimed(driveT);
     private final Shooter shooter = new Shooter();
     private final Feeder feeder = new Feeder();
+    private final Intake intake = new Intake();        
+    private final StartIntake startIntake = new StartIntake(intake);
+    private final StopIntake stopIntake = new StopIntake(intake);
     private final StartShooter startShooter = new StartShooter(shooter);
     private final StopShooter stopShooters = new StopShooter(shooter);
     private final WaitForTargetRPM waitForTargetRPM = new WaitForTargetRPM(shooter);
     private final FeedOne feedOne = new FeedOne(feeder);
 
     public RobotContainer() {
+        driveT.setDefaultCommand(driveWithJoysticks);        
+
+        /**Right bumper */
+        JoystickButton intakeButton = new JoystickButton(xbox, 6);
+        intakeButton.whenPressed(startIntake);
+        intakeButton.whenReleased(stopIntake);        
 
         /** X button */
         JoystickButton shootButton = new JoystickButton(xbox, 1);
-        shootButton.whenPressed(startShooter
-                .andThen(waitForTargetRPM)
-                .andThen(feedOne));
+        shootButton.whenPressed(startShooter);
         shootButton.whenReleased(stopShooters);
     }
 
@@ -48,4 +65,7 @@ public class RobotContainer {
         shooter.testPeriodic();
     }
 
+ public Command getAutonmousCommand(){
+        return driveForwardTimed;
+    }
 }

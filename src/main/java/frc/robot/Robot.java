@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -21,8 +22,14 @@ public class Robot extends TimedRobot {
 
  @Override
   public void robotInit() {
+    // We need to invert one side of the drivetrain so that positive voltages
+    // result in both sides moving forward. Depending on how your robot's
+    // gearbox is constructed, you might have to invert the left side instead.
     m_robotContainer = new RobotContainer();   
     m_robotContainer.robotInit();  
+    CameraServer.startAutomaticCapture();
+
+    
   }
 
   @Override
@@ -38,6 +45,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit(){
+    m_autonomousCommand = m_robotContainer.getAutonmousCommand();
   }
 
   @Override
@@ -47,7 +55,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit(){
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.cancel();
+
+      /**For debugging - remove before competition */
+      m_autonomousCommand.initialize();
    }
+  }
 
   @Override
   public void teleopPeriodic(){}
