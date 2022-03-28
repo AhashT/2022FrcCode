@@ -4,7 +4,18 @@
 
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.*;
+import static frc.robot.Constants.GainsAr;
+import static frc.robot.Constants.kPIDLoopIdx;
+import static frc.robot.Constants.kTimeoutMs;
+import static frc.robot.Constants.shooter_btm_motor;
+import static frc.robot.Constants.shooter_top_motor;
+
+import java.util.Map;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -16,18 +27,10 @@ https://maven.ctr-electronics.com/release/com/ctre/phoenix/Phoenix-frc2022-lates
  */
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Gains;
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.ShooterGains;
-import frc.robot.commands.StartShooter;
 import frc.robot.sim.PhysicsSim;
-
-import java.util.Map;
-
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 public class Shooter extends SubsystemBase {
     private ShuffleboardTab tab = Shuffleboard.getTab("Shooter");

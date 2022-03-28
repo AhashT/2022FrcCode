@@ -20,32 +20,32 @@ public class RobotContainer {
     private final StartShooter startShooter = new StartShooter(shooter);
     private final StopShooter stopShooters = new StopShooter(shooter);
     private final WaitForTargetRPM waitForTargetRPM = new WaitForTargetRPM(shooter);
-    private final FeedOne feedOne = new FeedOne(feeder); 
+    private final FeedOne feedOne = new FeedOne(feeder);
 
-    public RobotContainer(){        
-                
-        /**X button */
+    public RobotContainer() {
+
+        /** X button */
         JoystickButton shootButton = new JoystickButton(xbox, 1);
         shootButton.whenPressed(startShooter
-                    .andThen(waitForTargetRPM)
-                    .andThen(feedOne));
+                .andThen(waitForTargetRPM)
+                .andThen(feedOne));
         shootButton.whenReleased(stopShooters);
     }
 
     public void simulationInit() {
         shooter.simulationInit();
-	}
+    }
 
     public void robotInit() {
         shooter.robotInit();
-    }
+  }
 
-    public void testInit(){
+    public void testInit() {
         shooter.testInit();
     }
-    
-    public void testPeriodic(){
+
+    public void testPeriodic() {
         shooter.testPeriodic();
     }
-  
+
 }
