@@ -78,6 +78,6 @@ public class RobotContainer {
     }
 
     public Command getAutonmousCommand(){
-        return driveForwardTimed;
+        return driveBackward.andThen(driveForward);
     }
 }
