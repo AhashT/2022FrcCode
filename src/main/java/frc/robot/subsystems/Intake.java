@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-//import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -23,7 +22,7 @@ import static frc.robot.Constants.*;
  */
 public class Intake extends SubsystemBase {
   private ShuffleboardTab tab = Shuffleboard.getTab("Intake");
-  private NetworkTableEntry nte_IntakeTargetRPM = tab.add("IntakeTargetRPM", 0)
+  private NetworkTableEntry nte_IntakePower = tab.add("IntakePower", 0)
       .withWidget(BuiltInWidgets.kNumberSlider)
       .withProperties(Map.of("min", 0.0, "max", 1.0))
       .getEntry();
@@ -33,8 +32,7 @@ public class Intake extends SubsystemBase {
   /** deivers cargo to indexer */
   private TalonFX intakeMotor;
 
-  //private PWMSparkMax indexMotor;
-  private double targetRPM;
+  private double intakePower;
 
   private final DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PHubdID, PHubType, IntakeSolenoidForwardChannel,
       IntakeSolenoidReverseChannel);
@@ -42,21 +40,16 @@ public class Intake extends SubsystemBase {
   public Intake() {
     intakeSolenoid.set(Value.kReverse);
     intakeMotor = new TalonFX(IntakeCanID);
-    //indexMotor = new PWMSparkMax(IndexerPWM);
-
+   
     // just guessing here KSM 2022-03-03
     intakeMotor.configMotionAcceleration(4000);
-
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    targetRPM = nte_IntakeTargetRPM.getDouble(0.4);
-
+    intakePower = nte_IntakePower.getDouble(0.4);
   }
 
-  /** Called when button is pressed */
   public void IntakeStart() {
 
     // extend pickup arm
@@ -71,17 +64,13 @@ public class Intake extends SubsystemBase {
      * }
      */
 
-    // start motors
-    intakeMotor.set(ControlMode.PercentOutput, targetRPM);
-    //indexMotor.set(.4);
+    intakeMotor.set(ControlMode.PercentOutput, intakePower);
   }
 
   /** Called when button is released */
   public void IntakeStop() {
-    // stop motors
     intakeMotor.set(ControlMode.PercentOutput, 0);
-    //indexMotor.set(0);
-    // extend pickup arm
+    // retract pickup arm
     intakeSolenoid.set(Value.kReverse);
 
     // give arm time to extend
