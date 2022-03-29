@@ -11,6 +11,7 @@ import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.FeedOne;
 import frc.robot.commands.StartIntake;
 import frc.robot.commands.StartShooter;
+import frc.robot.commands.StopFeeder;
 import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopShooter;
 import frc.robot.commands.WaitForTargetRPM;
@@ -29,6 +30,7 @@ public class RobotContainer {
     private final Feeder feeder = new Feeder();
     private final Intake intake = new Intake();        
     private final StartIntake startIntake = new StartIntake(intake);
+    private final StopFeeder stopFeeder = new StopFeeder(feeder);
     private final StopIntake stopIntake = new StopIntake(intake);
     private final StartShooter startShooter = new StartShooter(shooter);
     private final StopShooter stopShooters = new StopShooter(shooter);
@@ -46,9 +48,9 @@ public class RobotContainer {
         /** X button */
         JoystickButton shootButton = new JoystickButton(xbox, 1);
         shootButton.whileHeld(startShooter
-        .andThen(waitForTargetRPM)
+        //.andThen(waitForTargetRPM)
         .andThen(feedOne));
-        shootButton.whenReleased(stopShooters);
+        shootButton.whenReleased(stopShooters.andThen(stopFeeder));
     }
 
     public void simulationInit() {

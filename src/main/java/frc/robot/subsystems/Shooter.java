@@ -221,7 +221,12 @@ public class Shooter extends SubsystemBase {
         }
 
         public void robotInit() {
+                /* Select preconfigured gains from tuning tests */
+                topGains = GainsAr[2];
+                btmGains = GainsAr[5];
+                feederFlag = false;
                 targetRPM = topGains.speed;
+                
                 m_top.configFactoryDefault();
                 m_btm.configFactoryDefault();
 
@@ -242,11 +247,6 @@ public class Shooter extends SubsystemBase {
                 m_btm.configNominalOutputReverse(0, kTimeoutMs);
                 m_btm.configPeakOutputForward(1, kTimeoutMs);
                 m_btm.configPeakOutputReverse(-1, kTimeoutMs);
-
-                /* Select preconfigured gains from tuning tests */
-                topGains = GainsAr[0];
-                btmGains = GainsAr[3];
-                feederFlag = false;
 
                 /* Config the Velocity closed loop gains in slot0 */
                 m_top.config_kP(kPIDLoopIdx, topGains.Gains.kP, kTimeoutMs);
