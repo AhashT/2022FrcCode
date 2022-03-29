@@ -169,7 +169,6 @@ public class Shooter extends SubsystemBase {
                 m_btm.configFactoryDefault();
                 m_btm.setInverted(true);
                 m_btm.configMotionAcceleration(1000);
-
         }
 
         @Override

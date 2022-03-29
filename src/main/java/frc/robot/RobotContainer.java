@@ -12,7 +12,6 @@ import frc.robot.commands.FeedOne;
 import frc.robot.commands.StartIntake;
 import frc.robot.commands.StartShooter;
 import frc.robot.commands.StopFeeder;
-import frc.robot.commands.StopShooter;
 import frc.robot.commands.WaitForTargetRPM;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.DriveTrain;
@@ -31,7 +30,6 @@ public class RobotContainer {
     private final StartIntake startIntake = new StartIntake(intake);
     private final StopFeeder stopFeeder = new StopFeeder(feeder);
     private final StartShooter startShooter = new StartShooter(shooter);
-    private final StopShooter stopShooters = new StopShooter(shooter);
     private final WaitForTargetRPM waitForTargetRPM = new WaitForTargetRPM(shooter);
     private final FeedOne feedOne = new FeedOne(feeder);
 
@@ -47,7 +45,6 @@ public class RobotContainer {
         shootButton.whileHeld(startShooter
         //.andThen(waitForTargetRPM)
         .andThen(feedOne));
-        shootButton.whenReleased(stopShooters.andThen(stopFeeder));
     }
 
     public void simulationInit() {
