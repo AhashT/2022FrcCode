@@ -57,7 +57,7 @@ public class Intake extends SubsystemBase {
   }
 
   /** Called when button is pressed */
-  public void IntakeCargoStartAsync() {
+  public void IntakeStart() {
 
     // extend pickup arm
     intakeSolenoid.set(Value.kForward);
@@ -77,7 +77,7 @@ public class Intake extends SubsystemBase {
   }
 
   /** Called when button is released */
-  public void IntakeCargoStoptAsync() {
+  public void IntakeStop() {
     // stop motors
     intakeMotor.set(ControlMode.PercentOutput, 0);
     //indexMotor.set(0);

@@ -12,7 +12,6 @@ import frc.robot.commands.FeedOne;
 import frc.robot.commands.StartIntake;
 import frc.robot.commands.StartShooter;
 import frc.robot.commands.StopFeeder;
-import frc.robot.commands.StopIntake;
 import frc.robot.commands.StopShooter;
 import frc.robot.commands.WaitForTargetRPM;
 import frc.robot.subsystems.Feeder;
@@ -31,7 +30,6 @@ public class RobotContainer {
     private final Intake intake = new Intake();        
     private final StartIntake startIntake = new StartIntake(intake);
     private final StopFeeder stopFeeder = new StopFeeder(feeder);
-    private final StopIntake stopIntake = new StopIntake(intake);
     private final StartShooter startShooter = new StartShooter(shooter);
     private final StopShooter stopShooters = new StopShooter(shooter);
     private final WaitForTargetRPM waitForTargetRPM = new WaitForTargetRPM(shooter);
@@ -42,8 +40,7 @@ public class RobotContainer {
 
         /**Right bumper */
         JoystickButton intakeButton = new JoystickButton(xbox, 6);
-        intakeButton.whenPressed(startIntake);
-        intakeButton.whenReleased(stopIntake);        
+        intakeButton.whileHeld(startIntake);             
 
         /** X button */
         JoystickButton shootButton = new JoystickButton(xbox, 1);
