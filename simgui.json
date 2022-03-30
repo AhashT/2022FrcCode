@@ -66,6 +66,7 @@
       "/FMSInfo": "FMSInfo",
       "/LiveWindow/DriveTrain": "Subsystem",
       "/LiveWindow/Feeder": "Subsystem",
+      "/LiveWindow/Indexer": "Subsystem",
       "/LiveWindow/Intake": "Subsystem",
       "/LiveWindow/Shooter": "Subsystem",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
@@ -87,12 +88,6 @@
   },
   "NetworkTables": {
     "Shuffleboard": {
-      "Intake": {
-        "open": true
-      },
-      "Shooter": {
-        "open": true
-      },
       "open": true
     }
   }
