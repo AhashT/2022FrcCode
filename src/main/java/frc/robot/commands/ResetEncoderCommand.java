@@ -5,22 +5,21 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.Subsystems;
 
 public class ResetEncoderCommand extends CommandBase {
 
-  DriveTrain DT;
 
   /** Creates a new ResetEncoderCommand. */
-  public ResetEncoderCommand(DriveTrain dt) {
+  public ResetEncoderCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.DT = dt;
+  
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    DT.resetEncoders();
+    Subsystems.DRIVE_SUBSYSTEM.resetEncoders();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

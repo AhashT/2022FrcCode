@@ -6,22 +6,24 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.Subsystems;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 
 public class RotateVisionCommand extends CommandBase {
   /** Creates a new RotateVisionCommand. */
 
-  DriveTrain DT;
-  LimelightSubsystem LIMELIGHT;
 
+  DriveSubsystem DRIVE_SUBSYSTEM;
+  LimelightSubsystem LIMELIGHT_SUBSYSTEM;
   double kP = 0.015;
 
-  public RotateVisionCommand(DriveTrain dt, LimelightSubsystem limelight) {
-    this.DT = dt;
-    this.LIMELIGHT = limelight;
-    addRequirements(DT);
-    addRequirements(LIMELIGHT);
+  public RotateVisionCommand(DriveSubsystem ds, LimelightSubsystem ls) {
+    this.DRIVE_SUBSYSTEM = ds;
+    this.LIMELIGHT_SUBSYSTEM = ls;
+
+    addRequirements(DRIVE_SUBSYSTEM);
+    addRequirements(LIMELIGHT_SUBSYSTEM);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -34,15 +36,17 @@ public class RotateVisionCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double output = kP * (LIMELIGHT.Limelight.getHorizontalOffset());
+    double output = kP * (LIMELIGHT_SUBSYSTEM.getX());
     SmartDashboard.putNumber("Output: ", output);
-    DT.setLeft(output);
-    DT.setRight(-output);
+    DRIVE_SUBSYSTEM.setLeft(output);
+    DRIVE_SUBSYSTEM.setRight(-output);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    DRIVE_SUBSYSTEM.stop();
+  }
 
   // Returns true when the command should end.
   @Override

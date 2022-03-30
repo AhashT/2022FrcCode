@@ -5,17 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class WaitForTargetRPM extends CommandBase {
-  private Shooter shooter;
+  private ShooterSubsystem SHOOTER_SUBSYSTEM;
   private boolean isRunning;
 
   /** Creates a new WaitForTargetRPM. */
-  public WaitForTargetRPM(Shooter shooter) {
-    this.shooter = shooter;
+  public WaitForTargetRPM(ShooterSubsystem ss) {
+    this.SHOOTER_SUBSYSTEM = ss;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shooter);
+    addRequirements(SHOOTER_SUBSYSTEM);
   }
 
   // Called when the command is initially scheduled.
@@ -28,7 +28,7 @@ public class WaitForTargetRPM extends CommandBase {
   @Override
   public void execute() {
     new Thread(()->{
-      shooter.waitForRpm();
+      SHOOTER_SUBSYSTEM.waitForRpm();
       isRunning=false;  
     }).start();
   }

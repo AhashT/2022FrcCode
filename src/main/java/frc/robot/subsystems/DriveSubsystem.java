@@ -16,7 +16,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
-public class DriveTrain extends SubsystemBase {
+public class DriveSubsystem extends SubsystemBase {
  
   CANSparkMax m_L1;
   CANSparkMax m_L2;
@@ -35,7 +35,7 @@ public class DriveTrain extends SubsystemBase {
   DifferentialDrive drive;
 
   /** Creates a new DriveTrain. */
-  public DriveTrain() {
+  public DriveSubsystem() {
 
     m_L1 = new CANSparkMax(left_front_motor, MotorType.kBrushless);
     m_L2 = new CANSparkMax(left_rear_motor, MotorType.kBrushless);

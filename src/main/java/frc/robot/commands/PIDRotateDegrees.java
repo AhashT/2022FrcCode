@@ -4,17 +4,24 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Subsystems;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class DoNothing extends CommandBase {
-  /** Creates a new DoNothing. */
+public class PIDRotateDegrees extends CommandBase {
 
   DriveSubsystem DRIVE_SUBSYSTEM;
 
-  public DoNothing(DriveSubsystem ds) {
+  double kP = 0.01;
+  double kI = 0;
+  double kD = 0;
+
+  PIDController controller = new PIDController(kP, kI, kD);
+
+  /** Creates a new PIDRotateDegrees. */
+  public PIDRotateDegrees(DriveSubsystem ds) {
     this.DRIVE_SUBSYSTEM = ds;
+    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(DRIVE_SUBSYSTEM);
   }
 

@@ -5,52 +5,47 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterSubsystem;
 
-public class StopShooter extends CommandBase {
-  private Shooter shooter;
+public class RunShooter extends CommandBase {
+  private ShooterSubsystem SHOOTER_SUBSYSTEM;
   private boolean isRunning; 
  
   /** Creates a new Shoot. */
-  public StopShooter(Shooter shooter) {
-    addRequirements(shooter);
-    this.shooter = shooter;
+  public RunShooter(ShooterSubsystem ss) {
+    //System.out.println("***StartShooterExecute");
+    this.SHOOTER_SUBSYSTEM = ss;
+    addRequirements(SHOOTER_SUBSYSTEM);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("***StopShooterInit");
+    //System.out.println("***StartShooterInit");
     isRunning = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("***StopShooterExecute");
-      shooter.shooterStop();
-      isRunning = false;
+    //System.out.println("***StartShooterExecute");
+    SHOOTER_SUBSYSTEM.shooterStart();
+    isRunning = false;
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    SHOOTER_SUBSYSTEM.shooterStop();
+    //shooter.shooterStop();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    System.out.println("***StopShooterIsFinished: "+!isRunning);
+    //System.out.println("***StartShooterIsFinished: "+!isRunning);
     return !isRunning;
   }
 
-  public void Shoot(float rpm, boolean useCargoSensor)
-  {
-    //wait async for both motors to reach speed
-
-    //advance cargo feeder
-    
-    //wait async for 3 seconds
-
-    //set motor speed to zero
-  }
+  
 }

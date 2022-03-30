@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.interfaces.LimelightInterface;
+import frc.robot.interfaces.LimelightInterface;
 
 public class LimelightSubsystem extends SubsystemBase {
   /** Creates a new LimelightSubsystem. */
@@ -20,12 +20,12 @@ public class LimelightSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    double x = Limelight.getHorizontalOffset();
-
-    SmartDashboard.putNumber("x offset", x);
+    SmartDashboard.putNumber("x offset", getX());
   }
 
-
+  public double getX() {
+    return Limelight.getHorizontalOffset();
+  }
 
 
 }

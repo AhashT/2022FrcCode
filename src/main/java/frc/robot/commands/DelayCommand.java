@@ -5,16 +5,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
 
-public class StopIntake extends CommandBase {
-  private Intake intake;
-
-  /** Creates a new StopIntake. */
-  public StopIntake(Intake intake) {
+public class DelayCommand extends CommandBase {
+  /** Creates a new WaitTimedCommand. */
+  public DelayCommand(double timeout) {
+    withTimeout(timeout);
     // Use addRequirements() here to declare subsystem dependencies.
-    this.intake = intake;
-    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
@@ -23,9 +19,7 @@ public class StopIntake extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    intake.IntakeCargoStoptAsync();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override

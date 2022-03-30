@@ -7,39 +7,23 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.DriveForwardTimed;
-import frc.robot.commands.DriveWithJoysticks;
-import frc.robot.commands.FeedOne;
 import frc.robot.commands.ResetEncoderCommand;
 import frc.robot.commands.RotateVisionCommand;
-import frc.robot.commands.StartIntake;
-import frc.robot.commands.StartShooter;
-import frc.robot.commands.StopIntake;
-import frc.robot.commands.StopShooter;
-import frc.robot.commands.WaitForTargetRPM;
-import frc.robot.subsystems.Feeder;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.DriveSubsystem;
+
 import static frc.robot.Constants.*;
 
 public class RobotContainer {
-    private final XboxController xbox = new XboxController(port_number);
-    private final DriveTrain driveT = new DriveTrain();
     //private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(driveT, xbox);;
     //private final DriveForwardTimed driveForwardTimed = new DriveForwardTimed(driveT);
     //private final Shooter shooter = new Shooter();
-    private final LimelightSubsystem limelight = new LimelightSubsystem();
     //private final Feeder feeder = new Feeder();
     //private final Intake intake = new Intake();        
 
     public RobotContainer() {
-        driveT.setDefaultCommand(new DoNothing(driveT));        
-        JoystickButton A_BUTTON = new JoystickButton(xbox, 1);
-        //driveT.setDefaultCommand(new RotateVisionCommand(driveT, limelight));
-        //A_BUTTON.whenPressed(new ResetEncoderCommand(driveT));
-        A_BUTTON.whileHeld(new RotateVisionCommand(driveT, limelight), true);
+        
+        Subsystems.setDefaultCommands();
+        Input.BUTTON_A.whileHeld(new RotateVisionCommand(Subsystems.DRIVE_SUBSYSTEM, Subsystems.LIMELIGHT_SUBSYSTEM), true);
         /**Right bumper */
         //JoystickButton intakeButton = new JoystickButton(xbox, 6);
         //intakeButton.whenPressed(startIntake);

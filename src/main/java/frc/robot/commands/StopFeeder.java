@@ -5,14 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.FeederSubsystem;
 
 public class StopFeeder extends CommandBase {
-  private Feeder feeder;
+  private FeederSubsystem feeder;
   private boolean isRunning;
 
   /** Creates a new StopFeeder. */
-  public StopFeeder(Feeder feeder) {
+  public StopFeeder(FeederSubsystem feeder) {
     this.feeder = feeder;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);

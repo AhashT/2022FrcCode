@@ -11,12 +11,12 @@ import frc.robot.Constants;
 
 import static frc.robot.Constants.*;
 
-public class Feeder extends SubsystemBase {
+public class FeederSubsystem extends SubsystemBase {
   /** Creates a new Feeder. */
   PWMSparkMax m_feeder;
   DigitalInput index0Sensor = new DigitalInput(index0SensorPort);
 
-  public Feeder() {
+  public FeederSubsystem() {
     m_feeder = new PWMSparkMax(FeederPWM);
     m_feeder.set(0);
     m_feeder.setInverted(true);

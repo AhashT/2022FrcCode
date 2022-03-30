@@ -29,7 +29,7 @@ import frc.robot.Robot;
 import frc.robot.ShooterGains;
 import frc.robot.sim.PhysicsSim;
 
-public class Shooter extends SubsystemBase {
+public class ShooterSubsystem extends SubsystemBase {
         private ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
         private NetworkTableEntry nte_ShooterTargetRPM = tab.add("ShooterTargetRPM", 3000)
                         .withWidget(BuiltInWidgets.kTextView)
@@ -160,7 +160,7 @@ public class Shooter extends SubsystemBase {
         private boolean feederFlag;
 
         /** Creates a new Shooter. */
-        public Shooter() {
+        public ShooterSubsystem() {
                 m_top = new WPI_TalonFX(shooter_top_motor);
                 m_top.configFactoryDefault();
                 m_top.configMotionAcceleration(1000);

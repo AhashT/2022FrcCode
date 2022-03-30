@@ -7,15 +7,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
     
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.DriveSubsystem;
 import static frc.robot.Constants.*;
 
 
 public class DriveWithJoysticks extends CommandBase {
 
-  private final DriveTrain driveTrain;
+  private final DriveSubsystem driveTrain;
   private final XboxController xbox;
-  public DriveWithJoysticks(DriveTrain driveT, XboxController xbox) {
+  public DriveWithJoysticks(DriveSubsystem driveT, XboxController xbox) {
     driveTrain = driveT;
     this.xbox = xbox;
     addRequirements(driveTrain);

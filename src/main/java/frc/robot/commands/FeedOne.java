@@ -5,17 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.FeederSubsystem;
 
 public class FeedOne extends CommandBase {
-  private Feeder feeder;
+  private FeederSubsystem FEEDER_SUBSYSTEM;
   private boolean isRunning;
 
   /** Creates a new FeedOne. */
-  public FeedOne(Feeder feeder) {
-    this.feeder = feeder;
+  public FeedOne(FeederSubsystem fs) {
+    this.FEEDER_SUBSYSTEM = fs;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(feeder);
+    addRequirements(FEEDER_SUBSYSTEM);
   }
 
   // Called when the command is initially scheduled.
@@ -27,14 +27,14 @@ public class FeedOne extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feeder.FeedOneCargo();
+    FEEDER_SUBSYSTEM.FeedOneCargo();
     isRunning = false;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    //feeder.stop();
+    FEEDER_SUBSYSTEM.stop();
   }
 
   // Returns true when the command should end.
