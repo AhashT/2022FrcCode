@@ -12,8 +12,9 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import static frc.robot.Constants.*;
 
+/** deivers cargo to feeder */
 public class Indexer extends SubsystemBase {
   private ShuffleboardTab tab = Shuffleboard.getTab("Indexer");
   private NetworkTableEntry nte_IndexerPower = tab.add("IndexerPower", 0)
@@ -21,25 +22,33 @@ public class Indexer extends SubsystemBase {
       .withProperties(Map.of("min", 0.0, "max", 1.0))
       .getEntry();
 
-  /** deivers cargo to feeder */
   private PWMSparkMax indexMotor;
-  private double indexerPower;
+  private double indexerPower = IndexerPower;
 
   /** Creates a new Indexer. */
   public Indexer() {
-    indexMotor = new PWMSparkMax(Constants.IndexerPWM);
+    indexMotor = new PWMSparkMax(IndexerPWM);
   }
 
   @Override
   public void periodic() {
-    indexerPower = nte_IndexerPower.getDouble(0.4);
   }
 
-  public void IndexerStart(){
+  public void IndexerStart() {
+    System.out.println("IndexerStart: " + indexerPower);
     indexMotor.set(indexerPower);
   }
 
-  public void IndexerStop(){
+  public void IndexerStop() {
+    System.out.println("IndexerStop");
     indexMotor.set(0);
+  }
+
+  public void testInit() {
+    nte_IndexerPower.setDouble(indexerPower);
+  }
+
+  public void testPeriodic() {
+    indexerPower = nte_IndexerPower.getDouble(0.4);
   }
 }

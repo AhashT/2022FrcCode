@@ -27,15 +27,23 @@ public class Intake extends SubsystemBase {
       .withProperties(Map.of("min", 0.0, "max", 1.0))
       .getEntry();
 
+      private NetworkTableEntry nte_IntakeStart_button = tab.add("Start", false)
+      .withWidget(BuiltInWidgets.kToggleButton)
+      .withPosition(1, 0)
+      .getEntry();
+
+
   /** Opens (forward) and closes intake arm */
 
   /** deivers cargo to indexer */
   private TalonFX intakeMotor;
 
-  private double intakePower;
+  private double intakePower = IntakePower;
 
   private final DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PHubdID, PHubType, IntakeSolenoidForwardChannel,
       IntakeSolenoidReverseChannel);
+  private boolean startButtonPressed;
+  private boolean testRunning;
 
   public Intake() {
     intakeSolenoid.set(Value.kReverse);
@@ -47,11 +55,11 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-    intakePower = nte_IntakePower.getDouble(0.4);
   }
 
+  
   public void IntakeStart() {
-
+    System.out.println("IntakeStart: "+intakePower);
     // extend pickup arm
     intakeSolenoid.set(Value.kForward);
 
@@ -69,6 +77,7 @@ public class Intake extends SubsystemBase {
 
   /** Called when button is released */
   public void IntakeStop() {
+    System.out.println("IntakeStop");
     intakeMotor.set(ControlMode.PercentOutput, 0);
     // retract pickup arm
     intakeSolenoid.set(Value.kReverse);
@@ -81,5 +90,28 @@ public class Intake extends SubsystemBase {
      * return;
      * }
      */
+  }
+
+public void testInit(){
+  nte_IntakePower.setDouble(intakePower);
+}
+
+public void testPeriodic() {
+  intakePower = nte_IntakePower.getDouble(0.4);
+
+  /* check for test button state change */
+  startButtonPressed = nte_IntakeStart_button.getBoolean(false);
+  if (startButtonPressed) {
+          if (!testRunning) {
+                  IntakeStart();
+                  testRunning = true;
+          }
+  } else {
+          if (testRunning) {
+                  IntakeStop();
+                  testRunning = false;
+          }
+  }
+  
   }
 }

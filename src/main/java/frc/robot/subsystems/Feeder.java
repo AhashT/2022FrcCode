@@ -46,4 +46,10 @@ public class Feeder extends SubsystemBase {
   public void stop() {
     m_feeder.set(0);
     }
+
+public void testInit() {
+}
+
+public void testPeriodic() {
+}
 }

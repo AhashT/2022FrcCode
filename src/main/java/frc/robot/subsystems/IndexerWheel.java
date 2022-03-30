@@ -4,13 +4,25 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import static frc.robot.Constants.*;
 
+import java.util.Map;
+
 public class IndexerWheel extends SubsystemBase {
+  private ShuffleboardTab tab = Shuffleboard.getTab("IndexerWheel");
+  private NetworkTableEntry nte_IndexerWheelPower = tab.add("IndexerWheelPower", 0)
+      .withWidget(BuiltInWidgets.kNumberSlider)
+      .withProperties(Map.of("min", 0.0, "max", 1.0))
+      .getEntry();
+
   PWMSparkMax m_indexwheel;
   private double power = Constants.IndexerWheelPower;
   
@@ -22,15 +34,25 @@ public class IndexerWheel extends SubsystemBase {
   }
 
   public void start(){
-    m_indexwheel.set(power);
+    System.out.println("IndexerWheelStart: " + power);
+     m_indexwheel.set(power);
   }
 
   public void stop(){
+    System.out.println("IndexerWheelStop");
     m_indexwheel.set(0);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+public void testInit() {
+  nte_IndexerWheelPower.setDouble(power);
+}
+
+public void testPeriodic() {
+  power = nte_IndexerWheelPower.getDouble(0.4);
   }
 }

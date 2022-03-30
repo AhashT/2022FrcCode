@@ -273,7 +273,15 @@ public class Shooter extends SubsystemBase {
 
                 System.out.println("***Shooter testInit() " + initCounter++);
                 nte_TestShoot_button.setValue(false);
-
+                nte_ShooterTargetRPM.setValue(targetRPM);
+                nte_btm_kP.setValue(btmGains.Gains.kP);
+                nte_btm_kI.setValue(btmGains.Gains.kI);
+                nte_btm_kD.setValue(btmGains.Gains.kD);
+                nte_btm_kF.setValue(btmGains.Gains.kF);
+                nte_top_kP.setValue(topGains.Gains.kP);
+                nte_top_kI.setValue(topGains.Gains.kI);
+                nte_top_kD.setValue(topGains.Gains.kD);
+                nte_top_kF.setValue(topGains.Gains.kF);
         }
 
         public void testPeriodic() {
