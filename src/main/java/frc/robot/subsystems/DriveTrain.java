@@ -7,10 +7,12 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.*;
 import edu.wpi.first.wpilibj.motorcontrol.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
@@ -21,6 +23,12 @@ public class DriveTrain extends SubsystemBase {
   CANSparkMax m_R1;
   CANSparkMax m_R2;
   
+  RelativeEncoder e_L1;
+  RelativeEncoder e_L2;
+  RelativeEncoder e_R1;
+  RelativeEncoder e_R2;
+
+
   MotorControllerGroup m_Lcontroller;
   MotorControllerGroup m_Rcontroller;
 
@@ -34,13 +42,20 @@ public class DriveTrain extends SubsystemBase {
     m_R1 = new CANSparkMax(right_front_motor, MotorType.kBrushless);
     m_R2 = new CANSparkMax(right_rear_motor, MotorType.kBrushless);
 
-    m_Lcontroller = new MotorControllerGroup(m_L1,m_L2);
+    e_L1 = m_L1.getEncoder();
+    e_L2 = m_L2.getEncoder();
+    e_R1 = m_R1.getEncoder();
+    e_R2 = m_R2.getEncoder();
+
+
+    m_Lcontroller = new MotorControllerGroup(m_L1, m_L2);
     m_Rcontroller = new MotorControllerGroup(m_R1, m_R2);
+
     drive = new DifferentialDrive(m_Lcontroller, m_Rcontroller); 
 
     m_L1.setInverted(true);
-    m_R1.setInverted(false);
     m_L2.setInverted(true);
+    m_R1.setInverted(false);
     m_R2.setInverted(false);
    
   }
@@ -48,6 +63,10 @@ public class DriveTrain extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Left 1 Encoder: ", e_L1.getPosition());
+    SmartDashboard.putNumber("Left 2 Encoder: ", e_L2.getPosition());
+    SmartDashboard.putNumber("Right 1 Encoder: ", e_R1.getPosition());
+    SmartDashboard.putNumber("Right 2 Encoder: ", e_R2.getPosition());
   }
 
   public void driveJoysticks(XboxController dJoystick, double speed){
@@ -59,6 +78,27 @@ public class DriveTrain extends SubsystemBase {
   public void driveForward(double speed){
     drive.tankDrive(speed, speed);
 
+  }
+
+  public double getLeftEncoder() {
+    return e_L1.getPosition();
+  }
+
+  public double getRightEncoder() {
+    return e_R1.getPosition();
+  }
+
+  public void resetEncoders() {
+    e_L1.setPosition(0);
+    e_R1.setPosition(0);
+  }
+  
+  public void setLeft(double speed) {
+    m_Lcontroller.set(speed);
+  }
+
+  public void setRight(double speed) {
+    m_Rcontroller.set(speed);
   }
 
   public void stop(){

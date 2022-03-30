@@ -16,7 +16,7 @@ public class ShooterGains {
     public int position;
     public Gains Gains;
 
-    public static final int top =0;
-    public static final int btm =1;
+    public static final int top = 0;
+    public static final int btm = 1;
 
 }
