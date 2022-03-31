@@ -20,11 +20,16 @@ public class LimelightSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("x offset", getX());
+    SmartDashboard.putNumber("x offset: ", getX());
+    SmartDashboard.putNumber("area: ", getArea());
   }
 
   public double getX() {
     return Limelight.getHorizontalOffset();
+  }
+
+  public double getArea() {
+    return Limelight.getArea();
   }
 
 

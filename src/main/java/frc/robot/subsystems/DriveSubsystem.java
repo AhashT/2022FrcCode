@@ -90,7 +90,9 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void resetEncoders() {
     e_L1.setPosition(0);
+    e_L2.setPosition(0);
     e_R1.setPosition(0);
+    e_R2.setPosition(0);
   }
   
   public void setLeft(double speed) {

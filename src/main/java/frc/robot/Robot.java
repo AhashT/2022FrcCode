@@ -25,7 +25,8 @@ public class Robot extends TimedRobot {
     // gearbox is constructed, you might have to invert the left side instead.
     m_robotContainer = new RobotContainer();   
     m_robotContainer.robotInit();  
-
+    Subsystems.DRIVE_SUBSYSTEM.resetEncoders();
+    Subsystems.GYRO_SUBSYSTEM.zero();
     
   }
 

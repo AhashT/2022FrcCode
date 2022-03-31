@@ -12,16 +12,16 @@ public class Input {
 
     public static final XboxController xbox = new XboxController(0);
 
-    public static JoystickButton BUTTON_A = new JoystickButton(xbox, 1);
-    public static JoystickButton BUTTON_B = new JoystickButton(xbox, 1);
+    public static JoystickButton BUTTON_A = new JoystickButton(xbox, 2);
+    public static JoystickButton BUTTON_B = new JoystickButton(xbox, 3);
     public static JoystickButton BUTTON_X = new JoystickButton(xbox, 1);
-    public static JoystickButton BUTTON_Y = new JoystickButton(xbox, 1);
-    public static JoystickButton BUTTON_LEFT_BUMPER = new JoystickButton(xbox, 1);
-    public static JoystickButton BUTTON_RIGHT_BUMPER = new JoystickButton(xbox, 1);
-    public static JoystickButton BUTTON_SELECT = new JoystickButton(xbox, 1);
-    public static JoystickButton BUTTON_START = new JoystickButton(xbox, 1);
-    public static JoystickButton BUTTON_LEFT_STICK = new JoystickButton(xbox, 1);
-    public static JoystickButton BUTTON_RIGHT_STICK = new JoystickButton(xbox, 1);
+    // public static JoystickButton BUTTON_Y = new JoystickButton(xbox, 1);
+    // public static JoystickButton BUTTON_LEFT_BUMPER = new JoystickButton(xbox, 1);
+    // public static JoystickButton BUTTON_RIGHT_BUMPER = new JoystickButton(xbox, 1);
+    // public static JoystickButton BUTTON_SELECT = new JoystickButton(xbox, 1);
+    // public static JoystickButton BUTTON_START = new JoystickButton(xbox, 1);
+    // public static JoystickButton BUTTON_LEFT_STICK = new JoystickButton(xbox, 1);
+    // public static JoystickButton BUTTON_RIGHT_STICK = new JoystickButton(xbox, 1);
 
 
 }

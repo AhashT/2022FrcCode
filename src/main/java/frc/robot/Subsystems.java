@@ -4,10 +4,12 @@
 
 package frc.robot;
 
+import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
+import frc.robot.subsystems.GyroSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -21,9 +23,11 @@ public class Subsystems {
     public static final IntakeSubsystem INTAKE_SUBSYSTEM = new IntakeSubsystem();
     public static final FeederSubsystem FEEDER_SUBSYSTEM = new FeederSubsystem();
     public static final ClimberSubsystem CLIMBER_SUBSYSTEM = new ClimberSubsystem();
+    public static final GyroSubsystem GYRO_SUBSYSTEM = new GyroSubsystem();
 
     public static void setDefaultCommands() {
-        DRIVE_SUBSYSTEM.setDefaultCommand(new DriveWithJoysticks(DRIVE_SUBSYSTEM, Input.xbox));
+        //DRIVE_SUBSYSTEM.setDefaultCommand(new DriveWithJoysticks(DRIVE_SUBSYSTEM, Input.xbox));
+        //DRIVE_SUBSYSTEM.setDefaultCommand(new DoNothing(DRIVE_SUBSYSTEM));
     }
 
 
