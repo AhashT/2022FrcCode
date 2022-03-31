@@ -5,30 +5,31 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Indexer;
 
-public class StartShooter extends CommandBase {
-  private ShooterSubsystem SHOOTER_SUBSYSTEM;
-  
-  public StartShooter(ShooterSubsystem ss) {
-    this.SHOOTER_SUBSYSTEM = ss;
-    addRequirements(SHOOTER_SUBSYSTEM);
+public class StartIndexerReverse extends CommandBase {
+  private Indexer indexer;
+
+/** Creates a new StartIndexerReverse */
+  public StartIndexerReverse(Indexer indexer) {
+    this.indexer = indexer;
+    addRequirements(indexer);
   }
 
+  // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //System.out.println("***StartShooterExecute");
-    SHOOTER_SUBSYSTEM.shooterStart();
+    indexer.IndexerStart(true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    SHOOTER_SUBSYSTEM.shooterStop();
+    indexer.IndexerStop();
   }
 
   // Returns true when the command should end.
@@ -36,6 +37,4 @@ public class StartShooter extends CommandBase {
   public boolean isFinished() {
     return false;
   }
-
-  
 }

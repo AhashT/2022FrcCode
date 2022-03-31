@@ -5,20 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.IndexerWheel;
 
-<<<<<<< HEAD:src/main/java/frc/robot/commands/DelayCommand.java
-public class DelayCommand extends CommandBase {
-  /** Creates a new WaitTimedCommand. */
-  public DelayCommand(double timeout) {
-    withTimeout(timeout);
-=======
-public class StartIntakeReverse extends CommandBase {
-  private Intake intake;
+public class StartIndexWheelReverse extends CommandBase {
+  private IndexerWheel indexerWheel;
 
-  /** Creates a new StartIntake. */
-  public StartIntakeReverse(Intake intake) {
->>>>>>> main:src/main/java/frc/robot/commands/StartIntakeReverse.java
+  /** Creates a new StartIndexWheelReverse. */
+  public StartIndexWheelReverse(IndexerWheel indexerWheel) {
+    this.indexerWheel =indexerWheel;
     // Use addRequirements() here to declare subsystem dependencies.
+  addRequirements(indexerWheel);
   }
 
   // Called when the command is initially scheduled.
@@ -27,18 +23,14 @@ public class StartIntakeReverse extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-<<<<<<< HEAD:src/main/java/frc/robot/commands/DelayCommand.java
-  public void execute() {}
-=======
   public void execute() {
-    intake.IntakeStart(true);
+    indexerWheel.start(true);
   }
->>>>>>> main:src/main/java/frc/robot/commands/StartIntakeReverse.java
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.IntakeStop();
+    indexerWheel.stop();
   }
 
   // Returns true when the command should end.

@@ -24,6 +24,7 @@ public class Constants {
     //PWM Channels
     public static final int IndexerPWM = 0;
     public static final int FeederPWM = 1;
+    public static final int IndexerWheelPWM = 2;
     
     //Digital IO Channels
     public static final int index0SensorPort = 0;
@@ -41,7 +42,11 @@ public class Constants {
     public static final int DriveForwardtime = 3;
     public static final double AutoSpeed = -0.4;
     public static final int port_number = 0; 
-
+    public static final double IndexerWheelPower = 0.5;
+    public static final double IndexerPower = 0.4;
+    public static final double IntakePower = 0.4;
+    public static final double FeederPower = 0.7;
+    
     /***************************************************************/
     	/**
 	 * Which PID slot to pull gains from. Starting 2018, you can choose from
@@ -68,7 +73,7 @@ public class Constants {
      * 
 	 * 	                                    			  kP   	 kI    kD      kF          Iz    PeakOut */
    public final static Gains kGains_Velocit  = new Gains( 0.1, 0.001,  5, 1023.0/20660.0,  300,  1.00);
-    public static ShooterGains[] GainsAr = new ShooterGains[] {
+	public static ShooterGains[] GainsAr = new ShooterGains[] {
             new ShooterGains(4131, ShooterGains.top, new Gains(0.0075, 0.004, 0.5, 0.005, 300, 1.00)),
             new ShooterGains(5200, ShooterGains.top, new Gains(0.0075, 0.00035, 0.5, 0.005, 300, 1.00)),
             new ShooterGains(6380, ShooterGains.top, new Gains(0.0075, 0.00035, 0.5, 0.005, 300, 1.00)),
