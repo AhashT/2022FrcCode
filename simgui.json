@@ -34,12 +34,22 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/ClimberSubsystem": "Subsystem",
+      "/LiveWindow/DriveSubsystem": "Subsystem",
       "/LiveWindow/DriveTrain": "Subsystem",
       "/LiveWindow/Feeder": "Subsystem",
+      "/LiveWindow/FeederSubsystem": "Subsystem",
+      "/LiveWindow/GyroSubsystem": "Subsystem",
       "/LiveWindow/Indexer": "Subsystem",
+      "/LiveWindow/IndexerSubsystem": "Subsystem",
       "/LiveWindow/IndexerWheel": "Subsystem",
+      "/LiveWindow/IndexerWheelSubsystem": "Subsystem",
       "/LiveWindow/Intake": "Subsystem",
+      "/LiveWindow/IntakeSubsystem": "Subsystem",
+      "/LiveWindow/LimelightInterface": "Subsystem",
+      "/LiveWindow/LimelightSubsystem": "Subsystem",
       "/LiveWindow/Shooter": "Subsystem",
+      "/LiveWindow/ShooterSubsystem": "Subsystem",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/DigitalInput[0]": "Digital Input",
       "/LiveWindow/Ungrouped/PWMSparkMax[0]": "Motor Controller",
@@ -48,7 +58,8 @@
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/LiveWindow/Ungrouped/Talon FX [5]": "Motor Controller",
       "/LiveWindow/Ungrouped/Talon FX [6]": "Motor Controller",
-      "/LiveWindow/Ungrouped/Talon FX [9]": "Motor Controller"
+      "/LiveWindow/Ungrouped/Talon FX [9]": "Motor Controller",
+      "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro"
     },
     "windows": {
       "/LiveWindow/Shooter": {
