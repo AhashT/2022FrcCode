@@ -5,16 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Indexer;
 
-public class StartIntake extends CommandBase {
-  private Intake intake;
+public class StartIndexerReverse extends CommandBase {
+  private Indexer indexer;
 
-  /** Creates a new StartIntake. */
-  public StartIntake(Intake intake) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.intake = intake;
-    addRequirements(intake);
+/** Creates a new StartIndexerReverse */
+  public StartIndexerReverse(Indexer indexer) {
+    this.indexer = indexer;
+    addRequirements(indexer);
   }
 
   // Called when the command is initially scheduled.
@@ -24,13 +23,13 @@ public class StartIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.IntakeStart(false);
+    indexer.IndexerStart(true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.IntakeStop();
+    indexer.IndexerStop();
   }
 
   // Returns true when the command should end.

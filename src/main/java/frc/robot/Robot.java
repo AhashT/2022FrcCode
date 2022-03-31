@@ -27,10 +27,9 @@ public class Robot extends TimedRobot {
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
-    m_robotContainer = new RobotContainer(); 
-    CameraServer.startAutomaticCapture();
-
-    
+    m_robotContainer = new RobotContainer();   
+    m_robotContainer.robotInit();  
+    CameraServer.startAutomaticCapture();    
   }
 
   @Override
@@ -59,17 +58,27 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
 
-      
-    }
+      /**For debugging - remove before competition */
+      m_autonomousCommand.initialize();
+   }
   }
 
   @Override
   public void teleopPeriodic(){}
 
   @Override
-  public void testInit(){}
+  public void testInit(){
+    m_robotContainer.testInit();
+  }
   
   @Override
-  public void testPeriodic(){}
+  public void testPeriodic(){
+    m_robotContainer.testPeriodic();
+  }
 
+  public void simulationInit() {
+    m_robotContainer.simulationInit();
+  }
+
+	
 }

@@ -5,37 +5,41 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Feeder;
 
-public class StartIntake extends CommandBase {
-  private Intake intake;
+public class FeedOne extends CommandBase {
+  private Feeder feeder;
+  private boolean isRunning;
 
-  /** Creates a new StartIntake. */
-  public StartIntake(Intake intake) {
+  /** Creates a new FeedOne. */
+  public FeedOne(Feeder feeder) {
+    this.feeder = feeder;
     // Use addRequirements() here to declare subsystem dependencies.
-    this.intake = intake;
-    addRequirements(intake);
+    addRequirements(feeder);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    isRunning = true;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.IntakeStart(false);
+    feeder.FeedOneCargo();
+    isRunning = false;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.IntakeStop();
+    //feeder.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return !isRunning;
   }
 }

@@ -7,11 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
-public class StartIntake extends CommandBase {
+public class StartIntakeReverse extends CommandBase {
   private Intake intake;
 
   /** Creates a new StartIntake. */
-  public StartIntake(Intake intake) {
+  public StartIntakeReverse(Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intake;
     addRequirements(intake);
@@ -24,7 +24,7 @@ public class StartIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.IntakeStart(false);
+    intake.IntakeStart(true);
   }
 
   // Called once the command ends or is interrupted.

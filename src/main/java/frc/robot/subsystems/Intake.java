@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -23,9 +22,13 @@ import static frc.robot.Constants.*;
  */
 public class Intake extends SubsystemBase {
   private ShuffleboardTab tab = Shuffleboard.getTab("Intake");
-  private NetworkTableEntry nte_IntakeTargetRPM = tab.add("IntakeTargetRPM", 0)
+  private NetworkTableEntry nte_IntakePower = tab.add("IntakePower", 0)
       .withWidget(BuiltInWidgets.kNumberSlider)
       .withProperties(Map.of("min", 0.0, "max", 1.0))
+      .getEntry();
+
+  private NetworkTableEntry nte_IntakeStart_button = tab.add("Start", false)
+      .withWidget(BuiltInWidgets.kToggleButton)
       .getEntry();
 
   /** Opens (forward) and closes intake arm */
@@ -33,32 +36,27 @@ public class Intake extends SubsystemBase {
   /** deivers cargo to indexer */
   private TalonFX intakeMotor;
 
-  private PWMSparkMax indexMotor;
-  private double targetRPM;
+  private double intakePower = IntakePower;
 
   private final DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PHubdID, PHubType, IntakeSolenoidForwardChannel,
       IntakeSolenoidReverseChannel);
+  private boolean startButtonPressed;
+  private boolean testRunning;
 
   public Intake() {
     intakeSolenoid.set(Value.kReverse);
     intakeMotor = new TalonFX(IntakeCanID);
-    indexMotor = new PWMSparkMax(IndexerPWM);
 
     // just guessing here KSM 2022-03-03
     intakeMotor.configMotionAcceleration(4000);
-
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    targetRPM = nte_IntakeTargetRPM.getDouble(0.4);
-
   }
 
-  /** Called when button is pressed */
-  public void IntakeCargoStartAsync() {
-
+  public void IntakeStart(boolean reverse) {
+    System.out.println("IntakeStart: " + intakePower * (reverse ? -1.0 : 1.0));
     // extend pickup arm
     intakeSolenoid.set(Value.kForward);
 
@@ -71,17 +69,14 @@ public class Intake extends SubsystemBase {
      * }
      */
 
-    // start motors
-    intakeMotor.set(ControlMode.PercentOutput, targetRPM);
-    indexMotor.set(.4);
+    intakeMotor.set(ControlMode.PercentOutput, intakePower * (reverse ? -1.0 : 1.0));
   }
 
   /** Called when button is released */
-  public void IntakeCargoStoptAsync() {
-    // stop motors
+  public void IntakeStop() {
+    System.out.println("IntakeStop");
     intakeMotor.set(ControlMode.PercentOutput, 0);
-    indexMotor.set(0);
-    // extend pickup arm
+    // retract pickup arm
     intakeSolenoid.set(Value.kReverse);
 
     // give arm time to extend
@@ -92,5 +87,28 @@ public class Intake extends SubsystemBase {
      * return;
      * }
      */
+  }
+
+  public void testInit() {
+    nte_IntakePower.setDouble(intakePower);
+  }
+
+  public void testPeriodic() {
+    intakePower = nte_IntakePower.getDouble(intakePower);
+
+    /* check for test button state change */
+    startButtonPressed = nte_IntakeStart_button.getBoolean(false);
+    if (startButtonPressed) {
+      if (!testRunning) {
+        IntakeStart(false);
+        testRunning = true;
+      }
+    } else {
+      if (testRunning) {
+        IntakeStop();
+        testRunning = false;
+      }
+    }
+
   }
 }

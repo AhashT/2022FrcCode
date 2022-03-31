@@ -3,7 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-import edu.wpi.first.wpilibj.PneumaticHub;
+
+import static frc.robot.Constants.port_number;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -11,73 +13,80 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveBackwardTimed;
 import frc.robot.commands.DriveTimed;
 import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.FeedOne;
+import frc.robot.commands.StartIndexWheel;
+import frc.robot.commands.StartIndexWheelReverse;
+import frc.robot.commands.StartIndexer;
+import frc.robot.commands.StartIndexerReverse;
 import frc.robot.commands.StartIntake;
-import frc.robot.commands.StopIntake;
+import frc.robot.commands.StartIntakeReverse;
 import frc.robot.commands.StartShooter;
-import frc.robot.commands.StopShooter;
+import frc.robot.commands.WaitForTargetRPM;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.IndexerWheel;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
 public class RobotContainer {
+    private final XboxController xbox = new XboxController(port_number);
+    private final DriveTrain driveT = new DriveTrain();
+    private final DriveWithJoysticks driveWithJoysticks = new DriveWithJoysticks(driveT, xbox);;
+    private final DriveBackwardTimed driveBackwardTime = new DriveBackwardTimed(driveT);
+    private final Shooter shooter = new Shooter();
+    private final Feeder feeder = new Feeder();
+    private final Indexer indexer = new Indexer();
+    private final IndexerWheel indexerWheel = new IndexerWheel();
+    private final Intake intake = new Intake();
+    private final StartShooter startShooter = new StartShooter(shooter);
+    private final WaitForTargetRPM waitForTargetRPM = new WaitForTargetRPM(shooter);
+    private final FeedOne feedOne = new FeedOne(feeder);
 
-    private final DriveWithJoysticks driveWithJoysticks;
-    private final DriveTrain driveT;
-    private final DriveBackwardTimed driveForwardTimed;
-    public static XboxController xbox;
-    public final Shooter shooter;
-    public final Intake intake;         
-    public final PneumaticHub PHub;
-    public final DriveTimed driveBackward;
-    public final DriveTimed driveForward;
-    private SequentialCommandGroup driveTIMED;
+    public RobotContainer() {
+        driveT.setDefaultCommand(driveWithJoysticks);        
 
-    public RobotContainer(){
-        xbox = new XboxController(Constants.port_number);
+        /**Right bumper  - Intake */
+        JoystickButton intakeButton = new JoystickButton(xbox, 6);
+        intakeButton.whileHeld(new StartIntake(intake).alongWith(new StartIndexer(indexer).alongWith(new StartIndexWheel(indexerWheel))));             
 
-        driveT = new DriveTrain();
-        driveWithJoysticks = new DriveWithJoysticks(driveT, xbox);
-        driveWithJoysticks.addRequirements(driveT);
-        driveT.setDefaultCommand(driveWithJoysticks);
+        /**Left bumper  - Intake Reverse*/
+        JoystickButton intakeReverseButton = new JoystickButton(xbox, 5);
+        intakeReverseButton.whileHeld(new StartIntakeReverse(intake).alongWith(new StartIndexerReverse(indexer).alongWith(new StartIndexWheelReverse(indexerWheel))));             
 
-        intake = new Intake();
-        StartIntake startIntake = new StartIntake(intake);
-        startIntake.addRequirements(intake);
-        StopIntake stopIntake = new StopIntake(intake);
-        stopIntake.addRequirements(intake);
-       
-        /**Right bumper */
-        JoystickButton intakeButton = new JoystickButton(xbox, XboxController.Button.kRightBumper.ordinal());
-        intakeButton.whenPressed(startIntake);
-        intakeButton.whenReleased(stopIntake);
+        /** X button - Shoot */
+        JoystickButton shootButton = new JoystickButton(xbox, 1);
+        shootButton.whileHeld(startShooter
+        //.andThen(waitForTargetRPM)
+        .andThen(feedOne.alongWith(new StartIndexer(indexer).alongWith(new StartIndexWheel(indexerWheel)))));
         
-        shooter = new Shooter();
-        StartShooter startShooter = new StartShooter(shooter);
-        startShooter.addRequirements(shooter);
-        StopShooter stopShooters = new StopShooter(shooter);
-        stopShooters.addRequirements(shooter);
-
-        /**X button */
-        JoystickButton shootButton = new JoystickButton(xbox, XboxController.Button.kX.ordinal());
-        shootButton.whenPressed(startShooter);
-        shootButton.whenReleased(stopShooters);
-
-        PHub = new PneumaticHub(Constants.PHubdID);
-
-        // Drive Forward Test Auto
-        driveForwardTimed = new DriveBackwardTimed(driveT);
-        driveForwardTimed.addRequirements(driveT);
-        // Autonomous
-        driveForward = new DriveTimed(driveT, 0.4, 4);
-        driveForward.addRequirements(driveT);
-        driveBackward = new DriveTimed(driveT, -0.4, 4);
-        driveBackward.addRequirements(driveT);
-
-        // Sequence
-         //driveTIMED = new SequentialCommandGroup(driveBackward.andThen(driveForward));
     }
 
-    public Command getAutonmousCommand(){
-        return driveBackward.andThen(driveForward);
+    public void simulationInit() {
+        shooter.simulationInit();        
+    }
+
+    public void robotInit() {
+        shooter.robotInit();
+    }
+
+    public void testInit() {
+        shooter.testInit();
+        intake.testInit();
+        indexer.testInit();
+        indexerWheel.testInit();
+        feeder.testInit();
+    }
+
+    public void testPeriodic() {
+        shooter.testPeriodic();
+        intake.testPeriodic();
+        indexer.testPeriodic();
+        indexerWheel.testPeriodic();
+        feeder.testPeriodic();
+   }
+
+    public Command getAutonmousCommand() {
+        return driveBackwardTime;
     }
 }

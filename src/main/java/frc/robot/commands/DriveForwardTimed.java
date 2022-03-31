@@ -32,7 +32,7 @@ public class DriveForwardTimed extends CommandBase {
     timer.reset();
     timer.start();
     
-    while(timer.get() < Constants.DriveBackwardtime){
+    while(timer.get() < Constants.DriveForwardtime){
       driveTrain.driveForward(Constants.AutoSpeed);
     }
   }
