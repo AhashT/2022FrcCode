@@ -4,73 +4,68 @@
 
 package frc.robot.subsystems;
 
+import java.util.Map;
+
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-
 import static frc.robot.Constants.*;
 
-import java.util.Map;
-
-public class IndexerWheel extends SubsystemBase {
-  private ShuffleboardTab tab = Shuffleboard.getTab("IndexerWheel");
-  private NetworkTableEntry nte_IndexerWheelPower = tab.add("IndexerWheelPower", 0)
+/** deivers cargo to feeder */
+public class IndexerSubsystem extends SubsystemBase {
+  private ShuffleboardTab tab = Shuffleboard.getTab("Indexer");
+  private NetworkTableEntry nte_IndexerPower = tab.add("IndexerPower", 0)
       .withWidget(BuiltInWidgets.kNumberSlider)
       .withProperties(Map.of("min", 0.0, "max", 1.0))
       .getEntry();
 
-  private NetworkTableEntry nte_IndexerWheelStart_button = tab.add("Start", false)
+  private NetworkTableEntry nte_IndexerStart_button = tab.add("Start", false)
       .withWidget(BuiltInWidgets.kToggleButton)
       .getEntry();
 
-  PWMSparkMax m_indexwheel;
-  private double power = Constants.IndexerWheelPower;
+  private PWMSparkMax indexMotor;
+  private double indexerPower = IndexerPower;
   private boolean startButtonPressed;
   private boolean testRunning;
 
-  /** Creates a new IndexerWheel. */
-  public IndexerWheel() {
-    m_indexwheel = new PWMSparkMax(IndexerWheelPWM);
-    m_indexwheel.set(0);
-    m_indexwheel.setInverted(true);
-  }
-
-  public void start(boolean reverse) {
-    System.out.println("IndexerWheelStart: " + power * (reverse ? -1.0 : 1.0));
-    m_indexwheel.set(power * (reverse ? -1.0 : 1.0));
-  }
-
-  public void stop() {
-    System.out.println("IndexerWheelStop");
-    m_indexwheel.set(0);
+  /** Creates a new Indexer. */
+  public IndexerSubsystem() {
+    indexMotor = new PWMSparkMax(IndexerPWM);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+  }
+
+  public void IndexerStart(boolean reverse) {
+    System.out.println("IndexerStart: " + indexerPower * (reverse ? -1.0 : 1.0));
+    indexMotor.set(indexerPower * (reverse ? -1.0 : 1.0));
+  }
+
+  public void IndexerStop() {
+    System.out.println("IndexerStop");
+    indexMotor.set(0);
   }
 
   public void testInit() {
-    nte_IndexerWheelPower.setDouble(power);
+    nte_IndexerPower.setDouble(indexerPower);
   }
 
   public void testPeriodic() {
-    power = nte_IndexerWheelPower.getDouble(power);
-
+    indexerPower = nte_IndexerPower.getDouble(IndexerPower);
     /* check for test button state change */
-    startButtonPressed = nte_IndexerWheelStart_button.getBoolean(false);
+    startButtonPressed = nte_IndexerStart_button.getBoolean(false);
     if (startButtonPressed) {
       if (!testRunning) {
-        start(false);
+        IndexerStart(false);
         testRunning = true;
       }
     } else {
       if (testRunning) {
-        stop();
+        IndexerStop();
         testRunning = false;
       }
     }

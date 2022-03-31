@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.IndexerSubsystem;
 
 public class StartIndexer extends CommandBase {
-  private Indexer indexer;
+  private IndexerSubsystem indexer;
 
 /** Creates a new StartIndexer. */
-  public StartIndexer(Indexer indexer) {
+  public StartIndexer(IndexerSubsystem indexer) {
     this.indexer = indexer;
     addRequirements(indexer);
   }

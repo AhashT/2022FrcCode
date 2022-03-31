@@ -10,6 +10,8 @@ import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.GyroSubsystem;
+import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.subsystems.IndexerWheelSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -24,10 +26,12 @@ public class Subsystems {
     public static final FeederSubsystem FEEDER_SUBSYSTEM = new FeederSubsystem();
     public static final ClimberSubsystem CLIMBER_SUBSYSTEM = new ClimberSubsystem();
     public static final GyroSubsystem GYRO_SUBSYSTEM = new GyroSubsystem();
+    public static final IndexerWheelSubsystem INDEXER_WHEEL_SUBSYSTEM = new IndexerWheelSubsystem();
+    public static final IndexerSubsystem INDEXER_SUBSYSTEM = new IndexerSubsystem();
 
     public static void setDefaultCommands() {
+        // DISABLED DRIVE FOR TESTING UNCOMMENT BELOW FOR COMP
         //DRIVE_SUBSYSTEM.setDefaultCommand(new DriveWithJoysticks(DRIVE_SUBSYSTEM, Input.xbox));
-        //DRIVE_SUBSYSTEM.setDefaultCommand(new DoNothing(DRIVE_SUBSYSTEM));
     }
 
 

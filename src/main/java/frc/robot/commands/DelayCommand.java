@@ -6,18 +6,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-<<<<<<< HEAD:src/main/java/frc/robot/commands/DelayCommand.java
 public class DelayCommand extends CommandBase {
   /** Creates a new WaitTimedCommand. */
   public DelayCommand(double timeout) {
     withTimeout(timeout);
-=======
-public class StartIntakeReverse extends CommandBase {
-  private Intake intake;
-
-  /** Creates a new StartIntake. */
-  public StartIntakeReverse(Intake intake) {
->>>>>>> main:src/main/java/frc/robot/commands/StartIntakeReverse.java
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -27,19 +19,11 @@ public class StartIntakeReverse extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-<<<<<<< HEAD:src/main/java/frc/robot/commands/DelayCommand.java
   public void execute() {}
-=======
-  public void execute() {
-    intake.IntakeStart(true);
-  }
->>>>>>> main:src/main/java/frc/robot/commands/StartIntakeReverse.java
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    intake.IntakeStop();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

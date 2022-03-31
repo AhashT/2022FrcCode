@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IndexerWheel;
+import frc.robot.subsystems.IndexerWheelSubsystem;
 
 public class StartIndexWheelReverse extends CommandBase {
-  private IndexerWheel indexerWheel;
+  private IndexerWheelSubsystem indexerWheel;
 
   /** Creates a new StartIndexWheelReverse. */
-  public StartIndexWheelReverse(IndexerWheel indexerWheel) {
+  public StartIndexWheelReverse(IndexerWheelSubsystem indexerWheel) {
     this.indexerWheel =indexerWheel;
     // Use addRequirements() here to declare subsystem dependencies.
   addRequirements(indexerWheel);

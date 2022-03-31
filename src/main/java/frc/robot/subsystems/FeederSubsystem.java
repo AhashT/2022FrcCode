@@ -15,7 +15,7 @@ import static frc.robot.Constants.*;
 
 import java.util.Map;
 
-public class Feeder extends SubsystemBase {
+public class FeederSubsystem extends SubsystemBase {
   private ShuffleboardTab tab = Shuffleboard.getTab("Feeder");
   private NetworkTableEntry nte_FeederPower = tab.add("FeederPower", 0)
       .withWidget(BuiltInWidgets.kNumberSlider)

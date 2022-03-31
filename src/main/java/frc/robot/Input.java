@@ -14,7 +14,11 @@ public class Input {
 
     public static JoystickButton BUTTON_A = new JoystickButton(xbox, 2);
     public static JoystickButton BUTTON_B = new JoystickButton(xbox, 3);
-    public static JoystickButton BUTTON_X = new JoystickButton(xbox, 1);
+   // public static JoystickButton BUTTON_X = new JoystickButton(xbox, 1);
+    public static JoystickButton intakeButton = new JoystickButton(xbox, 6);
+    public static JoystickButton intakeReverseButton = new JoystickButton(xbox, 5);
+    public static JoystickButton shootButton = new JoystickButton(xbox, 1);
+
     // public static JoystickButton BUTTON_Y = new JoystickButton(xbox, 1);
     // public static JoystickButton BUTTON_LEFT_BUMPER = new JoystickButton(xbox, 1);
     // public static JoystickButton BUTTON_RIGHT_BUMPER = new JoystickButton(xbox, 1);

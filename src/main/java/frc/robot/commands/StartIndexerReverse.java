@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.IndexerSubsystem;
 
 public class StartIndexerReverse extends CommandBase {
-  private Indexer indexer;
+  private IndexerSubsystem indexer;
 
 /** Creates a new StartIndexerReverse */
-  public StartIndexerReverse(Indexer indexer) {
+  public StartIndexerReverse(IndexerSubsystem indexer) {
     this.indexer = indexer;
     addRequirements(indexer);
   }

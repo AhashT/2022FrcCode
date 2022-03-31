@@ -21,6 +21,7 @@ import static frc.robot.Constants.*;
  * Extends roller(?) to grab cargo and advance it to indexer.
  */
 public class IntakeSubsystem extends SubsystemBase {
+  
   private ShuffleboardTab tab = Shuffleboard.getTab("Intake");
   private NetworkTableEntry nte_IntakePower = tab.add("IntakePower", 0)
       .withWidget(BuiltInWidgets.kNumberSlider)
@@ -43,7 +44,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private boolean startButtonPressed;
   private boolean testRunning;
 
-  public Intake() {
+  public IntakeSubsystem() {
     intakeSolenoid.set(Value.kReverse);
     intakeMotor = new TalonFX(IntakeCanID);
 
