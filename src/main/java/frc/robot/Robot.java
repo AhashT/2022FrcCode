@@ -8,6 +8,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.interfaces.LimelightInterface.ledMode;
 
 
 /**
@@ -29,7 +30,7 @@ public class Robot extends TimedRobot {
     CameraServer.startAutomaticCapture(); 
     Subsystems.DRIVE_SUBSYSTEM.resetEncoders();
     Subsystems.GYRO_SUBSYSTEM.zero();
-    
+    Subsystems.LIMELIGHT_SUBSYSTEM.Limelight.setLEDMode(ledMode.OFF);
   }
 
   @Override
