@@ -58,8 +58,8 @@ public class Intake extends SubsystemBase {
   }
 
   
-  public void IntakeStart() {
-    System.out.println("IntakeStart: "+intakePower);
+  public void IntakeStart(boolean reverse) {
+    System.out.println("IntakeStart: "+intakePower*(reverse?-1.0:1.0));
     // extend pickup arm
     intakeSolenoid.set(Value.kForward);
 
@@ -72,7 +72,7 @@ public class Intake extends SubsystemBase {
      * }
      */
 
-    intakeMotor.set(ControlMode.PercentOutput, intakePower);
+    intakeMotor.set(ControlMode.PercentOutput, intakePower*(reverse?-1.0:1.0));
   }
 
   /** Called when button is released */
@@ -103,7 +103,7 @@ public void testPeriodic() {
   startButtonPressed = nte_IntakeStart_button.getBoolean(false);
   if (startButtonPressed) {
           if (!testRunning) {
-                  IntakeStart();
+                  IntakeStart(false);
                   testRunning = true;
           }
   } else {
