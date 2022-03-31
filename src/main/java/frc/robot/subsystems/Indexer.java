@@ -34,9 +34,9 @@ public class Indexer extends SubsystemBase {
   public void periodic() {
   }
 
-  public void IndexerStart() {
-    System.out.println("IndexerStart: " + indexerPower);
-    indexMotor.set(indexerPower);
+  public void IndexerStart(boolean reverse) {
+    System.out.println("IndexerStart: " + indexerPower*(reverse?-1.0:1.0));
+    indexMotor.set(indexerPower*(reverse?-1.0:1.0));
   }
 
   public void IndexerStop() {

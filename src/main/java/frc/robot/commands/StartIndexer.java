@@ -10,7 +10,7 @@ import frc.robot.subsystems.Indexer;
 public class StartIndexer extends CommandBase {
   private Indexer indexer;
 
-/** Creates a new StartF. */
+/** Creates a new StartIndexer. */
   public StartIndexer(Indexer indexer) {
     this.indexer = indexer;
     addRequirements(indexer);
@@ -23,7 +23,7 @@ public class StartIndexer extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    indexer.IndexerStart();
+    indexer.IndexerStart(false);
   }
 
   // Called once the command ends or is interrupted.

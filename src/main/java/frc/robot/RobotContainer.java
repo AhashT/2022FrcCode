@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import static frc.robot.Constants.port_number;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -11,17 +13,19 @@ import frc.robot.commands.DriveForwardTimed;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.FeedOne;
 import frc.robot.commands.StartIndexWheel;
+import frc.robot.commands.StartIndexWheelReverse;
 import frc.robot.commands.StartIndexer;
+import frc.robot.commands.StartIndexerReverse;
 import frc.robot.commands.StartIntake;
+import frc.robot.commands.StartIntakeReverse;
 import frc.robot.commands.StartShooter;
 import frc.robot.commands.WaitForTargetRPM;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.IndexerWheel;
-import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
-import static frc.robot.Constants.*;
 
 public class RobotContainer {
     private final XboxController xbox = new XboxController(port_number);
@@ -40,15 +44,20 @@ public class RobotContainer {
     public RobotContainer() {
         driveT.setDefaultCommand(driveWithJoysticks);        
 
-        /**Right bumper */
+        /**Right bumper  - Intake */
         JoystickButton intakeButton = new JoystickButton(xbox, 6);
         intakeButton.whileHeld(new StartIntake(intake).alongWith(new StartIndexer(indexer).alongWith(new StartIndexWheel(indexerWheel))));             
 
-        /** X button */
+        /**Left bumper  - Intake Reverse*/
+        JoystickButton intakeReverseButton = new JoystickButton(xbox, 5);
+        intakeReverseButton.whileHeld(new StartIntakeReverse(intake).alongWith(new StartIndexerReverse(indexer).alongWith(new StartIndexWheelReverse(indexerWheel))));             
+
+        /** X button - Shoot */
         JoystickButton shootButton = new JoystickButton(xbox, 1);
         shootButton.whileHeld(startShooter
         //.andThen(waitForTargetRPM)
         .andThen(feedOne.alongWith(new StartIndexer(indexer).alongWith(new StartIndexWheel(indexerWheel)))));
+        
     }
 
     public void simulationInit() {

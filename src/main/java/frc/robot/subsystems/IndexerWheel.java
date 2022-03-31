@@ -33,9 +33,9 @@ public class IndexerWheel extends SubsystemBase {
     m_indexwheel.setInverted(true);
   }
 
-  public void start(){
-    System.out.println("IndexerWheelStart: " + power);
-     m_indexwheel.set(power);
+  public void start(boolean reverse){
+    System.out.println("IndexerWheelStart: " + power*(reverse?-1.0:1.0));
+     m_indexwheel.set(power*(reverse?-1.0:1.0));
   }
 
   public void stop(){
