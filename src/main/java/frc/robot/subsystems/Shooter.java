@@ -30,8 +30,12 @@ import frc.robot.ShooterGains;
 import frc.robot.sim.PhysicsSim;
 
 public class Shooter extends SubsystemBase {
+        private ShooterGains btmGains = GainsAr[2];
+        private ShooterGains topGains = GainsAr[5];
+        public double targetRPM = topGains.speed;
+
         private ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
-        private NetworkTableEntry nte_ShooterTargetRPM = tab.add("ShooterTargetRPM", 3000)
+        private NetworkTableEntry nte_ShooterTargetRPM = tab.add("ShooterTargetRPM", targetRPM)
                         .withWidget(BuiltInWidgets.kTextView)
                         .withProperties(Map.of("min", 0.0, "max", 6380.0))
                         .withPosition(0, 0)
@@ -43,31 +47,31 @@ public class Shooter extends SubsystemBase {
                         .withPosition(1, 0)
                         .getEntry();
 
-        private NetworkTableEntry nte_top_kP = tab.add("Top kP", 0.1)
+        private NetworkTableEntry nte_top_kP = tab.add("Top kP", topGains.Gains.kP)
                         .withWidget(BuiltInWidgets.kTextView)
                         .withProperties(Map.of("min", 0.0, "max", 1.0))
                         .withPosition(1, 1)
                         .getEntry();
 
-        private NetworkTableEntry nte_top_kI = tab.add("Top kI", 0.001)
+        private NetworkTableEntry nte_top_kI = tab.add("Top kI", topGains.Gains.kI)
                         .withWidget(BuiltInWidgets.kTextView)
                         .withProperties(Map.of("min", 0.0, "max", 1.0))
                         .withPosition(1, 2)
                         .getEntry();
 
-        private NetworkTableEntry nte_top_kD = tab.add("Top kD", 0.1)
+        private NetworkTableEntry nte_top_kD = tab.add("Top kD",  topGains.Gains.kD)
                         .withWidget(BuiltInWidgets.kTextView)
                         .withProperties(Map.of("min", 0.0, "max", 10.0))
                         .withPosition(1, 3)
                         .getEntry();
 
-        private NetworkTableEntry nte_top_kF = tab.add("Top kF", 0.00495159)
+        private NetworkTableEntry nte_top_kF = tab.add("Top kF",  topGains.Gains.kF)
                         .withWidget(BuiltInWidgets.kTextView)
                         .withProperties(Map.of("min", 0.0, "max", 1.0))
                         .withPosition(1, 4)
                         .getEntry();
 
-        private NetworkTableEntry nte_top_Iz = tab.add("Top Iz", 300)
+        private NetworkTableEntry nte_top_Iz = tab.add("Top Iz",  topGains.Gains.kIzone)
                         .withWidget(BuiltInWidgets.kTextView)
                         .withProperties(Map.of("min", 0, "max", 1000))
                         .withPosition(1, 5)
@@ -79,43 +83,43 @@ public class Shooter extends SubsystemBase {
                         .withPosition(2, 0)
                         .getEntry();
 
-        private NetworkTableEntry nte_btm_kP = tab.add("Btm kP", 0.1)
+        private NetworkTableEntry nte_btm_kP = tab.add("Btm kP",  btmGains.Gains.kP)
                         .withWidget(BuiltInWidgets.kTextView)
                         .withProperties(Map.of("min", 0.0, "max", 1.0))
                         .withPosition(2, 1)
                         .getEntry();
 
-        private NetworkTableEntry nte_btm_kI = tab.add("Btm kI", 0.001)
+        private NetworkTableEntry nte_btm_kI = tab.add("Btm kI", btmGains.Gains.kI)
                         .withWidget(BuiltInWidgets.kTextView)
                         .withProperties(Map.of("min", 0.0, "max", 1.0))
                         .withPosition(2, 2)
                         .getEntry();
 
-        private NetworkTableEntry nte_btm_kD = tab.add("Btm kD", 0.1)
+        private NetworkTableEntry nte_btm_kD = tab.add("Btm kD", btmGains.Gains.kD)
                         .withWidget(BuiltInWidgets.kTextView)
                         .withProperties(Map.of("min", 0.0, "max", 10.0))
                         .withPosition(2, 3)
                         .getEntry();
 
-        private NetworkTableEntry nte_btm_kF = tab.add("Btm kF", 0.00495159)
+        private NetworkTableEntry nte_btm_kF = tab.add("Btm kF", btmGains.Gains.kF)
                         .withWidget(BuiltInWidgets.kTextView)
                         .withProperties(Map.of("min", 0.0, "max", 1.0))
                         .withPosition(2, 4)
                         .getEntry();
 
-        private NetworkTableEntry nte_btm_Iz = tab.add("Btm Iz", 300)
+        private NetworkTableEntry nte_btm_Iz = tab.add("Btm Iz", btmGains.Gains.kIzone)
                         .withWidget(BuiltInWidgets.kTextView)
                         .withProperties(Map.of("min", 0, "max", 1000))
                         .withPosition(2, 5)
                         .getEntry();
 
-        private NetworkTableEntry nte_top_Peak = tab.add("Top Peak", 1.0)
+        private NetworkTableEntry nte_top_Peak = tab.add("Top Peak", topGains.Gains.kPeakOutput)
                         .withWidget(BuiltInWidgets.kTextView)
                         .withProperties(Map.of("min", 0.0, "max", 1.0))
                         .withPosition(0, 1)
                         .getEntry();
 
-        private NetworkTableEntry nte_btm_Peak = tab.add("Btm Peak", 1.0)
+        private NetworkTableEntry nte_btm_Peak = tab.add("Btm Peak", btmGains.Gains.kPeakOutput)
                         .withWidget(BuiltInWidgets.kTextView)
                         .withProperties(Map.of("min", 0.0, "max", 1.0))
                         .withPosition(0, 2)
@@ -149,10 +153,6 @@ public class Shooter extends SubsystemBase {
         WPI_TalonFX m_top;
         WPI_TalonFX m_btm;
 
-        /** Desired top and bottom RPM */
-        public double targetRPM;
-        private ShooterGains btmGains = GainsAr[0];
-        private ShooterGains topGains = GainsAr[3];
         private int initCounter;
         private int periodicCounter;
         private boolean testButtonPressed;
@@ -315,14 +315,14 @@ public class Shooter extends SubsystemBase {
                 nte_btm_Eplot.setValue(m_btm.getClosedLoopError());
 
                 /* Config the Velocity closed loop gains in slot0 */
-                m_top.config_kP(kPIDLoopIdx, nte_top_kP.getDouble(0.0075), kTimeoutMs);
-                m_top.config_kI(kPIDLoopIdx, nte_top_kI.getDouble(0.00035), kTimeoutMs);
-                m_top.config_kD(kPIDLoopIdx, nte_top_kD.getDouble(5), kTimeoutMs);
-                m_top.config_kF(kPIDLoopIdx, nte_top_kF.getDouble(0.00495159), kTimeoutMs);
-                m_btm.config_kP(kPIDLoopIdx, nte_btm_kP.getDouble(0.0075), kTimeoutMs);
-                m_btm.config_kI(kPIDLoopIdx, nte_btm_kI.getDouble(0.00035), kTimeoutMs);
-                m_btm.config_kD(kPIDLoopIdx, nte_btm_kD.getDouble(5), kTimeoutMs);
-                m_btm.config_kF(kPIDLoopIdx, nte_btm_kF.getDouble(0.00495159), kTimeoutMs);
+                m_top.config_kP(kPIDLoopIdx, nte_top_kP.getDouble(topGains.Gains.kP), kTimeoutMs);
+                m_top.config_kI(kPIDLoopIdx, nte_top_kI.getDouble(topGains.Gains.kI), kTimeoutMs);
+                m_top.config_kD(kPIDLoopIdx, nte_top_kD.getDouble(topGains.Gains.kD), kTimeoutMs);
+                m_top.config_kF(kPIDLoopIdx, nte_top_kF.getDouble(topGains.Gains.kF), kTimeoutMs);
+                m_btm.config_kP(kPIDLoopIdx, nte_btm_kP.getDouble(btmGains.Gains.kP), kTimeoutMs);
+                m_btm.config_kI(kPIDLoopIdx, nte_btm_kI.getDouble(btmGains.Gains.kI), kTimeoutMs);
+                m_btm.config_kD(kPIDLoopIdx, nte_btm_kD.getDouble(btmGains.Gains.kD), kTimeoutMs);
+                m_btm.config_kF(kPIDLoopIdx, nte_btm_kF.getDouble(btmGains.Gains.kF), kTimeoutMs);
 
         }
 

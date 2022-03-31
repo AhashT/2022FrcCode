@@ -45,6 +45,7 @@ public class Constants {
     public static final double IndexerWheelPower = 0.5;
     public static final double IndexerPower = 0.4;
     public static final double IntakePower = 0.4;
+    public static final double FeederPower = 0.7;
     
     /***************************************************************/
     	/**

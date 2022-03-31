@@ -22,8 +22,14 @@ public class Indexer extends SubsystemBase {
       .withProperties(Map.of("min", 0.0, "max", 1.0))
       .getEntry();
 
+  private NetworkTableEntry nte_IndexerStart_button = tab.add("Start", false)
+      .withWidget(BuiltInWidgets.kToggleButton)
+      .getEntry();
+
   private PWMSparkMax indexMotor;
   private double indexerPower = IndexerPower;
+  private boolean startButtonPressed;
+  private boolean testRunning;
 
   /** Creates a new Indexer. */
   public Indexer() {
@@ -35,8 +41,8 @@ public class Indexer extends SubsystemBase {
   }
 
   public void IndexerStart(boolean reverse) {
-    System.out.println("IndexerStart: " + indexerPower*(reverse?-1.0:1.0));
-    indexMotor.set(indexerPower*(reverse?-1.0:1.0));
+    System.out.println("IndexerStart: " + indexerPower * (reverse ? -1.0 : 1.0));
+    indexMotor.set(indexerPower * (reverse ? -1.0 : 1.0));
   }
 
   public void IndexerStop() {
@@ -49,6 +55,19 @@ public class Indexer extends SubsystemBase {
   }
 
   public void testPeriodic() {
-    indexerPower = nte_IndexerPower.getDouble(0.4);
+    indexerPower = nte_IndexerPower.getDouble(IndexerPower);
+    /* check for test button state change */
+    startButtonPressed = nte_IndexerStart_button.getBoolean(false);
+    if (startButtonPressed) {
+      if (!testRunning) {
+        IndexerStart(false);
+        testRunning = true;
+      }
+    } else {
+      if (testRunning) {
+        IndexerStop();
+        testRunning = false;
+      }
+    }
   }
 }

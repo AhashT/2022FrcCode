@@ -23,9 +23,15 @@ public class IndexerWheel extends SubsystemBase {
       .withProperties(Map.of("min", 0.0, "max", 1.0))
       .getEntry();
 
+  private NetworkTableEntry nte_IndexerWheelStart_button = tab.add("Start", false)
+      .withWidget(BuiltInWidgets.kToggleButton)
+      .getEntry();
+
   PWMSparkMax m_indexwheel;
   private double power = Constants.IndexerWheelPower;
-  
+  private boolean startButtonPressed;
+  private boolean testRunning;
+
   /** Creates a new IndexerWheel. */
   public IndexerWheel() {
     m_indexwheel = new PWMSparkMax(IndexerWheelPWM);
@@ -33,12 +39,12 @@ public class IndexerWheel extends SubsystemBase {
     m_indexwheel.setInverted(true);
   }
 
-  public void start(boolean reverse){
-    System.out.println("IndexerWheelStart: " + power*(reverse?-1.0:1.0));
-     m_indexwheel.set(power*(reverse?-1.0:1.0));
+  public void start(boolean reverse) {
+    System.out.println("IndexerWheelStart: " + power * (reverse ? -1.0 : 1.0));
+    m_indexwheel.set(power * (reverse ? -1.0 : 1.0));
   }
 
-  public void stop(){
+  public void stop() {
     System.out.println("IndexerWheelStop");
     m_indexwheel.set(0);
   }
@@ -48,11 +54,25 @@ public class IndexerWheel extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-public void testInit() {
-  nte_IndexerWheelPower.setDouble(power);
-}
+  public void testInit() {
+    nte_IndexerWheelPower.setDouble(power);
+  }
 
-public void testPeriodic() {
-  power = nte_IndexerWheelPower.getDouble(0.4);
+  public void testPeriodic() {
+    power = nte_IndexerWheelPower.getDouble(power);
+
+    /* check for test button state change */
+    startButtonPressed = nte_IndexerWheelStart_button.getBoolean(false);
+    if (startButtonPressed) {
+      if (!testRunning) {
+        start(false);
+        testRunning = true;
+      }
+    } else {
+      if (testRunning) {
+        stop();
+        testRunning = false;
+      }
+    }
   }
 }

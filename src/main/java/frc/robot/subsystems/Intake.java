@@ -27,11 +27,9 @@ public class Intake extends SubsystemBase {
       .withProperties(Map.of("min", 0.0, "max", 1.0))
       .getEntry();
 
-      private NetworkTableEntry nte_IntakeStart_button = tab.add("Start", false)
+  private NetworkTableEntry nte_IntakeStart_button = tab.add("Start", false)
       .withWidget(BuiltInWidgets.kToggleButton)
-      .withPosition(1, 0)
       .getEntry();
-
 
   /** Opens (forward) and closes intake arm */
 
@@ -48,7 +46,7 @@ public class Intake extends SubsystemBase {
   public Intake() {
     intakeSolenoid.set(Value.kReverse);
     intakeMotor = new TalonFX(IntakeCanID);
-   
+
     // just guessing here KSM 2022-03-03
     intakeMotor.configMotionAcceleration(4000);
   }
@@ -57,9 +55,8 @@ public class Intake extends SubsystemBase {
   public void periodic() {
   }
 
-  
   public void IntakeStart(boolean reverse) {
-    System.out.println("IntakeStart: "+intakePower*(reverse?-1.0:1.0));
+    System.out.println("IntakeStart: " + intakePower * (reverse ? -1.0 : 1.0));
     // extend pickup arm
     intakeSolenoid.set(Value.kForward);
 
@@ -72,7 +69,7 @@ public class Intake extends SubsystemBase {
      * }
      */
 
-    intakeMotor.set(ControlMode.PercentOutput, intakePower*(reverse?-1.0:1.0));
+    intakeMotor.set(ControlMode.PercentOutput, intakePower * (reverse ? -1.0 : 1.0));
   }
 
   /** Called when button is released */
@@ -92,26 +89,26 @@ public class Intake extends SubsystemBase {
      */
   }
 
-public void testInit(){
-  nte_IntakePower.setDouble(intakePower);
-}
-
-public void testPeriodic() {
-  intakePower = nte_IntakePower.getDouble(0.4);
-
-  /* check for test button state change */
-  startButtonPressed = nte_IntakeStart_button.getBoolean(false);
-  if (startButtonPressed) {
-          if (!testRunning) {
-                  IntakeStart(false);
-                  testRunning = true;
-          }
-  } else {
-          if (testRunning) {
-                  IntakeStop();
-                  testRunning = false;
-          }
+  public void testInit() {
+    nte_IntakePower.setDouble(intakePower);
   }
-  
+
+  public void testPeriodic() {
+    intakePower = nte_IntakePower.getDouble(intakePower);
+
+    /* check for test button state change */
+    startButtonPressed = nte_IntakeStart_button.getBoolean(false);
+    if (startButtonPressed) {
+      if (!testRunning) {
+        IntakeStart(false);
+        testRunning = true;
+      }
+    } else {
+      if (testRunning) {
+        IntakeStop();
+        testRunning = false;
+      }
+    }
+
   }
 }
