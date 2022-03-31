@@ -10,15 +10,17 @@ import frc.robot.Subsystems;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 
-public class RotateVisionCommand extends CommandBase {
+public class ApproachVisionCommand extends CommandBase {
   /** Creates a new RotateVisionCommand. */
 
 
   DriveSubsystem DRIVE_SUBSYSTEM;
   LimelightSubsystem LIMELIGHT_SUBSYSTEM;
-  double kP = 0.015;
-
-  public RotateVisionCommand(DriveSubsystem ds, LimelightSubsystem ls) {
+  double kP_r = 0.015;
+  double kP_d = .1;
+  double area_goal = 2;
+  double output;
+  public ApproachVisionCommand(DriveSubsystem ds, LimelightSubsystem ls) {
     this.DRIVE_SUBSYSTEM = ds;
     this.LIMELIGHT_SUBSYSTEM = ls;
 
@@ -36,7 +38,12 @@ public class RotateVisionCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double output = kP * (LIMELIGHT_SUBSYSTEM.getX());
+    if(Math.abs(LIMELIGHT_SUBSYSTEM.getX()) > 2) {
+      output = kP_r * (LIMELIGHT_SUBSYSTEM.getX());
+    } else {
+      output = kP_d * (LIMELIGHT_SUBSYSTEM.getArea()-area_goal);
+    }
+
     SmartDashboard.putNumber("Output: ", output);
     DRIVE_SUBSYSTEM.setLeft(output);
     DRIVE_SUBSYSTEM.setRight(-output);

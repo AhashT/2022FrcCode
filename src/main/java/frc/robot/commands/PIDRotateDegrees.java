@@ -76,6 +76,8 @@ public class PIDRotateDegrees extends CommandBase {
     error = Math.abs(goal - GYRO_SUBSYSTEM.getHeading());
     if(error < degree_threshold) {
       within_threshold_counter++;
+    } else {
+      within_threshold_counter = 0;
     }
 
     return within_threshold_counter >= time_threshhold;

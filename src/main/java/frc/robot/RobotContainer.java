@@ -9,12 +9,12 @@ import static frc.robot.Constants.port_number;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ApproachVisionCommand;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.FeedOne;
 import frc.robot.commands.PIDDriveInches;
 import frc.robot.commands.PIDRotateDegrees;
 import frc.robot.commands.ResetEncoderCommand;
-import frc.robot.commands.RotateVisionCommand;
 import frc.robot.commands.StartIndexWheel;
 import frc.robot.commands.StartIndexWheelReverse;
 import frc.robot.commands.StartIndexer;
@@ -38,25 +38,15 @@ public class RobotContainer {
         Subsystems.setDefaultCommands();
         //Input.BUTTON_A.toggleWhenPressed(new PIDDriveInches(Subsystems.DRIVE_SUBSYSTEM, 60));
         //Input.BUTTON_B.toggleWhenPressed(new PIDRotateDegrees(Subsystems.DRIVE_SUBSYSTEM, Subsystems.GYRO_SUBSYSTEM, 90));
-
+        Input.BUTTON_B.whileHeld(new ApproachVisionCommand(Subsystems.DRIVE_SUBSYSTEM, Subsystems.LIMELIGHT_SUBSYSTEM), false);
         
-        Input.intakeButton.whileHeld(new StartIntake(Subsystems.INTAKE_SUBSYSTEM).alongWith(new StartIndexer(Subsystems.INDEXER_SUBSYSTEM).alongWith(new StartIndexWheel(Subsystems.INDEXER_WHEEL_SUBSYSTEM))));            
+        //Input.intakeButton.whileHeld(new StartIntake(Subsystems.INTAKE_SUBSYSTEM).alongWith(new StartIndexer(Subsystems.INDEXER_SUBSYSTEM).alongWith(new StartIndexWheel(Subsystems.INDEXER_WHEEL_SUBSYSTEM))));            
         /**Left bumper  - Intake Reverse*/
-        Input.intakeReverseButton.whileHeld(new StartIntakeReverse(Subsystems.INTAKE_SUBSYSTEM).alongWith(new StartIndexerReverse(Subsystems.INDEXER_SUBSYSTEM).alongWith(new StartIndexWheelReverse(Subsystems.INDEXER_WHEEL_SUBSYSTEM))));             
+        //Input.intakeReverseButton.whileHeld(new StartIntakeReverse(Subsystems.INTAKE_SUBSYSTEM).alongWith(new StartIndexerReverse(Subsystems.INDEXER_SUBSYSTEM).alongWith(new StartIndexWheelReverse(Subsystems.INDEXER_WHEEL_SUBSYSTEM))));             
 
         /** X button - Shoot */
-        Input.shootButton.whileHeld(new StartShooter(Subsystems.SHOOTER_SUBSYSTEM).andThen(new FeedOne(Subsystems.FEEDER_SUBSYSTEM).alongWith(new StartIndexer(Subsystems.INDEXER_SUBSYSTEM).alongWith(new StartIndexWheel(Subsystems.INDEXER_WHEEL_SUBSYSTEM)))));
-        /**Right bumper */
-        //JoystickButton intakeButton = new JoystickButton(xbox, 6);
-        //intakeButton.whenPressed(startIntake);
-        //intakeButton.whenReleased(stopIntake);        
-
-        /** X button */
-        //JoystickButton shootButton = new JoystickButton(xbox, 1);
-        //shootButton.whenPressed(startShooter
-        //.andThen(waitForTargetRPM)
-        //.andThen(feedOne));
-        //shootButton.whenReleased(stopShooters);
+        //Input.shootButton.whileHeld(new StartShooter(Subsystems.SHOOTER_SUBSYSTEM).andThen(new FeedOne(Subsystems.FEEDER_SUBSYSTEM).alongWith(new StartIndexer(Subsystems.INDEXER_SUBSYSTEM).alongWith(new StartIndexWheel(Subsystems.INDEXER_WHEEL_SUBSYSTEM)))));
+ 
     }
     
     public void simulationInit() {
