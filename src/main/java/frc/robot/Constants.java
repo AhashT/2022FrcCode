@@ -32,9 +32,9 @@ public class Constants {
      
     //Pnuematic Hub 
     public static final PneumaticsModuleType PHubType = PneumaticsModuleType.REVPH;
-    public static final int IntakeSolenoidForwardChannel = 0;
-    public static final int IntakeSolenoidReverseChannel = 1;
-    
+    public static final int IntakeSolenoid0 = 0;
+    public static final int IntakeSolenoid1 = 1;
+     
     public static int controller_y_axis = 1;
     public static int controller_x_axis = 0; 
 

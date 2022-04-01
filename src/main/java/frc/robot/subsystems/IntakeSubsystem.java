@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -39,13 +40,14 @@ public class IntakeSubsystem extends SubsystemBase {
 
   private double intakePower = IntakePower;
 
-  private final DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PHubdID, PHubType, IntakeSolenoidForwardChannel,
-      IntakeSolenoidReverseChannel);
+  private final Solenoid intakeSolenoid0 = new Solenoid(PHubdID, PHubType,IntakeSolenoid0);
+  private final Solenoid intakeSolenoid1 = new Solenoid(PHubdID, PHubType,IntakeSolenoid1);
   private boolean startButtonPressed;
   private boolean testRunning;
 
   public IntakeSubsystem() {
-    intakeSolenoid.set(Value.kReverse);
+    intakeSolenoid0.set(false);
+    intakeSolenoid1.set(false);
     intakeMotor = new TalonFX(IntakeCanID);
 
     // just guessing here KSM 2022-03-03
@@ -59,7 +61,8 @@ public class IntakeSubsystem extends SubsystemBase {
   public void IntakeStart(boolean reverse) {
     System.out.println("IntakeStart: " + intakePower * (reverse ? -1.0 : 1.0));
     // extend pickup arm
-    intakeSolenoid.set(Value.kForward);
+    intakeSolenoid0.set(true);
+    intakeSolenoid1.set(true);
 
     // give arm time to extend
     /*
@@ -78,7 +81,8 @@ public class IntakeSubsystem extends SubsystemBase {
     System.out.println("IntakeStop");
     intakeMotor.set(ControlMode.PercentOutput, 0);
     // retract pickup arm
-    intakeSolenoid.set(Value.kReverse);
+    intakeSolenoid0.set(false);
+    intakeSolenoid1.set(false);
 
     // give arm time to extend
     /*
