@@ -42,7 +42,7 @@ public class Constants {
     public static final int DriveForwardtime = 3;
     public static final double AutoSpeed = -0.4;
     public static final int port_number = 0; 
-    public static final double IndexerWheelPower = 0.5;
+    public static final double IndexerWheelPower = 0.1; // was .5
     public static final double IndexerPower = 0.4;
     public static final double IntakePower = 0.4;
     public static final double FeederPower = 0.7;

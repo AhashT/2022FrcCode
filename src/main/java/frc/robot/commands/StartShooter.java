@@ -19,6 +19,7 @@ public class StartShooter extends CommandBase {
 
   @Override
   public void initialize() {
+    SHOOTER_SUBSYSTEM.shoot_command_active = true;
   }
 
   @Override
@@ -31,6 +32,7 @@ public class StartShooter extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     System.out.println("***StartShooter end");
+    SHOOTER_SUBSYSTEM.shoot_command_active = false;
     SHOOTER_SUBSYSTEM.shooterStop();
   }
 

@@ -5,16 +5,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IndexerWheelSubsystem;
+import frc.robot.Subsystems;
 
-public class StartIndexWheel extends CommandBase {
-  private IndexerWheelSubsystem indexerWheel;
-
-  /** Creates a new StartIndexWheel. */
-  public StartIndexWheel(IndexerWheelSubsystem indexerWheel) {
-    this.indexerWheel = indexerWheel;
+public class RunShooterReverse extends CommandBase {
+  /** Creates a new RunShooterReverse. */
+  public RunShooterReverse() {
     // Use addRequirements() here to declare subsystem dependencies.
-  addRequirements(indexerWheel);
   }
 
   // Called when the command is initially scheduled.
@@ -24,13 +20,16 @@ public class StartIndexWheel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    indexerWheel.start(false);
+    if(!Subsystems.SHOOTER_SUBSYSTEM.shoot_command_active) {
+      Subsystems.SHOOTER_SUBSYSTEM.setTopPercent(-.1);
+      Subsystems.SHOOTER_SUBSYSTEM.setBottomPercent(-.1);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    indexerWheel.stop();
+    Subsystems.SHOOTER_SUBSYSTEM.shooterStop();
   }
 
   // Returns true when the command should end.

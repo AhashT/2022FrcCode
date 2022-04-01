@@ -14,10 +14,12 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ApproachVisionCommand;
 import frc.robot.commands.DelayCommand;
 import frc.robot.commands.DoNothing;
+import frc.robot.commands.DriveForwardTimed;
 import frc.robot.commands.FeedOne;
 import frc.robot.commands.PIDDriveInches;
 import frc.robot.commands.PIDRotateDegrees;
 import frc.robot.commands.ResetEncoderCommand;
+import frc.robot.commands.RunShooterReverse;
 import frc.robot.commands.StartIndexWheel;
 import frc.robot.commands.StartIndexWheelReverse;
 import frc.robot.commands.StartIndexer;
@@ -44,7 +46,7 @@ public class RobotContainer {
         //Input.BUTTON_B.toggleWhenPressed(new PIDRotateDegrees(Subsystems.DRIVE_SUBSYSTEM, Subsystems.GYRO_SUBSYSTEM, 90));
         Input.BUTTON_B.whileHeld(new ApproachVisionCommand(Subsystems.DRIVE_SUBSYSTEM, Subsystems.LIMELIGHT_SUBSYSTEM), false);
         
-        Input.intakeButton.whileHeld(new StartIntake(Subsystems.INTAKE_SUBSYSTEM).alongWith(new StartIndexer(Subsystems.INDEXER_SUBSYSTEM).alongWith(new StartIndexWheel(Subsystems.INDEXER_WHEEL_SUBSYSTEM))));            
+        Input.intakeButton.whileHeld(new StartIntake(Subsystems.INTAKE_SUBSYSTEM).alongWith(new StartIndexer(Subsystems.INDEXER_SUBSYSTEM).alongWith(new StartIndexWheel(Subsystems.INDEXER_WHEEL_SUBSYSTEM))));//.alongWith(new RunShooterReverse()));            
         /**Left bumper  - Intake Reverse*/
         Input.intakeReverseButton.whileHeld(new StartIntakeReverse(Subsystems.INTAKE_SUBSYSTEM).alongWith(new StartIndexerReverse(Subsystems.INDEXER_SUBSYSTEM).alongWith(new StartIndexWheelReverse(Subsystems.INDEXER_WHEEL_SUBSYSTEM))));             
 
@@ -92,6 +94,6 @@ public class RobotContainer {
    }
 
     public Command getAutonmousCommand() {
-        return new DoNothing(Subsystems.DRIVE_SUBSYSTEM);
+        return new DriveForwardTimed(Subsystems.DRIVE_SUBSYSTEM);
     }
 }

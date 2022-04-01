@@ -35,6 +35,8 @@ public class ShooterSubsystem extends SubsystemBase {
         private ShooterGains topGains = GainsAr[5];
         public double targetRPM = topGains.speed;
 
+        public boolean shoot_command_active = false;
+
         private ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
         private NetworkTableEntry nte_ShooterTargetRPM = tab.add("ShooterTargetRPM", targetRPM)
                         .withWidget(BuiltInWidgets.kTextView)
@@ -326,4 +328,11 @@ public class ShooterSubsystem extends SubsystemBase {
 
         }
 
+        public void setTopPercent(double speed) {
+                m_top.set(ControlMode.PercentOutput, speed);
+        }
+
+        public void setBottomPercent(double speed) {
+                m_btm.set(ControlMode.PercentOutput, speed);
+        }
 }
