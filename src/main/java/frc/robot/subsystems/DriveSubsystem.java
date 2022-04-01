@@ -34,6 +34,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   DifferentialDrive drive;
 
+  public boolean intake_forward = true;
+
   /** Creates a new DriveTrain. */
   public DriveSubsystem() {
 
