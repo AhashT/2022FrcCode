@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.ShooterGains;
+import frc.robot.commands.WaitForTargetRPM;
 import frc.robot.sim.PhysicsSim;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -177,7 +178,7 @@ public class ShooterSubsystem extends SubsystemBase {
                 var avgVelocity = (m_top.getSelectedSensorVelocity() + m_btm.getSelectedSensorVelocity()) / 2;
                 var avgRPM = avgVelocity / 3.4133;
                 feederFlag = avgRPM * .95 > targetRPM;
-                // System.out.println("TargetRPM: " + targetRPM+" AvgRpm: "+avgRPM);
+                //System.out.println("TargetRPM: " + targetRPM+" AvgRpm: "+avgRPM);
         }
 
         /** Called when button is pressed */
@@ -187,9 +188,9 @@ public class ShooterSubsystem extends SubsystemBase {
                 m_btm.set(ControlMode.Velocity, targetRPM * 3.4133);
         }
 
-        public boolean waitForRpm() {
+        public void waitForRpm() {
                 long start_time = System.currentTimeMillis();
-                long wait_time = 8000;
+                long wait_time = 1000;
                 long end_time = start_time + wait_time;
                 // System.out.println("***WaitForRpm wait started flag: " + feederFlag);
                 while (System.currentTimeMillis() < end_time && !feederFlag) {
@@ -199,8 +200,7 @@ public class ShooterSubsystem extends SubsystemBase {
                                 System.err.format("IOException: %s%n", ex);
                         }
                 }
-                // System.out.println("***WaitForRpm wait ended flag: " + feederFlag);
-                return feederFlag;
+                System.out.println("***WaitForRpm wait ended flag: " + feederFlag);
         }
 
         /** Called when button is released */

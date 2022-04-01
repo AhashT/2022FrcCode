@@ -8,8 +8,11 @@ import static frc.robot.Constants.port_number;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ApproachVisionCommand;
+import frc.robot.commands.DelayCommand;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.FeedOne;
 import frc.robot.commands.PIDDriveInches;
@@ -22,6 +25,7 @@ import frc.robot.commands.StartIndexerReverse;
 import frc.robot.commands.StartIntake;
 import frc.robot.commands.StartIntakeReverse;
 import frc.robot.commands.StartShooter;
+import frc.robot.commands.WaitForTargetRPM;
 import frc.robot.subsystems.DriveSubsystem;
 
 import static frc.robot.Constants.*;
@@ -45,7 +49,21 @@ public class RobotContainer {
         Input.intakeReverseButton.whileHeld(new StartIntakeReverse(Subsystems.INTAKE_SUBSYSTEM).alongWith(new StartIndexerReverse(Subsystems.INDEXER_SUBSYSTEM).alongWith(new StartIndexWheelReverse(Subsystems.INDEXER_WHEEL_SUBSYSTEM))));             
 
         /** X button - Shoot */
-        Input.shootButton.whileHeld(new StartShooter(Subsystems.SHOOTER_SUBSYSTEM).andThen(new FeedOne(Subsystems.FEEDER_SUBSYSTEM).alongWith(new StartIndexer(Subsystems.INDEXER_SUBSYSTEM).alongWith(new StartIndexWheel(Subsystems.INDEXER_WHEEL_SUBSYSTEM)))));
+        Input.shootButton.whileHeld(
+            new ParallelCommandGroup(
+                new ParallelCommandGroup(
+                    new StartShooter(Subsystems.SHOOTER_SUBSYSTEM),
+                    new SequentialCommandGroup(
+                        new DelayCommand().withTimeout(0.7),
+                        new ParallelCommandGroup(
+                            new FeedOne(Subsystems.FEEDER_SUBSYSTEM),
+                            new StartIndexer(Subsystems.INDEXER_SUBSYSTEM),
+                            new StartIndexWheel(Subsystems.INDEXER_WHEEL_SUBSYSTEM)
+                        )
+                    )
+                )
+            )
+        );
  
     }
     

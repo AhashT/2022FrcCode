@@ -8,9 +8,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DelayCommand extends CommandBase {
   /** Creates a new WaitTimedCommand. */
-  public DelayCommand(double timeout) {
-    withTimeout(timeout);
-    // Use addRequirements() here to declare subsystem dependencies.
+  public DelayCommand() {
+     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.

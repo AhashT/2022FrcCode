@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import javax.net.ssl.TrustManagerFactorySpi;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -21,13 +23,14 @@ public class StartShooter extends CommandBase {
 
   @Override
   public void execute() {
-    //System.out.println("***StartShooterExecute");
+    System.out.println("***StartShooterExecute");
     SHOOTER_SUBSYSTEM.shooterStart();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    System.out.println("***StartShooter end");
     SHOOTER_SUBSYSTEM.shooterStop();
   }
 

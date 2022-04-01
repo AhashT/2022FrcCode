@@ -9,8 +9,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 public class WaitForTargetRPM extends CommandBase {
   private ShooterSubsystem SHOOTER_SUBSYSTEM;
-  private boolean isRunning;
-
+  
   /** Creates a new WaitForTargetRPM. */
   public WaitForTargetRPM(ShooterSubsystem ss) {
     this.SHOOTER_SUBSYSTEM = ss;
@@ -21,7 +20,6 @@ public class WaitForTargetRPM extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    isRunning = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -29,7 +27,6 @@ public class WaitForTargetRPM extends CommandBase {
   public void execute() {
     new Thread(()->{
       SHOOTER_SUBSYSTEM.waitForRpm();
-      isRunning=false;  
     }).start();
   }
 
@@ -40,6 +37,6 @@ public class WaitForTargetRPM extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !isRunning;
+    return false;
   }
 }
