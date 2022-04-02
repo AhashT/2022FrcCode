@@ -50,6 +50,23 @@ public class DriveSubsystem extends SubsystemBase {
     e_R2 = m_R2.getEncoder();
 
 
+    // Current limit in amps. Must be below 40 because of breaker
+    // m_L1.setSmartCurrentLimit(40);
+    // m_L2.setSmartCurrentLimit(40);
+    // m_R1.setSmartCurrentLimit(40);
+    // m_R2.setSmartCurrentLimit(40);
+
+
+    // Time in seconds to ramp to set power
+    // m_L1.setOpenLoopRampRate(.1);
+    // m_L2.setOpenLoopRampRate(.1);
+    // m_R1.setOpenLoopRampRate(.1);
+    // m_L2.setOpenLoopRampRate(.1);
+    // m_L1.setClosedLoopRampRate(.1);
+    // m_L2.setClosedLoopRampRate(.1);
+    // m_R1.setClosedLoopRampRate(.1);
+    // m_L2.setClosedLoopRampRate(.1);
+
     m_Lcontroller = new MotorControllerGroup(m_L1, m_L2);
     m_Rcontroller = new MotorControllerGroup(m_R1, m_R2);
 
@@ -60,6 +77,11 @@ public class DriveSubsystem extends SubsystemBase {
     m_R1.setInverted(false);
     m_R2.setInverted(false);
    
+    // Push settings to Spark Max's
+    // m_L1.burnFlash();
+    // m_L2.burnFlash();
+    // m_R1.burnFlash();
+    // m_R2.burnFlash();
   }
 
   @Override
@@ -69,6 +91,13 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Left 2 Encoder: ", e_L2.getPosition());
     SmartDashboard.putNumber("Right 1 Encoder: ", e_R1.getPosition());
     SmartDashboard.putNumber("Right 2 Encoder: ", e_R2.getPosition());
+
+    SmartDashboard.putNumber("L1 AMPS: ", m_L1.getOutputCurrent());
+    SmartDashboard.putNumber("L2 AMPS: ", m_L2.getOutputCurrent());
+    SmartDashboard.putNumber("R1 AMPS: ", m_R1.getOutputCurrent());
+    SmartDashboard.putNumber("R2 AMPS: ", m_R2.getOutputCurrent());
+
+
   }
 
   public void driveJoysticks(XboxController dJoystick, double speed){
