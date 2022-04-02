@@ -28,7 +28,7 @@ public class IndexerWheelSubsystem extends SubsystemBase {
       .getEntry();
 
   PWMSparkMax m_indexwheel;
-  private double power = Constants.IndexerWheelPower;
+  private double power;
   private boolean startButtonPressed;
   private boolean testRunning;
 
@@ -39,7 +39,7 @@ public class IndexerWheelSubsystem extends SubsystemBase {
     m_indexwheel.setInverted(true);
   }
 
-  public void start(boolean reverse) {
+  public void start(boolean reverse, double power) {
     System.out.println("IndexerWheelStart: " + power * (reverse ? -1.0 : 1.0));
     m_indexwheel.set(power * (reverse ? -1.0 : 1.0));
   }
@@ -65,7 +65,7 @@ public class IndexerWheelSubsystem extends SubsystemBase {
     startButtonPressed = nte_IndexerWheelStart_button.getBoolean(false);
     if (startButtonPressed) {
       if (!testRunning) {
-        start(false);
+        start(false, power);
         testRunning = true;
       }
     } else {

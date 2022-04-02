@@ -335,4 +335,8 @@ public class ShooterSubsystem extends SubsystemBase {
         public void setBottomPercent(double speed) {
                 m_btm.set(ControlMode.PercentOutput, speed);
         }
+
+        public void setRPM(double rpm) {
+                m_top.set(ControlMode.Velocity, rpm);
+        }
 }

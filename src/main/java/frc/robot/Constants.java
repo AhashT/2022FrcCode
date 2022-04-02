@@ -42,10 +42,11 @@ public class Constants {
     public static final int DriveForwardtime = 3;
     public static final double AutoSpeed = -0.4;
     public static final int port_number = 0; 
-    public static final double IndexerWheelPower = 0.1; // was .5
+    public static final double IndexerWheelPowerIntake = 0.25; // was .5
+    public static final double IndexerWheelPowerShoot = 1; // was .5
     public static final double IndexerPower = 0.4;
     public static final double IntakePower = 0.4;
-    public static final double FeederPower = 0.7;
+    public static final double FeederPower = 1;
     
     /***************************************************************/
     	/**
@@ -76,10 +77,10 @@ public class Constants {
 	public static ShooterGains[] GainsAr = new ShooterGains[] {
             new ShooterGains(4131, ShooterGains.top, new Gains(0.0075, 0.004, 0.5, 0.005, 300, 1.00)),
             new ShooterGains(5200, ShooterGains.top, new Gains(0.0075, 0.00035, 0.5, 0.005, 300, 1.00)),
-            new ShooterGains(6380, ShooterGains.top, new Gains(0.0075, 0.00035, 0.5, 0.005, 300, 1.00)),
+            new ShooterGains(6380, ShooterGains.top, new Gains(0.015, 0.00035, 0.5, 0.005, 300, 1.00)),
             new ShooterGains(4131, ShooterGains.btm, new Gains(0.0075, 0.004, 0.5, 0.005, 300, 1.00)),
             new ShooterGains(5200, ShooterGains.btm, new Gains(0.0075, 0.0004, 0.5, 0.005, 300, 1.00)),
-            new ShooterGains(6380, ShooterGains.btm, new Gains(0.0075, 0.00035, 0.5, 0.005, 300, 1.00))
+            new ShooterGains(6380, ShooterGains.btm, new Gains(0.015, 0.00035, 0.5, 0.005, 300, 1.00))
     };
    
 

@@ -20,7 +20,9 @@ public class ApproachVisionCommand extends CommandBase {
   double kP_r = 0.015;
   double kP_d = .1;
   double area_goal = 2;
+  double acceptable_angle = 4;
   double output;
+  double acceptable_area = .1;
   public ApproachVisionCommand(DriveSubsystem ds, LimelightSubsystem ls) {
     this.DRIVE_SUBSYSTEM = ds;
     this.LIMELIGHT_SUBSYSTEM = ls;
@@ -39,7 +41,7 @@ public class ApproachVisionCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Math.abs(LIMELIGHT_SUBSYSTEM.getX()) > 4) {
+    if(Math.abs(LIMELIGHT_SUBSYSTEM.getX()) > acceptable_angle) {
       output = kP_r * (LIMELIGHT_SUBSYSTEM.getX());
       DRIVE_SUBSYSTEM.setLeft(output);
       DRIVE_SUBSYSTEM.setRight(-output);
@@ -49,6 +51,13 @@ public class ApproachVisionCommand extends CommandBase {
       DRIVE_SUBSYSTEM.setRight(-output);
     }
     
+    if(Math.abs(LIMELIGHT_SUBSYSTEM.getArea()-area_goal) < acceptable_area) {
+      SmartDashboard.putBoolean("DISTANCE FROM TARGET", true);
+    } else {
+      SmartDashboard.putBoolean("DISTANCE FROM TARGET", false);
+
+    }
+
     SmartDashboard.putNumber("x offset: ", LIMELIGHT_SUBSYSTEM.getX());
     SmartDashboard.putNumber("area: ", LIMELIGHT_SUBSYSTEM.getArea());
     SmartDashboard.putNumber("Output: ", output);

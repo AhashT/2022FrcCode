@@ -46,7 +46,7 @@ public class RobotContainer {
         //Input.BUTTON_B.toggleWhenPressed(new PIDRotateDegrees(Subsystems.DRIVE_SUBSYSTEM, Subsystems.GYRO_SUBSYSTEM, 90));
         Input.BUTTON_B.whileHeld(new ApproachVisionCommand(Subsystems.DRIVE_SUBSYSTEM, Subsystems.LIMELIGHT_SUBSYSTEM), false);
         
-        Input.intakeButton.whileHeld(new StartIntake(Subsystems.INTAKE_SUBSYSTEM).alongWith(new StartIndexer(Subsystems.INDEXER_SUBSYSTEM).alongWith(new StartIndexWheel(Subsystems.INDEXER_WHEEL_SUBSYSTEM))));//.alongWith(new RunShooterReverse()));            
+        Input.intakeButton.whileHeld(new StartIntake(Subsystems.INTAKE_SUBSYSTEM).alongWith(new StartIndexer(Subsystems.INDEXER_SUBSYSTEM).alongWith(new StartIndexWheel(Subsystems.INDEXER_WHEEL_SUBSYSTEM, Constants.IndexerWheelPowerIntake))));//.alongWith(new RunShooterReverse()));            
         /**Left bumper  - Intake Reverse*/
         Input.intakeReverseButton.whileHeld(new StartIntakeReverse(Subsystems.INTAKE_SUBSYSTEM).alongWith(new StartIndexerReverse(Subsystems.INDEXER_SUBSYSTEM).alongWith(new StartIndexWheelReverse(Subsystems.INDEXER_WHEEL_SUBSYSTEM))));             
 
@@ -60,7 +60,7 @@ public class RobotContainer {
                         new ParallelCommandGroup(
                             new FeedOne(Subsystems.FEEDER_SUBSYSTEM),
                             new StartIndexer(Subsystems.INDEXER_SUBSYSTEM),
-                            new StartIndexWheel(Subsystems.INDEXER_WHEEL_SUBSYSTEM)
+                            new StartIndexWheel(Subsystems.INDEXER_WHEEL_SUBSYSTEM, Constants.IndexerWheelPowerShoot)
                         )
                     )
                 )

@@ -5,13 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.IndexerWheelSubsystem;
 
 public class StartIndexWheel extends CommandBase {
   private IndexerWheelSubsystem indexerWheel;
-
+  double m_power;
   /** Creates a new StartIndexWheel. */
-  public StartIndexWheel(IndexerWheelSubsystem indexerWheel) {
+  public StartIndexWheel(IndexerWheelSubsystem indexerWheel, double power) {
+    this.m_power = power;
     this.indexerWheel = indexerWheel;
     // Use addRequirements() here to declare subsystem dependencies.
   addRequirements(indexerWheel);
@@ -24,7 +26,7 @@ public class StartIndexWheel extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    indexerWheel.start(false);
+    indexerWheel.start(false, m_power);
   }
 
   // Called once the command ends or is interrupted.
