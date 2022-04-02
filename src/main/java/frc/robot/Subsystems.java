@@ -31,7 +31,7 @@ public class Subsystems {
 
     public static void setDefaultCommands() {
         // DISABLED DRIVE FOR TESTING UNCOMMENT BELOW FOR COMP
-        DRIVE_SUBSYSTEM.setDefaultCommand(new DriveWithJoysticks(DRIVE_SUBSYSTEM, Input.xbox));
+        DRIVE_SUBSYSTEM.setDefaultCommand(new DriveWithJoysticks(DRIVE_SUBSYSTEM, Input.driver));
     }
 
 

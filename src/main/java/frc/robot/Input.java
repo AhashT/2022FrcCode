@@ -10,14 +10,15 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 /** Add your docs here. */
 public class Input {
 
-    public static final XboxController xbox = new XboxController(0);
+    public static final XboxController driver = new XboxController(0);
+    public static final XboxController operator = new XboxController(1);
 
-    public static JoystickButton BUTTON_A = new JoystickButton(xbox, 2);
-    public static JoystickButton BUTTON_B = new JoystickButton(xbox, 3);
+    public static JoystickButton BUTTON_A = new JoystickButton(driver, 2);
+    public static JoystickButton BUTTON_B = new JoystickButton(driver, 3);
    // public static JoystickButton BUTTON_X = new JoystickButton(xbox, 1);
-    public static JoystickButton intakeButton = new JoystickButton(xbox, 6);
-    public static JoystickButton intakeReverseButton = new JoystickButton(xbox, 5);
-    public static JoystickButton shootButton = new JoystickButton(xbox, 1);
+    public static JoystickButton intakeButton = new JoystickButton(operator, 6);
+    public static JoystickButton intakeReverseButton = new JoystickButton(operator, 5);
+    public static JoystickButton shootButton = new JoystickButton(operator, 1);
 
     // public static JoystickButton BUTTON_Y = new JoystickButton(xbox, 1);
     // public static JoystickButton BUTTON_LEFT_BUMPER = new JoystickButton(xbox, 1);
