@@ -7,7 +7,9 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.interfaces.LimelightInterface.ledMode;
 
 
@@ -16,7 +18,7 @@ import frc.robot.interfaces.LimelightInterface.ledMode;
  * arcade steering.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+  private SequentialCommandGroup m_autonomousCommand;
   private RobotContainer m_robotContainer;
   public double shooterRPM;
 
@@ -45,21 +47,25 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit(){
+    Subsystems.GYRO_SUBSYSTEM.zero();
     m_autonomousCommand = m_robotContainer.getAutonmousCommand();
+    m_autonomousCommand.schedule();
+
   }
 
   @Override
   public void autonomousPeriodic(){
-    m_autonomousCommand.execute();
+    //m_autonomousCommand.execute();
   }
 
   @Override
   public void teleopInit(){
+    Subsystems.GYRO_SUBSYSTEM.zero();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
 
       /**For debugging - remove before competition */
-      m_autonomousCommand.initialize();
+      //m_autonomousCommand.initialize();
    }
   }
 

@@ -39,7 +39,7 @@ public class Constants {
     public static int controller_x_axis = 0; 
 
     public static final double driveTrainSpeed = 0.5;
-    public static final int DriveForwardtime = 3;
+    public static final double DriveForwardtime = 2.2;
     public static final double AutoSpeed = -0.4;
     public static final int port_number = 0; 
     public static final double IndexerWheelPowerIntake = 0.25; // was .5

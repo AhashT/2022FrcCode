@@ -8,21 +8,16 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.Subsystems;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class DriveForwardTimed extends CommandBase {
+public class DriveForwardTimedReverse extends CommandBase {
 
   private final DriveSubsystem DRIVE_SUBSYSTEM;
   
-  double kP = 1;
-  double goal_speed;
   Timer timer;
   /** Creates a new DriveForwardTimed. */
-  public DriveForwardTimed(DriveSubsystem ds, double speed) {
+  public DriveForwardTimedReverse(DriveSubsystem ds) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.goal_speed = speed;
-
     this.DRIVE_SUBSYSTEM = ds;
     addRequirements(DRIVE_SUBSYSTEM);
     timer = new Timer();
@@ -41,10 +36,7 @@ public class DriveForwardTimed extends CommandBase {
     timer.start();
     SmartDashboard.putNumber("time:", timer.get());
     while(timer.get() < Constants.DriveForwardtime){
-
-      //double output = goal_speed + (Subsystems.GYRO_SUBSYSTEM.getHeading()*kP);
-
-      DRIVE_SUBSYSTEM.driveForward(goal_speed);
+      DRIVE_SUBSYSTEM.driveForward(-Constants.AutoSpeed);
     }
   }
 

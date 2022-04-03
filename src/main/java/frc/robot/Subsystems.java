@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
@@ -31,7 +32,8 @@ public class Subsystems {
 
     public static void setDefaultCommands() {
         // DISABLED DRIVE FOR TESTING UNCOMMENT BELOW FOR COMP
-        DRIVE_SUBSYSTEM.setDefaultCommand(new DriveWithJoysticks(DRIVE_SUBSYSTEM, Input.driver));
+       DRIVE_SUBSYSTEM.setDefaultCommand(new DriveWithJoysticks(DRIVE_SUBSYSTEM, Input.driver));
+       //DRIVE_SUBSYSTEM.setDefaultCommand(new TankDrive(DRIVE_SUBSYSTEM));
     }
 
 

@@ -59,6 +59,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void IntakeStart(boolean reverse) {
+    reverse = !reverse;
     System.out.println("IntakeStart: " + intakePower * (reverse ? -1.0 : 1.0));
     // extend pickup arm
     intakeSolenoid0.set(true);

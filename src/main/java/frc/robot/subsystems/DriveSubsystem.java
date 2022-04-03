@@ -51,11 +51,10 @@ public class DriveSubsystem extends SubsystemBase {
 
 
     // Current limit in amps. Must be below 40 because of breaker
-    // m_L1.setSmartCurrentLimit(40);
-    // m_L2.setSmartCurrentLimit(40);
-    // m_R1.setSmartCurrentLimit(40);
-    // m_R2.setSmartCurrentLimit(40);
-
+    m_L1.setSmartCurrentLimit(40);
+    m_L2.setSmartCurrentLimit(40);
+    m_R1.setSmartCurrentLimit(40);
+    m_R2.setSmartCurrentLimit(40);
 
     // Time in seconds to ramp to set power
     // m_L1.setOpenLoopRampRate(.1);
@@ -78,10 +77,10 @@ public class DriveSubsystem extends SubsystemBase {
     m_R2.setInverted(false);
    
     // Push settings to Spark Max's
-    // m_L1.burnFlash();
-    // m_L2.burnFlash();
-    // m_R1.burnFlash();
-    // m_R2.burnFlash();
+    m_L1.burnFlash();
+    m_L2.burnFlash();
+    m_R1.burnFlash();
+    m_R2.burnFlash();
   }
 
   @Override

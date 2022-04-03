@@ -8,9 +8,11 @@ import static frc.robot.Constants.port_number;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.autonomous.ShootAuto;
 import frc.robot.commands.ApproachVisionCommand;
 import frc.robot.commands.DelayCommand;
 import frc.robot.commands.DoNothing;
@@ -19,6 +21,7 @@ import frc.robot.commands.FeedOne;
 import frc.robot.commands.PIDDriveInches;
 import frc.robot.commands.PIDRotateDegrees;
 import frc.robot.commands.ResetEncoderCommand;
+import frc.robot.commands.RotateVisionCommand;
 import frc.robot.commands.RunShooterReverse;
 import frc.robot.commands.StartIndexWheel;
 import frc.robot.commands.StartIndexWheelReverse;
@@ -44,7 +47,7 @@ public class RobotContainer {
         Subsystems.setDefaultCommands();
         //Input.BUTTON_A.toggleWhenPressed(new PIDDriveInches(Subsystems.DRIVE_SUBSYSTEM, 60));
         //Input.BUTTON_B.toggleWhenPressed(new PIDRotateDegrees(Subsystems.DRIVE_SUBSYSTEM, Subsystems.GYRO_SUBSYSTEM, 90));
-        Input.BUTTON_B.whileHeld(new ApproachVisionCommand(Subsystems.DRIVE_SUBSYSTEM, Subsystems.LIMELIGHT_SUBSYSTEM), false);
+        //Input.BUTTON_B.whileHeld(new RotateVisionCommand(Subsystems.DRIVE_SUBSYSTEM, Subsystems.LIMELIGHT_SUBSYSTEM), false);
         
         Input.intakeButton.whileHeld(new StartIntake(Subsystems.INTAKE_SUBSYSTEM).alongWith(new StartIndexer(Subsystems.INDEXER_SUBSYSTEM).alongWith(new StartIndexWheel(Subsystems.INDEXER_WHEEL_SUBSYSTEM, Constants.IndexerWheelPowerIntake))));//.alongWith(new RunShooterReverse()));            
         /**Left bumper  - Intake Reverse*/
@@ -56,7 +59,7 @@ public class RobotContainer {
                 new ParallelCommandGroup(
                     new StartShooter(Subsystems.SHOOTER_SUBSYSTEM),
                     new SequentialCommandGroup(
-                        new DelayCommand().withTimeout(0.7),
+                        new DelayCommand().withTimeout(0.9),
                         new ParallelCommandGroup(
                             new FeedOne(Subsystems.FEEDER_SUBSYSTEM),
                             new StartIndexer(Subsystems.INDEXER_SUBSYSTEM),
@@ -93,7 +96,8 @@ public class RobotContainer {
         Subsystems.FEEDER_SUBSYSTEM.testPeriodic();
    }
 
-    public Command getAutonmousCommand() {
-        return new DriveForwardTimed(Subsystems.DRIVE_SUBSYSTEM);
+    public SequentialCommandGroup getAutonmousCommand() {
+       //return new DriveForwardTimed(Subsystems.DRIVE_SUBSYSTEM);
+       return new ShootAuto();
     }
 }
