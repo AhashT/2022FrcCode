@@ -41,12 +41,12 @@ public class IndexerSubsystem extends SubsystemBase {
   }
 
   public void IndexerStart(boolean reverse) {
-    System.out.println("IndexerStart: " + indexerPower * (reverse ? -1.0 : 1.0));
+    //System.out.println("IndexerStart: " + indexerPower * (reverse ? -1.0 : 1.0));
     indexMotor.set(indexerPower * (reverse ? -1.0 : 1.0));
   }
 
   public void IndexerStop() {
-    System.out.println("IndexerStop");
+    //System.out.println("IndexerStop");
     indexMotor.set(0);
   }
 

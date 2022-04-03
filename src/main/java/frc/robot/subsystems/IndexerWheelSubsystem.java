@@ -40,12 +40,12 @@ public class IndexerWheelSubsystem extends SubsystemBase {
   }
 
   public void start(boolean reverse, double power) {
-    System.out.println("IndexerWheelStart: " + power * (reverse ? -1.0 : 1.0));
+    //System.out.println("IndexerWheelStart: " + power * (reverse ? -1.0 : 1.0));
     m_indexwheel.set(power * (reverse ? -1.0 : 1.0));
   }
 
   public void stop() {
-    System.out.println("IndexerWheelStop");
+    //System.out.println("IndexerWheelStop");
     m_indexwheel.set(0);
   }
 

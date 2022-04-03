@@ -24,14 +24,14 @@ public class StartShooter extends CommandBase {
 
   @Override
   public void execute() {
-    System.out.println("***StartShooterExecute");
+    //System.out.println("***StartShooterExecute");
     SHOOTER_SUBSYSTEM.shooterStart();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("***StartShooter end");
+    //System.out.println("***StartShooter end");
     SHOOTER_SUBSYSTEM.shoot_command_active = false;
     SHOOTER_SUBSYSTEM.shooterStop();
   }
