@@ -57,9 +57,6 @@ public class ApproachVisionCommand extends CommandBase {
       SmartDashboard.putBoolean("DISTANCE FROM TARGET", false);
 
     }
-
-    SmartDashboard.putNumber("x offset: ", LIMELIGHT_SUBSYSTEM.getX());
-    SmartDashboard.putNumber("area: ", LIMELIGHT_SUBSYSTEM.getArea());
     SmartDashboard.putNumber("Output: ", output);
     
   }

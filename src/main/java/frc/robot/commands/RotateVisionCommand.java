@@ -45,9 +45,7 @@ public class RotateVisionCommand extends CommandBase {
     output = kP_r * (LIMELIGHT_SUBSYSTEM.getX());
     DRIVE_SUBSYSTEM.setLeft(output);
     DRIVE_SUBSYSTEM.setRight(-output);
-
-    SmartDashboard.putNumber("x offset: ", LIMELIGHT_SUBSYSTEM.getX());
-    SmartDashboard.putNumber("area: ", LIMELIGHT_SUBSYSTEM.getArea());
+    
     SmartDashboard.putNumber("Output: ", output);
     
   }
