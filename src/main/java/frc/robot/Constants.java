@@ -48,6 +48,10 @@ public class Constants {
     public static final double IntakePower = 0.4;
     public static final double FeederPower = 1;
     
+    // Odometry/Ramsete Constants **ALL UNITS MUST BE IN METERS**
+    public static final double wheel_circumference = 0.1524 * Math.PI;
+    public static final double rpm_to_mps_constant = 0.0762 * 2 * Math.PI * (1/60);
+
     /***************************************************************/
     	/**
 	 * Which PID slot to pull gains from. Starting 2018, you can choose from

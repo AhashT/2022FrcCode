@@ -15,11 +15,11 @@ public class LimelightSubsystem extends SubsystemBase {
   public final LimelightInterface Limelight = new LimelightInterface();
 
   // height in inches of camera from ground
-  private double limelight_height;
+  private double limelight_height = 20;
   // height in inches of center of target from ground
-  private double target_height;
+  private double target_height = 100;
   // limelight mounting angle above positive x axis in degrees
-  private double limelight_mount_angle;
+  private double limelight_mount_angle = 30;
 
   public LimelightSubsystem() {
     Limelight.setLEDMode(ledMode.OFF);
